@@ -38,7 +38,7 @@
 			margin-left: 20px;
 			background-color: white;
 			text-align: center;
-		}
+		} 
 		
 		#reg {
 			background-color: cyan;
