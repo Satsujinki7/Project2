@@ -81,7 +81,6 @@
 				return false;
 			} 
 			
-			//뭐지???
 			//한글 입력 제한(오류있어서 안먹힘)
 			/* else if(isNaN(id.value)) {
 				alert("아이디는 영문 대소문자만 입력할 수 있습니다.");
