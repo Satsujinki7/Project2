@@ -64,7 +64,7 @@
 	#namebox{top: -155px; height: 50px;}
 	#name{position: relative; left: 140px; width: 115px; height: 20px; top: -195px;}
 	
-	#genderck{top: -175px; height: 50px;}
+	#genderck{top: -175px; height: 50px;} 
 	#gender{position: relative; left: 160px; width: 115px; height: 20px; top: -215px;}
 	.gendersp{position: relative; font-size:12px; top: -3px; font-weight: bold;}
 	
