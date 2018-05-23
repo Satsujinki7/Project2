@@ -2,24 +2,36 @@ package vo;
 
 public class BoardVO {
 	private int boardNum;
-	private String userID;
-	private String title;
-	private String contents;
-	private int viewNum;
-	private int nominationNum;
+	private String boardDate;
+	private String boardWriter;
+	private String boardTitle;
+	private String boardContents;
+	private int status;
+	private int boardHits;
+	private int boardNomination;
+	private String boardCategory;
 	
 	public BoardVO() {
 		
 	}
 
-	public BoardVO(int boardNum, String userID, String title, String contents, int viewNum, int nominationNum) {
+	public BoardVO(int boardNum, String boardDate, String boardWriter, String boardTitle, String boardContents, int status, int boardHits,
+			int boardNomination, String boardCategory) {
 		super();
 		this.boardNum = boardNum;
-		this.userID = userID;
-		this.title = title;
-		this.contents = contents;
-		this.viewNum = viewNum;
-		this.nominationNum = nominationNum;
+		this.boardDate = boardDate;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContents = boardContents;
+		this.status = status;
+		this.boardHits = boardHits;
+		this.boardNomination = boardNomination;
+		this.boardCategory = boardCategory;
+	}
+
+	public BoardVO(String boardDate) {
+		super();
+		this.boardDate = boardDate;
 	}
 
 	public int getBoardNum() {
@@ -30,43 +42,67 @@ public class BoardVO {
 		this.boardNum = boardNum;
 	}
 
-	public String getUserID() {
-		return userID;
+	public String getBoardDate() {
+		return boardDate;
 	}
 
-	public void setUserID(String userID) {
-		this.userID = userID;
+	public void setBoardDate(String boardDate) {
+		this.boardDate = boardDate;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getBoardWriter() {
+		return boardWriter;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setBoardWriter(String boardWriter) {
+		this.boardWriter = boardWriter;
 	}
 
-	public String getContents() {
-		return contents;
+	public String getBoardTitle() {
+		return boardTitle;
 	}
 
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
 	}
 
-	public int getViewNum() {
-		return viewNum;
+	public String getBoardContents() {
+		return boardContents;
 	}
 
-	public void setViewNum(int viewNum) {
-		this.viewNum = viewNum;
+	public void setBoardContents(String boardContents) {
+		this.boardContents = boardContents;
 	}
 
-	public int getNominationNum() {
-		return nominationNum;
+	public int getStatus() {
+		return status;
 	}
 
-	public void setNominationNum(int nominationNum) {
-		this.nominationNum = nominationNum;
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public int getBoardHits() {
+		return boardHits;
+	}
+
+	public void setBoardHits(int boardHits) {
+		this.boardHits = boardHits;
+	}
+
+	public int getBoardNomination() {
+		return boardNomination;
+	}
+
+	public void setBoardNomination(int boardNomination) {
+		this.boardNomination = boardNomination;
+	}
+
+	public String getBoardCategory() {
+		return boardCategory;
+	}
+
+	public void setBoardCategory(String boardCategory) {
+		this.boardCategory = boardCategory;
 	}
 }

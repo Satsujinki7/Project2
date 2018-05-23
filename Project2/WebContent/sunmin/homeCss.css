@@ -1,0 +1,139 @@
+@charset "UTF-8";
+
+*{padding: 0; margin: 0;}
+	#con_head_nav{
+		width: 800px;
+		height: 80px;
+		background-color: tomato;
+		margin: 0 auto;
+		overflow: hidden;
+	}
+	#logo{width: 60px; margin-top:10px; margin-left: 20px;}
+	#con_head_lg #ch_nav_lg {
+		background-color: tomato;
+		width: 100px;
+		/*display: inline;*/
+		float: left;
+	}
+	#con_head_notlog #ch_nav_cat{
+		background-color: tomato;
+		width: 260px;
+		float: left;
+	}
+	#ch_nav_cat ul{
+		list-style-type: none;
+		display: block;
+		padding-top: 30px;
+		padding-left: 10px;
+	}
+	#ch_nav_cat ul li{
+		float: left;
+		position: relative;
+		padding-left: 10px;
+	}
+	#ch_nav_cat ul li a{
+		display: block;
+		text-decoration: none;
+		font-size:18px;
+		color:white;
+		padding-top: 12px;
+		padding-bottom : 10px;
+		border-bottom: 3px solid tomato;
+	}
+	#ch_nav_cat ul li a:hover{
+		
+		border-bottom: 3px solid darkgreen;
+	}
+	
+	/*#ch_nav_cat ul li a.active{
+		
+		border-bottom: 3px solid darkgreen;
+	}*/
+	
+	#con_head_nav #ch_nav_etc{
+		background-color: tomato;
+		width: 50px;
+		float: left;
+	}
+	#ch_nav_etc ul{
+		list-style-type: none;
+		padding-top: 25px;
+	}
+	#ch_nav_etc ul li{
+		line-height: 30px; 
+		padding: 10px; 
+		color: white;
+		border-bottom: 3px solid black;
+	}
+	
+	#con_head_notlog #ch_nav_search{
+		background-color: tomato;
+		width: 210px;
+		float: left;
+		padding-top: 40px;
+	}
+	#ch_nav_search #nav_ser{
+		width: 140px;
+		height: 28px;
+		border : none;
+		border-radius: 10px;
+		margin-bottom: 6px;
+		}
+	#ch_nav_search #nav_ser_btn{
+		height: 28px;
+		border: none;
+		width: 26px;
+		padding: 0px;
+		margin: 0px;
+	}
+	#con_head_notlog #ch_nav_log{
+		background-color: tomato;
+		width: 150px;
+		float: left;
+		padding-top: 50px;
+		padding-bottom: 3px;
+	}
+	#ch_nav_log a{
+		text-decoration: none;
+		padding:5px;
+		padding-bottom: 10px;
+		color: white;
+	}
+	
+	#body_container div{
+	width: 240px;
+	height : 320px;
+	margin: 15px;
+	margin-top : 20px;
+	background-color: yellowgreen;	
+	float: left;
+	
+	}
+	#body_content{
+		width: 820px;
+		margin: 0 auto;	
+		background-color: white;
+	}
+		
+	@media(max-width : 1023px){
+		body{ background-color : skyblue;}
+		
+	}
+	@media(max-width : 767px){
+		*{margin: 0;}
+		body{background-color : blanchedalmond ;}
+		#body_content{
+				width: 100%;
+				margin: 0 ;	
+				background-color: white;
+		}
+
+		#body_container div{
+			width: 95%;
+			height : 320px;
+			margin-top : 30px;
+			/*margin-right : 20px;*/
+			background-color: yellowgreen;	
+			
+		}
+	}

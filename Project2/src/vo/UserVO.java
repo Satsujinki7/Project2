@@ -1,93 +1,124 @@
 package vo;
 
 public class UserVO {
-	private String id;
-	private String pw;
-	private String name;
-	private String gender;
-	private String email;
-	private String phone;
-	private int pallowerNum;
-	private int pallowingNum;
+	private String userId;
+	private String userPw;
+	private String userName;
+	private String userGender;
+	private int userBirth;
+	private String userNicName;
+	private String userAddress;
+	private String userEmail;
+	private String userPhone;
+	private int userFollower;
+	private int userFollowing;
 	
 	public UserVO() {
 		
 	}
 
-	public UserVO(String id, String pw, String name, String gender, String email, String phone, int pallowerNum,
-			int pallowingNum) {
+	public UserVO(String userId, String userPw, String userName, String userGender, int userBirth,
+			String userNicName, String userPhone, String userEmail, String userAddress, int userFollower,
+			int userFollowing) {
 		super();
-		this.id = id;
-		this.pw = pw;
-		this.name = name;
-		this.gender = gender;
-		this.email = email;
-		this.phone = phone;
-		this.pallowerNum = pallowerNum;
-		this.pallowingNum = pallowingNum;
+		this.userId = userId;
+		this.userPw = userPw;
+		this.userName = userName;
+		this.userGender = userGender;
+		this.userBirth = userBirth;
+		this.userNicName = userNicName;
+		this.userPhone = userPhone;
+		this.userEmail = userEmail;
+		this.userAddress = userAddress;
+		this.userFollower = userFollower;
+		this.userFollowing = userFollowing;
 	}
 
-	public String getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public String getPw() {
-		return pw;
+	public String getUserPw() {
+		return userPw;
 	}
 
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setUserPw(String userPw) {
+		this.userPw = userPw;
 	}
 
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getGender() {
-		return gender;
+	public String getUserGender() {
+		return userGender;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setUserGender(String userGender) {
+		this.userGender = userGender;
 	}
 
-	public String getEmail() {
-		return email;
+	public int getUserBirth() {
+		return userBirth;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserBirth(int userBirth) {
+		this.userBirth = userBirth;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getUserNicName() {
+		return userNicName;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setUserNicName(String userNicName) {
+		this.userNicName = userNicName;
 	}
 
-	public int getPallowerNum() {
-		return pallowerNum;
+	public String getUserAddress() {
+		return userAddress;
 	}
 
-	public void setPallowerNum(int pallowerNum) {
-		this.pallowerNum = pallowerNum;
+	public void setUserAddress(String userAddress) {
+		this.userAddress = userAddress;
 	}
 
-	public int getPallowingNum() {
-		return pallowingNum;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setPallowingNum(int pallowingNum) {
-		this.pallowingNum = pallowingNum;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public String getUserPhone() {
+		return userPhone;
+	}
+
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
+	}
+
+	public int getUserFollower() {
+		return userFollower;
+	}
+
+	public void setUserFollower(int userFollower) {
+		this.userFollower = userFollower;
+	}
+
+	public int getUserFollowing() {
+		return userFollowing;
+	}
+
+	public void setUserFollowing(int userFollowing) {
+		this.userFollowing = userFollowing;
 	}
 }
