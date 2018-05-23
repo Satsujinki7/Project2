@@ -4,9 +4,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>메인화면</title>
+<script type="text/javascript">
+	function pageMoveLog() {
+		location.href = 'login.jsp';
+	}
+	
+	function pageMoveReg() {
+		location.href = 'register.jsp';
+	}
+</script>
 </head>
 <body>
-	
+	<input type="button" value="로그인" id="login" name="login" onclick="pageMoveLog()"/><br>
+	<input type="button" value="회원가입" id="reg" name="reg" onclick="pageMoveReg()"/><br>
 </body>
 </html>

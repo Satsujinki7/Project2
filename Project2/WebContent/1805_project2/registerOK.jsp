@@ -43,6 +43,13 @@
 				userPhone, userEmail, userAddress, userFollower, userFollowing);
 				
 		dao.addUser(vo); 
+		
+		//세션에 회원정보 저장
+		session.setAttribute("userId", userId);
+		session.setAttribute("userName", userName);
+		session.setAttribute("userNicName", userNicName);
+		session.setAttribute("userFollower", userFollower);
+		session.setAttribute("userFollowing", userFollowing);
 
 	%>
 	<h2><%= userName %> 의 가입이 완료되었습니다.</h2>
@@ -56,5 +63,8 @@
 		EMAIL : <%= vo.getUserEmail() %><br>
 		ADDRESS : <%= vo.getUserAddress() %><br>
 	</h3>
+	<a href="boardPage.jsp">
+		<input type="button" value="게시판으로" />
+	</a>
 </body>
 </html>

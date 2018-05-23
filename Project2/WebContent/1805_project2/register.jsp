@@ -48,13 +48,6 @@
 	<script>
 		//유효성 검사
 		function chkValidate() {
-			/* var gender = Integer.parseInt(re)
-			for(var i=0; i<gender.value.length; i++){
-				if(phone.value[i].checked == true) {
-					console.log(gender.value);
-				}
-			} */
-			
 			if(id.value.length != 16 && id.value.length > 16) {
 				alert("아이디는 16자리까지만 입력하세요.");
 				id.value = "";
@@ -147,7 +140,8 @@
 				<tr>
 					<th>비밀번호</th>
 					<td>
-						<input class="text_class" type="text" name="pw" id="pw" required/>
+						<input class="text_class" type="text" name="pw" id="pw"
+						placeholder="최대 16자리" required/>
 					</td>
 				</tr>
 				<tr>
@@ -189,7 +183,8 @@
 						<!-- <input type="text" name="mp0" id="mp0" value="010" size="1" disabled="disabled"/>
 						<input type="text" name="mp1" id="mp1" size="3" required />
 						<input type="text" name="mp2" id="mp2" size="3" required /> -->
-						<input type="text" name="phone" id="phone" required />
+						<input type="text" name="phone" id="phone"
+						placeholder="숫자로만 입력(- 없이)" required />
 					</td>
 				</tr>
 				<tr>

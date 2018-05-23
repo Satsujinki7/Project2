@@ -59,6 +59,41 @@ public class UserDAO {
 		
 	}//getAllData() end
 	
+	//로그인 정보 
+	public UserVO selectedUserData(String Id, String Pw) {
+		sb.setLength(0);
+		sb.append("select * from userinfo ");
+		sb.append("where userid = ? and userpw = ? ");
+		
+		UserVO vo = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1, Id);
+			pstmt.setString(2, Pw);
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			String userId = rs.getString("userid");
+			String userPw = rs.getString("userpw");
+			String userName = rs.getString("username");
+			String userGender = rs.getString("usergender");
+			int userBirth = rs.getInt("userbirth");
+			String userNicName = rs.getString("usernicname");
+			String userAddress = rs.getString("useraddress");
+			String userPhone = rs.getString("userphone");
+			String userEmail = rs.getString("useremail");
+			int userFollower = rs.getInt("userfollower");
+			int userFollowing = rs.getInt("userfollowing");
+			
+			vo = new UserVO(userId, userPw, userName, userGender, userBirth, userNicName, 
+					 userPhone, userEmail, userAddress, userFollower, userFollowing);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return vo;
+	} //selectedUserData end
+	
 	//id로만 회원 존재여부를 파악하기
 	public int isExistById(String id) {
 		sb.setLength(0);
