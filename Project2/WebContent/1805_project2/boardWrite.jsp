@@ -68,7 +68,7 @@
 </head>
 <body>
 	<!-- 게시글을 작성하는 페이지 -->
-	<form action="boardWriteOK.jsp" name="frm">
+	<form action="boardWriteOK.jsp" name="frm" enctype="multipart/form-data" method="post">
 		<div id="container">
 			<div id="top">
 				<p>
@@ -90,11 +90,16 @@
 					<textarea name="ct" id="ct" cols="35" rows="10" ></textarea>
 				</p>
 			</div>
+			<div id="fileUp">
+				<p>
+					<input type="file" name="upload" id="upload" />
+				</p>
+			</div>
 			<div id="button">
-				<a href="list.jsp">
+				<a href="boardPage.jsp">
 					<input type="button" value="목록보기" />
 				</a>
-				<input type="button" value="작성하기" onclick="submitForm(this)"/>
+				<input type="submit" value="작성하기" onclick="submitForm(this)"/>
 				<input type="reset" value="다시쓰기" />
 			</div>
 		</div>

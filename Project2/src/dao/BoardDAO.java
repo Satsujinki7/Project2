@@ -24,7 +24,7 @@ public class BoardDAO {
 		ArrayList<BoardVO> list = new ArrayList<>();
 		
 		sb.setLength(0);
-		sb.append("select * from (select rownum rn, boardnum, boarddate, boardwriter, boardtitle, boardcontents, status, boardhits, boardnomination, boardcategory from (select * from board ");
+		sb.append("select * from (select rownum rn, boardnum, boarddate, boardwriter, boardtitle, boardcontents, status, boardhits, boardnomination, boardimage from (select * from board ");
 		sb.append("order by boarddate asc) ");
 		sb.append("where rownum <= ?) ");
 		sb.append("where rn >= ? ");
@@ -45,9 +45,9 @@ public class BoardDAO {
 				int status = rs.getInt("status");
 				int boardHits = rs.getInt("boardhits");
 				int boardNomination = rs.getInt("boardNomination");
-				String boardCategory = rs.getString("boardCategory");
+				String boardImage = rs.getString("boardImage");
 				
-				BoardVO vo = new BoardVO(boardNum, boardDate, boardWriter, boardTitle, boardContents, status, boardHits, boardNomination, boardCategory);
+				BoardVO vo = new BoardVO(boardNum, boardDate, boardWriter, boardTitle, boardContents, status, boardHits, boardNomination, boardImage);
 				list.add(vo);
 			}
 			
@@ -99,15 +99,14 @@ public class BoardDAO {
 		sb.append("insert into board ");
 		//아직 조작할 수 없는 변수는 기본값으로 우선 설정해놓기(null 방지) 0 0
 		//status : 정상글 0, 블라인드 1
-		sb.append("values (BOARD_BOARDNUM_SEQ.nextval, sysdate, ?, ?, ?, 0, 0, 0, 1) ");
+		sb.append("values (BOARD_BOARDNUM_SEQ.nextval, sysdate, ?, ?, ?, 0, 0, 0, ?) ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
 			pstmt.setString(1, vo.getBoardWriter());
 			pstmt.setString(2, vo.getBoardTitle());
 			pstmt.setString(3, vo.getBoardContents());
-			/*pstmt.setInt(3, vo.getStatus());
-			pstmt.setInt(4, vo.getBoardHits());*/
+			pstmt.setString(4, vo.getBoardImage());
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -138,9 +137,9 @@ public class BoardDAO {
 			int status = rs.getInt("status");
 			int boardHits = rs.getInt("boardhits");
 			int boardNomination = rs.getInt("boardnomination");
-			String boardCategory = rs.getString("boardCategory");
+			String boardImage = rs.getString("boardImage");
 			
-			vo = new BoardVO(boardNum, boardDate, boardWriter, boardTitle, boardContents, status, boardHits, boardNomination, boardCategory);
+			vo = new BoardVO(boardNum, boardDate, boardWriter, boardTitle, boardContents, status, boardHits, boardNomination, boardImage);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -171,9 +170,9 @@ public class BoardDAO {
 				int status = rs.getInt("status");
 				int boardHits = rs.getInt("boardhits");
 				int boardNomination = rs.getInt("boardnomination");
-				String boardCategory = rs.getString("boardCategory");
+				String boardImage = rs.getString("boardImage");
 				
-				vo = new BoardVO(boardNum, boardDate, boardWriter, boardTitle, boardContents, status, boardHits, boardNomination, boardCategory);
+				vo = new BoardVO(boardNum, boardDate, boardWriter, boardTitle, boardContents, status, boardHits, boardNomination, boardImage);
 			}
 			
 		} catch (Exception e) {

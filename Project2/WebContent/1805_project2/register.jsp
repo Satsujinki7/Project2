@@ -215,7 +215,7 @@
 				<div>
 					<div class="basic"><strong><span>✓</span> 아이디</strong></div>
 					<div id="tp1">
-						<input class="text_class" type="text" name="id" id="id" placeholder="하지마아!" required/>																		
+						<input class="text_class" type="text" name="id" id="id" placeholder="ID" required/>																		
 						<input type="button" id="id_check" value="✓ 아이디중복확인" onclick="dupCheckID()"/>
 						<p id="pid">＊ 6~16자까지 영문자(소문자), 숫자 사용 가능합니다.</p>
 					</div>
@@ -223,7 +223,7 @@
 				<div>
 					<div class="basic" id="pwbox"><strong id="pwsp"><span>✓</span> 비밀번호</strong></div>
 					<div>
-						<input class="text_class" type="text" name="pw" id="pw" placeholder="하지마아!" required/>
+						<input class="text_class" type="text" name="pw" id="pw" placeholder="PW" required/>
 						<p id="ppw">＊ 6~16자까지 영문자(대소문자), 숫자 및 특수문자 사용 가능합니다.<br />
 							   &nbsp;&nbsp;&nbsp;&nbsp;3자리 연속 또는 같은 문자, 아이디는 사용하실 수 없습니다.</p>							   						
 					</div>
@@ -231,13 +231,13 @@
 				<div>
 					<div id="pwckbox" class="basic"><strong><span>✓</span> 비밀번호 확인</strong></div>
 					<div>
-						<input class="text_class" type="text" name="repw" id="repw" placeholder="하지마아!" required/>
+						<input class="text_class" type="text" name="repw" id="repw" placeholder="PW 재입력" required/>
 					</div>
 				</div>
 				<div>
 					<div class="basic" id="namebox" ><strong><span>✓</span> 이름</strong></div>
 					<div>
-						<input class="text_class" type="text" name="name" id="name" placeholder="하지마아!" required/>
+						<input class="text_class" type="text" name="name" id="name" placeholder="이름" required/>
 					</div>
 				</div>
 				<div>
@@ -251,13 +251,13 @@
 					<div class="basic" id="birthbox"><strong><span>✓</span> 생년월일</strong></div>
 					<div>
 						<input class="text_class" type="text" name="birth" id="birth"
-						placeholder="생년월일 6자리" required/>
+						placeholder="6자리(ex : 910505)" required/>
 					</div>
 				</div>
 				<div>
 					<div class="basic" id="nickbox"><strong><span>✓</span> 닉네임</strong></div>
 					<div>
-						<input class="text_class" type="text" name="nic" id="nic" required placeholder="하지마아!" />
+						<input class="text_class" type="text" name="nic" id="nic" required placeholder="닉네임" />
 						<input type="button" id="nic_check" value="✓ 닉네임중복확인" onclick="dupCheckNic()" />
 					</div>
 				</div>

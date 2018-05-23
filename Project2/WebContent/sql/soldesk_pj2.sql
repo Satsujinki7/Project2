@@ -28,8 +28,25 @@ nocache
 nocycle;
 
 alter table board
-add(boardCategory varchar2(50));
+drop(boardCategory);
 
-update board
-set boardCategory = 'ÀÚÀ¯';
+alter table board
+add(boardImage varchar2(500));
 
+create table gameboard
+(gameNum number constraint gamenum_pk_bn primary key,
+gameDate date, gameWriter varchar2(20), gameTitle varchar2(200),
+gameImage varchar2(500),
+gameContents varchar2(4000), status number(2,0),
+gameHits number(8,0), gameNomination number(8,0)
+);
+
+desc gameboard
+
+create sequence gameboard_gamenum_seq
+start with 1
+minvalue 1
+nomaxvalue
+increment by 1
+nocache
+nocycle;

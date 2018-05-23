@@ -9,14 +9,14 @@ public class BoardVO {
 	private int status;
 	private int boardHits;
 	private int boardNomination;
-	private String boardCategory;
+	private String boardImage;
 	
 	public BoardVO() {
 		
 	}
 
 	public BoardVO(int boardNum, String boardDate, String boardWriter, String boardTitle, String boardContents, int status, int boardHits,
-			int boardNomination, String boardCategory) {
+			int boardNomination, String boardImage) {
 		super();
 		this.boardNum = boardNum;
 		this.boardDate = boardDate;
@@ -26,7 +26,7 @@ public class BoardVO {
 		this.status = status;
 		this.boardHits = boardHits;
 		this.boardNomination = boardNomination;
-		this.boardCategory = boardCategory;
+		this.boardImage = boardImage;
 	}
 
 	public BoardVO(String boardDate) {
@@ -98,11 +98,11 @@ public class BoardVO {
 		this.boardNomination = boardNomination;
 	}
 
-	public String getBoardCategory() {
-		return boardCategory;
+	public String getBoardImage() {
+		return boardImage;
 	}
 
-	public void setBoardCategory(String boardCategory) {
-		this.boardCategory = boardCategory;
+	public void setBoardImage(String boardImage) {
+		this.boardImage = boardImage;
 	}
 }

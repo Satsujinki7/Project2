@@ -103,6 +103,12 @@
 				<%= vo.getBoardTitle() %>
 			</td>
 		</tr>
+		<tr id="image">
+			<th>이미지</th>
+			<td colspan="5">
+				<%= vo.getBoardImage() %>
+			</td>
+		</tr>
 		<tr id="contents">
 			<th>내용</th>
 			<td colspan="5">
