@@ -1,3 +1,4 @@
+<!-- project2 -->
 <%@page import="dao.IllBoardDao"%>
 <%@page import="vo.IllboardVo"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
@@ -34,9 +35,6 @@ ibd.addIllBoard(ibv);
 
 
 //임시로 해둔 페이지 전환입니다
-response.sendRedirect("layout.jsp");
+response.sendRedirect("frame.jsp");
 
 %>
-
-
-
