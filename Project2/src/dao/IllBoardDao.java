@@ -24,7 +24,7 @@ public class IllBoardDao {
 		ArrayList<IllboardVo> list = new ArrayList<>();
 		
 		sb.setLength(0);
-		sb.append("select * from illboard");
+		sb.append("select * from illboard order by iboardnum desc");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());

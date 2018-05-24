@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-//--------w0524 일러스트 테이블 확인용
+//-------일러스트 리스트
 
 IllBoardDao ibd = new IllBoardDao();
 
@@ -135,11 +135,11 @@ margin-right: 10px;
 
 </head>
 <body>
-	<!-- 네비 바 부부우우우운 -->
-	<div id="container_nav">	
-		<jsp:include page="nav.jsp"></jsp:include>
-	</div>
-	<a href="illwrite.jsp" id="writebtn">글쓰기</a>
+<!-- nav bar part -->
+<div id="container_nav">	
+	<jsp:include page="nav.jsp"></jsp:include>
+</div>
+<a href="illwrite.jsp" id="writebtn">글쓰기</a>
 <div id="post_wrap">
 
 <%
@@ -179,7 +179,7 @@ margin-right: 10px;
 %>
 </div>
 
-	<!-- footer 부부우우우우우우우우운 -->
+	<!-- footer part -->
 	<div id="footer">
 		<p>풋터 부분입니다아ㅏㅇ아아아아</p>
 		<p>폼잡는거 거지같다 ^ㅗ^</p>
@@ -254,7 +254,7 @@ $(function(){
       });
 
 	//-------------요기서부터------------------------------------------
-	for(var i=1 ; i < 13 ; i++){
+	for(var i=1 ; i < 10 ; i++){
 			
 		var imgwidth = $("#img"+i).width();
 		var imgheight = $("#img"+i).height();
