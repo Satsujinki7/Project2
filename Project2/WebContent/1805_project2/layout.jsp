@@ -15,7 +15,7 @@
     <button onclick="topFunction()" id="myBtn">Top</button>
 	
 	<div id="container_nav">	
-		<jsp:include page="nav.jsp"></jsp:include>
+		<jsp:include page="nav.jsp"></jsp:include> 
 	</div>
 	<div id="bodyWrap">
 		<div id="container_body">
