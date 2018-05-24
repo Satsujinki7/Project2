@@ -1,3 +1,6 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="connection.OracleXE_ConnectionPJ2"%>
 <%@page import="dao.BoardDAO"%>
@@ -34,6 +37,16 @@
     	//총 페이지 수
     	int p_totalNum = (total%p_recordCnt==0)?
     			total/p_recordCnt:total/p_recordCnt+1;
+    	
+    	
+    	//검색 logic
+		//타입(제목 or 내용)과 검색어를 받아서 재출력
+		String query = request.getParameter("s_text");
+		if(query == null) {
+			query = "";
+		}
+		String field = request.getParameter("s_option");
+		//out.println(field + ", " + query);
 	%>
 	<style>
 		table {
@@ -78,7 +91,7 @@
 			if(s_text.value == "") {
 				alert("검색어를 입력하세요.");
 			} else {
-				
+				location.href = 'boardSearch.jsp?s_option=' + <%= field %> + '&s_text=' + <%= query %>;
 			}
 		}
 	</script>
@@ -96,9 +109,8 @@
 				<th class="col5">추천수</th>
 			</tr>
 			
-			<%
-				ArrayList<BoardVO> list = dao.getAllData(p_startNum, p_endNum);
-			
+			<%	
+				ArrayList<BoardVO> list = dao.searchData(p_startNum, p_endNum, field, query);
 				
 				for(BoardVO vo : list) {
 			%>
@@ -147,31 +159,14 @@
 		</table>
 	</div>
 	
-	<%
-		String query = request.getParameter("s_text");
-		if(query == null) {
-			query = "";
-		}
-		
-		String field = request.getParameter("s_option");
-		if(field == null) {
-			field = "o_title";
-		}
-		
-		//검색을 위해 DB 연결
-		Connection conn = OracleXE_ConnectionPJ2.getInstance().getConnection();
-		//String sql = "select * from board ";
-		
-	%>
-	
 	<div id="search_div">
 		<br>
 		<select name="s_option" id="s_option">
-			<option value="o_title" selected="selected">제목</option>
-			<option value="o_context">내용</option>
+			<option value="boardtitle" <% if(field.equals("boardtitle")) { %> selected="selected" <% } %>>제목</option>
+			<option value="boardcontents" <% if(field.equals("boardcontents")) { %> selected="selected" <% } %>>내용</option>
 		</select>
-		<input type="text" name="s_text" id="s_text" />
-		<input type="button" value="검색" onclick="search()"/>
+		<input type="text" name="s_text" id="s_text" value="<%= query %>"/>
+		<input type="button" value="검색" onclick="boardSearch.jsp?s_option=<%= field %>&s_text=<%= query %>"/>
 	</div>
 </body>
 </html>

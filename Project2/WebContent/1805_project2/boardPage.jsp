@@ -183,8 +183,8 @@
 			사용법 정확히 지킬 것 -->
 		<form id="search_frm" action="boardSearch.jsp" class="article-search-form" method="get">
 			<select name="s_option" id="s_option">
-				<option value="o_title" selected="selected">제목</option>
-				<option value="o_context">내용</option>
+				<option value="boardtitle" selected="selected">제목</option>
+				<option value="boardcontents">내용</option>
 			</select>
 			<input type="text" name="s_text" id="s_text" />
 			<input type="submit" value="검색" />

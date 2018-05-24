@@ -186,6 +186,45 @@ public class BoardDAO {
 		return vo;
 	} //boardnumData end
 	
+	//특정 게시물 검색하기
+	public ArrayList<BoardVO> searchData(int startNum, int endNum, String searchType, String searchWord) {
+		ArrayList<BoardVO> list = new ArrayList<>();
+		
+		sb.setLength(0);
+		sb.append("select * from (select rownum rn, boardnum, boarddate, boardwriter, boardtitle, boardcontents, status, boardhits, boardnomination, boardimage from (select * from board ");
+		sb.append("where " + searchType + " like '%" + searchWord + "%' order by boarddate asc) ");
+		sb.append("where rownum <= ?) ");
+		sb.append("where rn >= ? ");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			
+			pstmt.setInt(1, endNum);
+			pstmt.setInt(2, startNum);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int boardNum = rs.getInt("boardnum");
+				String boardDate = rs.getString("boarddate");
+				String boardWriter = rs.getString("boardwriter");
+				String boardTitle = rs.getString("boardtitle");
+				String boardContents = rs.getString("boardcontents");
+				int status = rs.getInt("status");
+				int boardHits = rs.getInt("boardhits");
+				int boardNomination = rs.getInt("boardNomination");
+				String boardImage = rs.getString("boardImage");
+				
+				BoardVO vo = new BoardVO(boardNum, boardDate, boardWriter, boardTitle, boardContents, status, boardHits, boardNomination, boardImage);
+				list.add(vo);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return list;
+	} //getAllData end
+	
 	//전체 게시글 숫자 계산
 	public int getCount() {
 		int page_cnt = 0;

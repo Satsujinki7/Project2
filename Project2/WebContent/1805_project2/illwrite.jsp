@@ -39,7 +39,7 @@
 <body>
 
 	<div id="write_div">
-    <form id="frm" action="writeOk.jsp" method="post" name="frm" enctype="multipart/form-data">
+    <form id="frm" action="illwriteOk.jsp" method="post" name="frm" enctype="multipart/form-data">
     	<div id="frm_wrap">
     	<div id="writer">
 			<p>작성자 : 
