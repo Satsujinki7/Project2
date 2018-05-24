@@ -49,7 +49,7 @@
 	
 	<!-- 스마트 에디터 사용하기 1
 		json 방식으로 데이터 받음(name : value) -->
-	<script type="text/javascript" src="../se/js/HuskyEZCreator.js"></script>
+	<!-- <script type="text/javascript" src="../se/js/HuskyEZCreator.js"></script>
 	<script type="text/javascript">
 		var oEditors = [];
 		
@@ -80,7 +80,8 @@
 		
 		    } catch(e) {}
 		}
-	</script>
+	</script> -->
+	
 </head>
 <body>
 	<h2><%= session.getAttribute("userName") %></h2>
@@ -114,7 +115,7 @@
 					<a href="boardPage.jsp">
 						<input type="button" value="목록" />
 					</a>
-					<input type="submit" value="수정" onclick="modifyForm(this)"/>
+					<input type="submit" id="btn_sub" value="수정" onclick="modifyForm(this)"/>
 					<a href="detailContents.jsp?boardnum=<%= vo.getBoardNum() %>" id="btn_del">
 						<input type="button" value="취소" />
 					</a>

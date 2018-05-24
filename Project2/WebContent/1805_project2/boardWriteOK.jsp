@@ -15,36 +15,40 @@
 	String boardTitle = request.getParameter("ti");
 	String boardContents = request.getParameter("ct"); */
 	
-	String writer = "";
+	/* String writer = "";
 	String boardTitle = "";
-	String boardContents = "";
+	String boardContents = ""; */
 	
 	//이미지 업로드용 변수들
-	request.setCharacterEncoding("UTF-8");
+	//실제로 이미지 출력할 값이 담기는 이클립스 폴더 경로
+	String saveDir = request.getRealPath("upload");
+	int maxSize = 1024*1024*5;
+	
+	/* request.setCharacterEncoding("UTF-8");
 	String realPath = "";
 	String fileName = "";
-	int maxSize = 1024*1024*5;
 	String encType = "UTF-8";
-	String saveFile = "up_img";
+	String saveFile = "up_img"; */
 	
-	ServletContext scontext = getServletContext();
-	realPath = scontext.getRealPath(saveFile);
+	/* ServletContext scontext = getServletContext();
+	realPath = scontext.getRealPath(saveFile); */
 
-	try {
-		MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, encType, new DefaultFileRenamePolicy());
+	//이렇게 생성하면 절대경로상에 이미지파일이 생성됨
+	//이것을 위의 이클립스 경로상에서 가상으로 참조하여 뿌려주는 형식
+	MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 
-		Enumeration<?> files = multi.getFileNames();
-		String file1 = (String)files.nextElement();
-		fileName = multi.getFilesystemName(file1);
-		
-		writer = (String)session.getAttribute("userName");
-		boardTitle = multi.getParameter("ti");
-		boardContents = multi.getParameter("ct");
-	} catch(Exception e) {
-		  e.printStackTrace();
-	}
+	/* Enumeration<?> files = multi.getFileNames();
+	String file1 = (String)files.nextElement();
+	fileName = multi.getFilesystemName(file1); */
+	
+	String writer = (String)session.getAttribute("userName");
+	String boardTitle = multi.getParameter("ti");
+	String boardContents = multi.getParameter("ct");
+	//파일의 이름을 온전하게 받아오기 위해 사용
+	String fn = multi.getOriginalFileName("upload");
 
-	String fullPath = realPath + "\\" + fileName;
+
+//	String fullPath = realPath + "\\" + fileName;
 	//이미지 업로드 끝
 
 	
@@ -55,7 +59,7 @@
 	
 	vo.setBoardWriter(writer);
 	vo.setBoardTitle(boardTitle);
-	vo.setBoardImage(fullPath);
+	vo.setBoardImage("../upload/" + fn);
 	vo.setBoardContents(boardContents);
 	
 	dao.addData(vo);
@@ -77,7 +81,7 @@
 	<h3>내용 : <%= vo.getBoardContents() %></h3>
 	<img src="<%= vo.getBoardImage() %>" width=512 height=384></img>
 	
-	<%-- <jsp:forward page="boardPage.jsp"></jsp:forward> --%>
+	<jsp:forward page="boardPage.jsp"></jsp:forward>
 	
 </body>
 </html>

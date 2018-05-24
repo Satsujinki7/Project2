@@ -11,6 +11,7 @@
 <body>
 	<%
 		String bnum = request.getParameter("boardnum");
+		out.println(bnum);
 		int bno = 0;
 		BoardDAO dao = new BoardDAO();
 		BoardVO vo = new BoardVO();

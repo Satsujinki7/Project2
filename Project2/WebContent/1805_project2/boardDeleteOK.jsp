@@ -4,8 +4,9 @@
     pageEncoding="UTF-8"%>
 
 <%
-	String bnum = request.getParameter("boardnum");
+	String bnum = request.getParameter("bnum");
 	int bno = 0;
+	out.println(bnum);
 	
 	if(bnum!=null) {
 		bno = Integer.parseInt(bnum);

@@ -54,6 +54,7 @@ public class BoardDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+
 		return list;
 	} //getAllData end
 	
@@ -73,6 +74,7 @@ public class BoardDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+
 	} //incrementHits end
 	
 	//추천수 증가
@@ -91,6 +93,7 @@ public class BoardDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+
 	} //incrementNomination end
 	
 	//게시글 입력
@@ -113,6 +116,7 @@ public class BoardDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	} //addData end
 	
 	//유저 이름으로 조회
@@ -143,7 +147,7 @@ public class BoardDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 		return vo;
 	} //boardData end
 	
@@ -178,7 +182,7 @@ public class BoardDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 		return vo;
 	} //boardnumData end
 	
@@ -201,6 +205,7 @@ public class BoardDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		return page_cnt;
 	} //getCount end
 	
@@ -223,6 +228,7 @@ public class BoardDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	} //modifyBoardData end
 	
 	//게시글 삭제
@@ -242,4 +248,18 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 	} //deleteBoardData end
+	
+	//리소스 반환
+	public void close() {
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+				if(rs != null) rs.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }

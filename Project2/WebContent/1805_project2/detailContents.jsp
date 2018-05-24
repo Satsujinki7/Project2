@@ -10,6 +10,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>상세보기</title>
 	<%
+		session.getAttribute("userName");
+		
 		String bn = request.getParameter("boardnum");
 		int bnum = 0;
 		BoardDAO dao = new BoardDAO();
@@ -47,6 +49,10 @@
 		#context {
 			background-color: #6699ff;
 		}
+		
+		#uname, #cname {
+			display: none;
+		}
 	</style>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -74,10 +80,32 @@
 			}
 		} */
 		
+		function pageBack() {
+			location.href = 'boardPage.jsp';
+		}
+		function boardModify() {
+			location.href = 'boardModify.jsp?boardnum=' + <%= vo.getBoardNum() %>;
+		}
+		function boardDelete() {
+			location.href = 'boardDelete.jsp?boardnum=' + <%= vo.getBoardNum() %>;
+		}
 		function nominate() {
 			alert("추천되었습니다.");
-			//location.href = 'nominateOK.jsp';
+			location.href = 'nominateOK.jsp?boardnum=' + <%= vo.getBoardNum() %>;
 		}
+		
+		//글쓴이와 현재 유저가 동일한지 판단
+		//동일하다면 자기 글 추천 비활성화
+		//동일하지 않다면 수정 및 삭제 버튼 비활성화
+		window.onload = function() {
+			if(uname.value == cname.value) {
+				document.getElementById("btn_nom").style.display = "none";
+			} else {
+				document.getElementById("btn_mod").style.display = "none";
+				document.getElementById("btn_del").style.display = "none";
+			}
+		}
+
 	</script>
 </head>
 <body>
@@ -95,7 +123,7 @@
 		</tr>
 		<tr>
 			<th id="t4">작성일</th>
-			<td><%= vo.getBoardDate() %></td>
+			<td colspan="5"><%= vo.getBoardDate() %></td>
 		</tr>
 		<tr id="title">
 			<th>제목</th>
@@ -106,7 +134,7 @@
 		<tr id="image">
 			<th>이미지</th>
 			<td colspan="5">
-				<%= vo.getBoardImage() %>
+				<img src="<%= vo.getBoardImage() %>" alt="" />
 			</td>
 		</tr>
 		<tr id="contents">
@@ -119,11 +147,11 @@
 		</tr>
 		<tr>
 			<td colspan="6">
-				<a href="boardPage.jsp">
+				<%-- <a href="boardPage.jsp">
 					<input type="button" value="목록" />
 				</a>
 				<a href="boardModify.jsp?boardnum=<%= vo.getBoardNum() %>">
-					<input type="button" value="수정"/>
+					<input type="button" id="btn_mod" name="btn_mod" value="수정" />
 				</a>
 				
 				<a href="boardDelete.jsp?boardnum=<%= vo.getBoardNum() %>" id="btn_del">
@@ -131,9 +159,36 @@
 				</a>
 				<a href="nominateOK.jsp?boardnum=<%= vo.getBoardNum() %>">
 					<input type="button" value="추천" onclick="nominate()"/>
-				</a>
+				</a> --%>
+				
+				<%-- <form action="boardPage.jsp">
+					<input type="button" value="목록" onclick="pageBack()"/>
+				</form>
+				<form action="boardModify.jsp?boardnum=<%= vo.getBoardNum() %>">
+					<input type="button" id="btn_mod" name="btn_mod" value="수정" onclick="boardModify()"/>
+				</form>
+				<form action="boardDelete.jsp?boardnum=<%= vo.getBoardNum() %>">
+					<input type="button" value="삭제" onclick="boardDelete()" />
+				</form>
+				<form action="nominateOK.jsp?boardnum=<%= vo.getBoardNum() %>">
+					<input type="button" value="추천" onclick="nominate()"/>
+				</form> --%>
+				
+				<input type="button" value="목록" onclick="pageBack()"/>
+				<input type="button" id="btn_mod" name="btn_mod" value="수정" onclick="boardModify()"/>
+				<input type="button" id="btn_del" name="btn_del" value="삭제" onclick="boardDelete()" />
+				<input type="button" id="btn_nom" name="btn_nom" value="추천" onclick="nominate()"/>
 			</td>
 		</tr>
 	</table>
+	
+	<div id="test">
+		<textarea name="cname" id="cname" cols="10" rows="10">
+			<%= session.getAttribute("userName") %>
+		</textarea>
+		<textarea name="uname" id="uname" cols="10" rows="10">
+			<%= vo.getBoardWriter() %>
+		</textarea>
+	</div>
 </body>
 </html>

@@ -1,13 +1,15 @@
+<%@page import="java.sql.Connection"%>
+<%@page import="connection.OracleXE_ConnectionPJ2"%>
+<%@page import="dao.BoardDAO"%>
 <%@page import="vo.BoardVO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dao.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>게시판</title>
+<title>게시판 검색 결과</title>
 	<%
 		BoardDAO dao = new BoardDAO();
 	
@@ -71,22 +73,6 @@
 		}
 	</style>
 	
-<!-- 	<script type="text/javascript">
-		function changeBoard() {
-			console.log("들어오냐?");
-			
-			if(boardSelect.value == "자유") {
-				location.href = 'boardPage.jsp?boardcategory=자유';
-			} else if(boardSelect.value == "일러스트") {
-				location.href = 'boardPage.jsp?boardcategory=2';
-			} else if(boardSelect.value == "2차창작") {
-				location.href = 'boardPage.jsp?boardcategory=3';
-			} else if(boardSelect.value == "게임") {
-				location.href = 'boardPage.jsp?boardcategory=4';
-			}
-		}
-	</script> -->
-	
 	<script type="text/javascript">
 		function search() {
 			if(s_text.value == "") {
@@ -99,13 +85,6 @@
 </head>
 <body>
 	<h2><%= session.getAttribute("userName") %> 님, 환영합니다.</h2>
-<!-- 	<select name="boardSelect" id="boardSelect" onchange="changeBoard()">
-		<option value="-----">-----</option>
-		<option value="자유">자유 게시판</option>
-		<option value="일러스트">일러스트 게시판</option>
-		<option value="2차창작">2차 창작 게시판</option>
-		<option value="게임">게임 게시판</option>
-	</select> -->
 	
 	<div id="wrap">
 		<table>
@@ -151,7 +130,7 @@
 						} else {
 							
 				%>
-					<a href="boardPage.jsp?cp=<%= i %>">[<%=i%>]</a>
+					<a href="boardSearch.jsp?cp=<%= i %>">[<%=i%>]</a>
 				<%
 						}
 					}
@@ -165,30 +144,34 @@
 				</td>
 			</tr>
 			
-			<%-- <tr>
-				<td colspan="4">
-					<!-- 등록 누르면 게시글쓰기(DB 입력)로 이동 -->
-					<a href="boardWrite.jsp">
-						<input type="button" value="글쓰기" />
-					</a>
-				</td>
-			</tr> --%>
 		</table>
 	</div>
 	
-	<!-- 검색 기능 -->
+	<%
+		String query = request.getParameter("s_text");
+		if(query == null) {
+			query = "";
+		}
+		
+		String field = request.getParameter("s_option");
+		if(field == null) {
+			field = "o_title";
+		}
+		
+		//검색을 위해 DB 연결
+		Connection conn = OracleXE_ConnectionPJ2.getInstance().getConnection();
+		//String sql = "select * from board ";
+		
+	%>
+	
 	<div id="search_div">
 		<br>
-		<!-- 이거 클래스 보면 알겠지만 파일 업로드처럼 규격화된 기능임
-			사용법 정확히 지킬 것 -->
-		<form id="search_frm" action="boardSearch.jsp" class="article-search-form" method="get">
-			<select name="s_option" id="s_option">
-				<option value="o_title" selected="selected">제목</option>
-				<option value="o_context">내용</option>
-			</select>
-			<input type="text" name="s_text" id="s_text" />
-			<input type="submit" value="검색" />
-		</form>
+		<select name="s_option" id="s_option">
+			<option value="o_title" selected="selected">제목</option>
+			<option value="o_context">내용</option>
+		</select>
+		<input type="text" name="s_text" id="s_text" />
+		<input type="button" value="검색" onclick="search()"/>
 	</div>
 </body>
 </html>

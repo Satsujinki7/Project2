@@ -33,7 +33,7 @@
 	
 	<!-- 스마트 에디터 사용하기 1
 		json 방식으로 데이터 받음(name : value) -->
-	<script type="text/javascript" src="../se/js/HuskyEZCreator.js"></script>
+	<!-- <script type="text/javascript" src="../se/js/HuskyEZCreator.js"></script>
 	<script type="text/javascript">
 		var oEditors = [];
 		
@@ -64,7 +64,7 @@
 		
 		    } catch(e) {}
 		}
-	</script>
+	</script> -->
 </head>
 <body>
 	<!-- 게시글을 작성하는 페이지 -->
@@ -91,7 +91,7 @@
 				</p>
 			</div>
 			<div id="fileUp">
-				<p>
+				<p>첨부파일 : 
 					<input type="file" name="upload" id="upload" />
 				</p>
 			</div>
