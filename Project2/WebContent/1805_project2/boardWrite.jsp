@@ -30,44 +30,9 @@
 			margin-left: 10px;
 		}
 	</style>
-	
-	<!-- 스마트 에디터 사용하기 1
-		json 방식으로 데이터 받음(name : value) -->
-	<!-- <script type="text/javascript" src="../se/js/HuskyEZCreator.js"></script>
-	<script type="text/javascript">
-		var oEditors = [];
-		
-		window.onload = function(){
-			nhn.husky.EZCreator.createInIFrame({
-		
-			    oAppRef: oEditors,
-		
-			    elPlaceHolder: "ct",
-		
-			    sSkinURI: "../se/SmartEditor2Skin.html",
-		
-			    fCreator: "createSEditor2"
-		
-			});
 
-		}
-			//스마트 에디터 사용하기 2
-			 // 에디터의 내용이 textarea에 적용된다.
-		function submitForm(obj) {
-		 oEditors.getById["ct"].exec("UPDATE_CONTENTS_FIELD", []);
-		    // 에디터의 내용에 대한 값 검증은 이곳에서
-		    // document.getElementById("ir1").value를 이용해서 처리한다.
-		
-		    try {
-		
-		        obj.form.submit();
-		
-		    } catch(e) {}
-		}
-	</script> -->
 </head>
 <body>
-	<!-- 게시글을 작성하는 페이지 -->
 	<form action="boardWriteOK.jsp" name="frm" enctype="multipart/form-data" method="post">
 		<div id="container">
 			<div id="top">

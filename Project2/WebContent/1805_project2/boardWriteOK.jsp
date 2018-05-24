@@ -11,47 +11,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>작성된 게시글</title>
 <% 
-	/* String writer = (String)session.getAttribute("userName");
-	String boardTitle = request.getParameter("ti");
-	String boardContents = request.getParameter("ct"); */
-	
-	/* String writer = "";
-	String boardTitle = "";
-	String boardContents = ""; */
-	
 	//이미지 업로드용 변수들
 	//실제로 이미지 출력할 값이 담기는 이클립스 폴더 경로
 	String saveDir = request.getRealPath("upload");
 	int maxSize = 1024*1024*5;
 	
-	/* request.setCharacterEncoding("UTF-8");
-	String realPath = "";
-	String fileName = "";
-	String encType = "UTF-8";
-	String saveFile = "up_img"; */
-	
-	/* ServletContext scontext = getServletContext();
-	realPath = scontext.getRealPath(saveFile); */
-
 	//이렇게 생성하면 절대경로상에 이미지파일이 생성됨
 	//이것을 위의 이클립스 경로상에서 가상으로 참조하여 뿌려주는 형식
 	MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 
-	/* Enumeration<?> files = multi.getFileNames();
-	String file1 = (String)files.nextElement();
-	fileName = multi.getFilesystemName(file1); */
 	
 	String writer = (String)session.getAttribute("userName");
 	String boardTitle = multi.getParameter("ti");
 	String boardContents = multi.getParameter("ct");
 	//파일의 이름을 온전하게 받아오기 위해 사용
 	String fn = multi.getOriginalFileName("upload");
-
-
-//	String fullPath = realPath + "\\" + fileName;
-	//이미지 업로드 끝
-
-	
 	
 	//DB 연결 후 write에서 전달받은 값을 DB에 전송
 	BoardDAO dao = new BoardDAO();

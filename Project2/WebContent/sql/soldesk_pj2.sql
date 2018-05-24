@@ -50,3 +50,25 @@ nomaxvalue
 increment by 1
 nocache
 nocycle;
+
+--insert by 선민 --
+create table illboard(
+iboardnum number constraint ibnum_pk_bn primary key,
+iboarddate date,
+iboardtitle varchar2(200),
+iboardwriter varchar2(20),
+iboardcontent varchar2(4000),
+iboardimg varchar2(500),
+iboardhits number(8,0),
+iboardnomination number(8,0),
+iboardtoday number(8,0),
+iboardflag number(1)
+)
+
+create sequence iboard_ibnum_seq
+start width 1
+minvalue 1
+nomaxvalueed
+increment by 1
+nocache
+nocycle;
