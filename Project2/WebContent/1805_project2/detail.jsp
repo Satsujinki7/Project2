@@ -15,7 +15,7 @@
 	width: 1000px;
 	height: auto;
 	margin: 20px auto;
-	/* border: 1px solid black; */
+
 
 }
 
@@ -91,7 +91,8 @@
 	margin: 40px auto 100px auto;
 
 }
-
+ 
+ 
 
 #post_text p{
 

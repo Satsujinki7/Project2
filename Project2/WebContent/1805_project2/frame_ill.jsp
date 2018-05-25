@@ -170,6 +170,7 @@ margin-right: 10px;
 
 %>
 
+
 <div id="post_wrap">
 <div class="post">
 

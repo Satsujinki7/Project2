@@ -53,7 +53,7 @@ public class ToonBoardDao {
 		}
 		
 		return list;
-	}//alldata end
+	}//alldata  end
 	
 	
 	//새글쓰기

@@ -82,7 +82,7 @@ public class IllBoardDao {
 		
 	}//add end
 	
-	//한건 조회하는 메소드
+	//한건 조회하는  메소드
 	
 		public IllboardVo getData(int iboardnum) {
 			sb.setLength(0);

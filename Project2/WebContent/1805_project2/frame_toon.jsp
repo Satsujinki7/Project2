@@ -169,6 +169,7 @@ margin-right: 10px;
 		}
 
 %>
+
 	<div class="post">
 	
 		<a href="detail.jsp?boardnum=<%=tbv.getTboardnum() %>&category=toon">

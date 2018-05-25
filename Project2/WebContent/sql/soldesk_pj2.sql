@@ -124,7 +124,7 @@ nocycle
 /
 
 
---------------userInfo에 컬럼추가 --------------
+---------------userInfo에 컬럼추가 --------------
 alter table userinfo
 add(
 userimg varchar2(30),
