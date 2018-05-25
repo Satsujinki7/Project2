@@ -283,7 +283,7 @@
 	<div id="detail_container">
 		
 		<div id="detail_title">
-			<span>제목이들어갈 부분</span>
+			<span>제목이 들어갈 부분</span>
 		</div>
 		
 		<div id="postinfo">
