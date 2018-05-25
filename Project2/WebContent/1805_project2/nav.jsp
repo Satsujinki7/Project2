@@ -4,7 +4,7 @@
 
 <div id="navwrap">
 	<div id="logo">
-	<a href="layout.jsp"><img src="../images/logo2.png" alt="검색" /></a>
+	<a href="layout.jsp"><img src="../images/logo2.png" alt="메인로고" /></a>
 	</div>
 	<div id="menu">
 		<ul id="mainul">
@@ -23,10 +23,23 @@
 		</ul>
 	</div>
 	
-	
 	<div id="navright">
+	<%
+	Object user = session.getAttribute("userName");
+	if(user != null){
+		//로그인된 상태라면
+	%>
+		<input type="button" value="<%=user %>" />
+		<input type="button" value="로그아웃" onclick="logout()" style="color: skyblue"/>
+	<%
+	}else{
+	//로그인 된 상태 아니라면
+	%>
 		<input type="button" value="로그인" onclick="pageMoveLog()"/>
 		<input type="button" value="회원가입" onclick="pageMoveReg()" />
+	<%
+	}//else end
+	%>
 	</div>
 	
 	<div id="search">
@@ -46,5 +59,9 @@
 	
 	function pageMoveReg() {
 		location.href = 'register.jsp';
+	}
+	function logout() {
+
+		location.href= 'logoutOk.jsp';
 	}
 </script>

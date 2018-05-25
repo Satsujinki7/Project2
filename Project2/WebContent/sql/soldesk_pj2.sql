@@ -66,9 +66,63 @@ iboardflag number(1)
 )
 
 create sequence iboard_ibnum_seq
-start width 1
+start with 1
 minvalue 1
-nomaxvalueed
+nomaxvalue
 increment by 1
 nocache
 nocycle;
+
+
+
+--cartoon table by SUN
+create table toonboard(
+tboardnum number constraint tbnum_pk_bn primary key,
+tboarddate date,
+tboardtitle varchar2(200),
+tboardwriter varchar2(20),
+tboardcontent varchar2(4000),
+tboardimg varchar2(500),
+tboardhits number(8,0),
+tboardnomination number(8,0),
+tboardtoday number(8,0),
+tboardflag number(1)
+)
+/
+
+create sequence tboard_tbnum_seq
+start with 1
+minvalue 1
+nomaxvalue
+increment by 1
+nocache
+nocycle
+/
+
+--Parody table by SUN
+create table prdboard(
+pboardnum number constraint pbnum_pk_bn primary key,
+pboarddate date,
+pboardtitle varchar2(200),
+pboardwriter varchar2(20),
+pboardcontent varchar2(4000),
+pboardimg varchar2(500),
+pboardhits number(8,0),
+pboardnomination number(8,0),
+pboardtoday number(8,0),
+pboardflag number(1)
+)
+/
+
+create sequence pboard_pbnum_seq
+start with 1
+minvalue 1
+nomaxvalue
+increment by 1
+nocache
+nocycle
+/
+
+
+
+

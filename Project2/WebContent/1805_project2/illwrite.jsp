@@ -31,6 +31,7 @@
 <body>
 
 	<div id="write_div">
+	<!-- action ->illwriteOk.jsp method="post" -->
     <form id="frm" action="illwriteOk.jsp" method="post" name="frm" enctype="multipart/form-data">
     	<div id="frm_wrap">
     	<div id="writer">
@@ -44,12 +45,12 @@
         		<img id="upload_img" src="#" alt="이미지" /></div>
     		<div id="title_div">
     			<input type="text" name="title" id="title" placeholder="제목을 입력하세요"/>
-    			<select>
-					  <option value="">카테고리선택</option>
-					  <option value="">일러스트</option>
-					  <option value="">카테고리2</option>
-					  <option value="">카테고리3</option>
-					  <option value="">카테고리4</option>
+    			<select id="option" name="option">
+					  <option value="0">카테고리선택</option>
+					  <option value="1">일러스트</option>
+					  <option value="2">만화</option>
+					  <option value="3">2차창작</option>
+					  <option value="4">기타</option>
 				</select>
     			
     			</div>

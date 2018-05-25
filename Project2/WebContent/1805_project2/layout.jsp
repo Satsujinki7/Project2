@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- layout of project copy -->
+<!-- 기본적으로 이페이지는 == 랭킹 탭의 페이지 입니다아아ㅏㅏㅏㅏㅏㅏㅏ -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,13 +9,10 @@
 <title>layout.jsp</title>
  <link rel="stylesheet" href="layoutcss.css" />
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/jax/libs/jquery/3.3.1/jquery.min.js"></script>
 
- 
  </head>
 <body>
-    <button onclick="topFunction()" id="myBtn">Top</button>
-	
 	<div id="container_nav">	
 		<jsp:include page="nav.jsp"></jsp:include> 
 	</div>
