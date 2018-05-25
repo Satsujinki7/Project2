@@ -56,29 +56,22 @@
 	</style>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<%-- <script type="text/javascript">
-		$(document).ready(function(){
-			$("btn_del").on('click', function(){
-				var flag = confirm("게시글을 삭제하겠습니까?");
-				
-				if(flag) {
-					location.href = "deleteOK.jsp?boardnum=<%= vo.getBoardNum() %>";
-				}
-			});
-		});
-	</script> --%>
 	
 	<script type="text/javascript">
-		/* function chkID() {
-			var currentID = session.getAttribute("userName");
+		<%-- function clickEvent() {
+			console.log(btn.value);
 			
-			if(currentID == vo.getBoardWriter()) {
-				alert("게시글을 수정합니다.");
-				location.href = 'boardModify.jsp';
-			} else {
-				alert("수정 권한이 없습니다.");
+			if(btn.value == "목록") {
+				location.href = 'boardPage.jsp';
+			} else if(btn.value == "수정") {
+				location.href = 'boardModify.jsp?boardnum=' + <%= vo.getBoardNum() %>;
+			} else if(btn.value == "삭제") {
+				location.href = 'boardDelete.jsp?boardnum=' + <%= vo.getBoardNum() %>;
+			} else if(btn.value == "추천") {
+				alert("추천되었습니다.");
+				location.href = 'nominateOK.jsp?boardnum=' + <%= vo.getBoardNum() %>;
 			}
-		} */
+		} --%>
 		
 		function pageBack() {
 			location.href = 'boardPage.jsp';

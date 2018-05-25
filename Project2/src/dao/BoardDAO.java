@@ -248,6 +248,31 @@ public class BoardDAO {
 		return page_cnt;
 	} //getCount end
 	
+	//검색된 게시글 숫자 계산(수정버전)
+	public int getSearchCount(String searchType, String searchWord) {
+		int page_cnt = 0;
+		
+		sb.setLength(0);
+		sb.append("select count(*) from board ");
+		sb.append("where " + searchType + " like '%" + searchWord + "%' order by boarddate asc ");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				page_cnt = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return page_cnt;
+	} //getSearchCount end
+	
 	//게시글 수정
 	public void modifyBoardData(BoardVO vo) {
 		sb.setLength(0);

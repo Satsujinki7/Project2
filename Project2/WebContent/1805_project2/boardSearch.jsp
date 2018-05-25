@@ -19,34 +19,34 @@
 		String cp = request.getParameter("cp");
 		int currentPage = 0;
 		
+    	//검색 logic - 타입(제목 or 내용)과 검색어를 받아서 재출력
+    	//검색어
+		String query = request.getParameter("s_text");
+		if(query == null) {
+			query = "";
+		}
+		//타입
+		String field = request.getParameter("s_option");
+		
 		if(cp!=null) {
     		currentPage = Integer.parseInt(cp);
     	} else {
     		currentPage = 1;
     	}
-    
-    	int total = dao.getCount(); //DB 레코드 갯수 받아오기
-    	
-    	int p_recordCnt = 10; //한 페이지에 보일 게시글 수
+		
+    	int s_recordCnt = 10; //한 페이지에 보일 게시글 수
     	//1  2  3  4...
     	//11 21 31 41...
     	//현재 페이지 시작번호
-    	int p_startNum = (currentPage-1) * p_recordCnt +1;
+    	int s_startNum = (currentPage-1) * s_recordCnt +1;
     	//현재 페이지 끝번호
-    	int p_endNum = currentPage * p_recordCnt;
+    	int s_endNum = currentPage * s_recordCnt;
+    	//검색된 레코드 갯수 받아오기
+		int searchTotal = dao.getSearchCount(field, query); 
     	//총 페이지 수
-    	int p_totalNum = (total%p_recordCnt==0)?
-    			total/p_recordCnt:total/p_recordCnt+1;
-    	
-    	
-    	//검색 logic
-		//타입(제목 or 내용)과 검색어를 받아서 재출력
-		String query = request.getParameter("s_text");
-		if(query == null) {
-			query = "";
-		}
-		String field = request.getParameter("s_option");
-		//out.println(field + ", " + query);
+    	int s_totalNum = (searchTotal%s_recordCnt==0)?
+    			searchTotal/s_recordCnt:searchTotal/s_recordCnt+1;
+
 	%>
 	<style>
 		table {
@@ -110,7 +110,7 @@
 			</tr>
 			
 			<%	
-				ArrayList<BoardVO> list = dao.searchData(p_startNum, p_endNum, field, query);
+				ArrayList<BoardVO> list = dao.searchData(s_startNum, s_endNum, field, query);
 				
 				for(BoardVO vo : list) {
 			%>
@@ -137,15 +137,16 @@
 					for(int i=currentPage-4; i<currentPage+4; i++) {
 						if(i<=0) {
 							continue;
-						} else if(i>p_totalNum) {
+						} else if(i>s_totalNum) {
 							break;
 						} else {
 							
 				%>
-					<a href="boardSearch.jsp?cp=<%= i %>">[<%=i%>]</a>
+					<a href="boardSearch.jsp?cp=<%= i %>&s_option=<%= field %>&s_text=<%= query %>">[<%= i %>]</a>
 				<%
 						}
 					}
+
 				%>
 				</td>
 				<td colspan="4">
@@ -160,13 +161,15 @@
 	</div>
 	
 	<div id="search_div">
-		<br>
-		<select name="s_option" id="s_option">
-			<option value="boardtitle" <% if(field.equals("boardtitle")) { %> selected="selected" <% } %>>제목</option>
-			<option value="boardcontents" <% if(field.equals("boardcontents")) { %> selected="selected" <% } %>>내용</option>
-		</select>
-		<input type="text" name="s_text" id="s_text" value="<%= query %>"/>
-		<input type="button" value="검색" onclick="boardSearch.jsp?s_option=<%= field %>&s_text=<%= query %>"/>
+		<form action="boardSearch.jsp">
+			<br>
+			<select name="s_option" id="s_option">
+				<option value="boardtitle" <% if(field.equals("boardtitle")) { %> selected="selected" <% } %>>제목</option>
+				<option value="boardcontents" <% if(field.equals("boardcontents")) { %> selected="selected" <% } %>>내용</option>
+			</select>
+			<input type="text" name="s_text" id="s_text" value="<%= query %>" />
+			<input type="submit" value="검색" />
+		</form>
 	</div>
 </body>
 </html>
