@@ -297,6 +297,7 @@
 
 
 	String n = request.getParameter("boardnum");
+	
 	String cate = request.getParameter("category");
 	
 	
@@ -306,6 +307,8 @@
 	String img = "";
 	String content = "";
 	
+	//null처리 
+	if(cate != null && n != null) {
 	
 	//카테고리가 일러스트
 	if(cate.equals("ill")){
@@ -313,49 +316,51 @@
 		IllBoardDao dao = new IllBoardDao();
 		IllboardVo vo = new IllboardVo();
 		
-		if(n != null ){
-			int iboardnum = Integer.parseInt(n);
-			vo = dao.getData(iboardnum);
+	
+		int iboardnum = Integer.parseInt(n);
+		vo = dao.getData(iboardnum);
+		
+		title = vo.getIboardtitle();
+		writer = vo.getIboardwriter();
+		date = vo.getIboarddate();
+		img = vo.getIboardimg();
+		content = vo.getIboardcontent();
 			
-			title = vo.getIboardtitle();
-			writer = vo.getIboardwriter();
-			date = vo.getIboarddate();
-			img = vo.getIboardimg();
-			content = vo.getIboardcontent();
 			
-			
-			
-		}else{
-			response.sendRedirect("layout.jsp");
-			
-		}
+		
 		
 	}
 	
-	//카테고리가 만화라면 
+	
+	 //카테고리가 만화라면 
 	else if (cate.equals("toon")){
 		
 		ToonBoardDao dao = new ToonBoardDao();
 		ToonboardVo vo = new ToonboardVo();
 		
-		if(n != null ){
-			int iboardnum = Integer.parseInt(n);
-			vo = dao.getData(iboardnum);
+	
+		int tboardnum = Integer.parseInt(n);
+		vo = dao.getData(tboardnum);
+		
+		title = vo.getTboardtitle();
+		writer = vo.getTboardwriter();
+		date = vo.getTboarddate();
+		img = vo.getTboardimg();
+		content = vo.getTboardcontent();
 			
-			title = vo.getTboardtitle();
-			writer = vo.getTboardwriter();
-			date = vo.getTboarddate();
-			img = vo.getTboardimg();
-			content = vo.getTboardcontent();
 			
 			
-			
-		}else{
-			response.sendRedirect("layout.jsp");
-			
-		}
+	
 		
 		
+	}
+	
+	}//외부 if end  
+	
+	
+	else{
+		
+		response.sendRedirect("layout.jsp");
 		
 	}
 	
