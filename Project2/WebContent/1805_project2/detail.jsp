@@ -288,7 +288,7 @@
 		
 		<div id="postinfo">
 			<span id="info_wrap">
-			<span>카테고리</span>
+			<span>카테고리 </span>
 			<span class="gubun">|</span>
 			<span>2018.05.24</span>
 			<span class="gubun">|</span>
