@@ -39,8 +39,9 @@
 				mp1 + ", " + mp2 + ", " + email); */
 				
 		UserDAO dao = new UserDAO();
-		UserVO vo = new UserVO(userId, userPw, userName, userGender, userBirth, userNicName,
-				userPhone, userEmail, userAddress, userFollower, userFollowing);
+		UserVO vo = new UserVO( userId,  userPw,  userName,  userGender,  userBirth,  userNicName,
+				 userAddress,  userEmail,  userPhone,  userFollower,  userFollowing);
+
 				
 		dao.addUser(vo); 
 		

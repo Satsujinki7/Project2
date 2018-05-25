@@ -23,6 +23,42 @@ public class UserVO {
 	
 	
 	public UserVO(String userId, String userPw, String userName, String userGender, int userBirth, String userNicName,
+			String userAddress, String userEmail, String userPhone, int userFollower, int userFollowing) {
+		super();
+		this.userId = userId;
+		this.userPw = userPw;
+		this.userName = userName;
+		this.userGender = userGender;
+		this.userBirth = userBirth;
+		this.userNicName = userNicName;
+		this.userAddress = userAddress;
+		this.userEmail = userEmail;
+		this.userPhone = userPhone;
+		this.userFollower = userFollower;
+		this.userFollowing = userFollowing;
+	}
+
+
+
+
+	public UserVO(String userId, String userPw, String userName, String userGender, int userBirth, String userNicName,
+			String userAddress, String userEmail, String userPhone) {
+		super();
+		this.userId = userId;
+		this.userPw = userPw;
+		this.userName = userName;
+		this.userGender = userGender;
+		this.userBirth = userBirth;
+		this.userNicName = userNicName;
+		this.userAddress = userAddress;
+		this.userEmail = userEmail;
+		this.userPhone = userPhone;
+	}
+
+
+
+
+	public UserVO(String userId, String userPw, String userName, String userGender, int userBirth, String userNicName,
 			String userAddress, String userEmail, String userPhone, int userFollower, int userFollowing, String userImg,
 			String userBio) {
 		super();

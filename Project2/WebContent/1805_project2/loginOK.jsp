@@ -69,7 +69,7 @@
 	
 	<%-- <jsp:forward page="loginMain.jsp"></jsp:forward> --%>
 	
-	<jsp:forward page="boardPage.jsp"></jsp:forward>
+	<jsp:forward page="layout.jsp"></jsp:forward>
 	<%
 			} 
 		} else {
