@@ -82,5 +82,40 @@ public class IllBoardDao {
 		
 	}//add end
 	
+	//한건 조회하는 메소드
+	
+		public IllboardVo getData(int iboardnum) {
+			sb.setLength(0);
+			sb.append("select * from illboard ");
+			sb.append("where iboardnum= ? ");
+			
+			IllboardVo vo=null;
+			
+			try {
+				pstmt=conn.prepareStatement(sb.toString());
+				pstmt.setInt(1, iboardnum);
+				
+				rs=pstmt.executeQuery();
+				rs.next();
+				
+				int no=rs.getInt("iboardnum");
+				String writer=rs.getString("iboardwriter");
+				String title=rs.getString("iboardtitle");
+				String contents=rs.getString("iboardcontent");
+				String date=rs.getString("iboarddate");
+				String imgpath=rs.getString("iboardimg");
+				
+				
+				
+				vo=new IllboardVo(no, date, title, writer, contents, imgpath, 0, 0, 0, 1);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return vo;
+		}//getData() end
+		
+	
 	
 }

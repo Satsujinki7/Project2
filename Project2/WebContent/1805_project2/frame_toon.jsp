@@ -1,3 +1,5 @@
+<%@page import="vo.UserVO"%>
+<%@page import="dao.UserDAO"%>
 <%@page import="vo.ToonboardVo"%>
 <%@page import="dao.ToonBoardDao"%>
 <%@page import="java.util.ArrayList"%>
@@ -145,18 +147,40 @@ margin-right: 10px;
 <%
 	int i=1;
 	ArrayList<ToonboardVo> list = tbd.alldataToonBoard();
+	
+	UserDAO userdao = new UserDAO();
+	UserVO uservo = new UserVO();
+	String imgpath = "";
+	
+	
 	for(ToonboardVo tbv : list){
+		
+		uservo = userdao.getData(tbv.getTboardwriter());
+		
+		//프로필 사진 등록 안했으면 디폴트 이미지 준다 
+		if(uservo == null || uservo.getUserImg() == null){
+			
+			 imgpath = "../images/dog.jpg";
+			
+			
+		}else{
+			
+			imgpath= uservo.getUserImg();
+		}
 
 %>
 	<div class="post">
+	
+		<a href="detail.jsp?boardnum=<%=tbv.getTboardnum() %>&category=toon">
 		<div class="img_area">
 			<img src="<%=tbv.getTboardimg() %>" alt="이미지" id="img<%=i++%>"/>
-		</div>
+		</div></a>
+		
 		<div class="info_area">
 			<div class="info_box">
-				<a href="#" class="post_title"><%=tbv.getTboardtitle() %></a>
-				<a href="#" class="post_writer">
-					<img src="../images/deden.jpg" alt="프사" />
+				<a href="detail.jsp?boardnum=<%=tbv.getTboardnum() %>&category=toon" class="post_title"><%=tbv.getTboardtitle() %></a>
+				<a href="myPage.jsp?writer=<%=tbv.getTboardwriter() %> " class="post_writer">
+					<img src="<%=imgpath %>" alt="프사" />
 					<span><%=tbv.getTboardwriter() %></span>
 				</a>
 			</div>

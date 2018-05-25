@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import connection.OracleXE_ConnectionPJ2;
+import vo.IllboardVo;
 import vo.UserVO;
 
 public class UserDAO {
@@ -45,9 +46,11 @@ public class UserDAO {
 				String userEmail = rs.getString("useremail");
 				int userFollower = rs.getInt("userfollower");
 				int userFollowing = rs.getInt("userfollowing");
+				String userImg = rs.getString("userimg");
+				String userBio = rs.getString("userbio");
 				
-				UserVO vo = new UserVO(userId, userPw, userName, userGender, userBirth, userNicName, 
-						 userPhone, userEmail, userAddress, userFollower, userFollowing);
+				UserVO vo = new UserVO(userId, userPw, userName, userGender, userBirth, userNicName,
+						userAddress, userEmail, userPhone, userFollower, userFollowing, userImg, userBio);
 				list.add(vo);				
 			}
 			
@@ -85,9 +88,13 @@ public class UserDAO {
 			String userEmail = rs.getString("useremail");
 			int userFollower = rs.getInt("userfollower");
 			int userFollowing = rs.getInt("userfollowing");
+			String userImg = rs.getString("userimg");
+			String userBio = rs.getString("userbio");
 			
-			vo = new UserVO(userId, userPw, userName, userGender, userBirth, userNicName, 
-					 userPhone, userEmail, userAddress, userFollower, userFollowing);
+			
+
+			vo = new UserVO(userId, userPw, userName, userGender, userBirth, userNicName,
+					userAddress, userEmail, userPhone, userFollower, userFollowing, userImg, userBio);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -150,7 +157,7 @@ public class UserDAO {
 	public void addUser(UserVO vo) {
 		sb.setLength(0);
 		sb.append("insert into userinfo ");
-		sb.append("values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
+		sb.append("values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?) ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -166,10 +173,62 @@ public class UserDAO {
 			pstmt.setString(9, vo.getUserAddress());
 			pstmt.setInt(10, vo.getUserFollower());
 			pstmt.setInt(11, vo.getUserFollowing());
+			pstmt.setString(12, vo.getUserImg());
+			pstmt.setString(13, vo.getUserBio());
+			
 			
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	} //addUser() end
+	
+	
+	
+	//한건 조회하는 메소드
+	
+	public UserVO getData(String iboardwriter) {
+		sb.setLength(0);
+		sb.append("select * from userinfo ");
+		sb.append("where username= ? ");
+		
+		UserVO vo=null;
+		
+		try {
+			pstmt=conn.prepareStatement(sb.toString());
+			pstmt.setString(1, iboardwriter);
+			
+			rs=pstmt.executeQuery();
+			rs.next();
+			
+			String userName =rs.getString("username");
+			String userId = rs.getString("userid");
+			String userPw = rs.getString("userpw");
+			String userGender = rs.getString("usergender");
+			int userBirth = rs.getInt("userbirth");
+			String userNicName = rs.getString("usernicname");
+			String userAddress = rs.getString("useraddress");
+			String userPhone = rs.getString("userphone");
+			String userEmail = rs.getString("useremail");
+			int userFollower = rs.getInt("userfollower");
+			int userFollowing = rs.getInt("userfollowing");
+			String userImg = rs.getString("userimg");
+			String userBio = rs.getString("userbio");
+			
+			
+
+			vo = new UserVO(userId, userPw, userName, userGender, userBirth, userNicName,
+					userAddress, userEmail, userPhone, userFollower, userFollowing, userImg, userBio);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+	}//getData() end
+	
+	
+	
+	
 }

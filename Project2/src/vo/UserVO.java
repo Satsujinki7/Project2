@@ -12,14 +12,19 @@ public class UserVO {
 	private String userPhone;
 	private int userFollower;
 	private int userFollowing;
+	private String userImg;
+	private String userBio;
 	
 	public UserVO() {
 		
 	}
 
-	public UserVO(String userId, String userPw, String userName, String userGender, int userBirth,
-			String userNicName, String userPhone, String userEmail, String userAddress, int userFollower,
-			int userFollowing) {
+	
+	
+	
+	public UserVO(String userId, String userPw, String userName, String userGender, int userBirth, String userNicName,
+			String userAddress, String userEmail, String userPhone, int userFollower, int userFollowing, String userImg,
+			String userBio) {
 		super();
 		this.userId = userId;
 		this.userPw = userPw;
@@ -27,12 +32,18 @@ public class UserVO {
 		this.userGender = userGender;
 		this.userBirth = userBirth;
 		this.userNicName = userNicName;
-		this.userPhone = userPhone;
-		this.userEmail = userEmail;
 		this.userAddress = userAddress;
+		this.userEmail = userEmail;
+		this.userPhone = userPhone;
 		this.userFollower = userFollower;
 		this.userFollowing = userFollowing;
+		this.userImg = userImg;
+		this.userBio = userBio;
 	}
+
+	
+
+
 
 	public String getUserId() {
 		return userId;
@@ -121,4 +132,35 @@ public class UserVO {
 	public void setUserFollowing(int userFollowing) {
 		this.userFollowing = userFollowing;
 	}
+
+
+
+
+	public String getUserImg() {
+		return userImg;
+	}
+
+
+
+
+	public void setUserImg(String userImg) {
+		this.userImg = userImg;
+	}
+
+
+
+
+	public String getUserBio() {
+		return userBio;
+	}
+
+
+
+
+	public void setUserBio(String userBio) {
+		this.userBio = userBio;
+	}
+	
+	
+	
 }

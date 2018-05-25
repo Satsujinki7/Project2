@@ -1,3 +1,7 @@
+<%@page import="vo.ToonboardVo"%>
+<%@page import="dao.ToonBoardDao"%>
+<%@page import="dao.IllBoardDao"%>
+<%@page import="vo.IllboardVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -55,6 +59,12 @@
 	width: 800px;
 	height: auto;
 	margin: 20px auto;
+
+}
+
+#img_area img{
+
+	max-width: 800px;
 
 }
 
@@ -279,18 +289,92 @@
  
 
 <body>
+
+<%
+
+	
+
+
+	String n = request.getParameter("boardnum");
+	String cate = request.getParameter("category");
+	
+	
+	String title = "";
+	String writer = "";
+	String date = "";
+	String img = "";
+	String content = "";
+	
+	
+	//카테고리가 일러스트
+	if(cate.equals("ill")){
+		
+		IllBoardDao dao = new IllBoardDao();
+		IllboardVo vo = new IllboardVo();
+		
+		if(n != null ){
+			int iboardnum = Integer.parseInt(n);
+			vo = dao.getData(iboardnum);
+			
+			title = vo.getIboardtitle();
+			writer = vo.getIboardwriter();
+			date = vo.getIboarddate();
+			img = vo.getIboardimg();
+			content = vo.getIboardcontent();
+			
+			
+			
+		}else{
+			response.sendRedirect("layout.jsp");
+			
+		}
+		
+	}
+	
+	//카테고리가 만화라면 
+	else if (cate.equals("toon")){
+		
+		ToonBoardDao dao = new ToonBoardDao();
+		ToonboardVo vo = new ToonboardVo();
+		
+		if(n != null ){
+			int iboardnum = Integer.parseInt(n);
+			vo = dao.getData(iboardnum);
+			
+			title = vo.getTboardtitle();
+			writer = vo.getTboardwriter();
+			date = vo.getTboarddate();
+			img = vo.getTboardimg();
+			content = vo.getTboardcontent();
+			
+			
+			
+		}else{
+			response.sendRedirect("layout.jsp");
+			
+		}
+		
+		
+		
+	}
+	
+	
+	
+
+
+%>
 	
 	<div id="detail_container">
 		
 		<div id="detail_title">
-			<span>제목이 들어갈 부분</span>
+			<span><%=title %></span>
 		</div>
 		
 		<div id="postinfo">
 			<span id="info_wrap">
-			<span>카테고리 </span>
+			<span>카테고리</span>
 			<span class="gubun">|</span>
-			<span>2018.05.24</span>
+			<span><%=date.substring(0,16) %></span>
 			<span class="gubun">|</span>
 			<span>조회수</span>
 			<span>120</span>
@@ -298,21 +382,14 @@
 		</div>
 		
 		<div id="img_area">
-			<span><img src="../images/dog.jpg" alt="이미지" /></span>
+			<span><img src="<%=img %>" alt="이미지" /></span>
 		
 		</div>
 		
 		
 		<div id="post_text">
 		
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-			Voluptas ducimus dolorem distinctio hic minima quae eligendi. 
-			Hic adipisci dolor alias non eius nobis libero vel consequuntur 
-			blanditiis ipsam! Corporis qui.
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-			Incidunt ipsum rerum harum accusantium laborum aut sed aliquid culpa 
-			dicta cum voluptate voluptas! Accusantium similique at officia doloremque
-			 facere nesciunt rem.
+			<p><%=content %>
 			
 			</p>
 		</div>
@@ -329,7 +406,7 @@
 		<div id="copyright">
 			<span id="copywrap">
 			<span>Copyright ©</span>
-			<span>글쓴이</span>
+			<span><%=writer %></span>
 			<span>All Rights Reserved</span>
 			</span>
 		</div>
@@ -337,7 +414,7 @@
 	
 		<div id="tag_area">
 			<span>Tag</span>
-			<a href="">#강아지</a>
+			<a href="">#강아지z </a>
 			<a href="">#멍멍이</a>
 			<a href="">#반려동물</a>
 			<a href="">#겨울</a>
@@ -348,7 +425,7 @@
 		<div id="writer_area">
 			<div id="w_pic"><img src="../images/dog2.jpg" alt="" /></div>
 			<div id="w_info">
-				<span id="writer_name">글쓴이</span>
+				<span id="writer_name"><%=writer %></span>
 				<span id="writer_bio">자기소개 어쩌고 저쩌고 어쩌고 저쩌고</span>
 			</div>
 			<div id="w_follow">

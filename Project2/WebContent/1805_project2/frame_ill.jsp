@@ -1,3 +1,5 @@
+<%@page import="vo.UserVO"%>
+<%@page import="dao.UserDAO"%>
 <%@page import="vo.IllboardVo"%>
 <%@page import="dao.IllBoardDao"%>
 <%@page import="java.util.ArrayList"%>
@@ -6,7 +8,6 @@
 <%
 //-------일러스트 리스트
 
-IllBoardDao ibd = new IllBoardDao();
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -140,43 +141,80 @@ margin-right: 10px;
 	<jsp:include page="nav.jsp"></jsp:include>
 </div>
 <a href="illwrite.jsp" id="writebtn">글쓰기</a>
-<div id="post_wrap">
 
 <%
-	int i=1;
-	ArrayList<IllboardVo> list = ibd.alldataIllBoard();
-	for(IllboardVo ibv : list){
+	IllBoardDao dao = new IllBoardDao();
+	ArrayList<IllboardVo> list =  dao.alldataIllBoard();
+
+	int j = 1;
+	
+	UserDAO userdao = new UserDAO();
+	UserVO uservo = new UserVO();
+	String imgpath = "";
+	
+	
+	for(IllboardVo vo : list){
+		
+		uservo = userdao.getData(vo.getIboardwriter());
+		
+		//프로필 사진 등록 안했으면 디폴트 이미지 준다 
+		if(uservo == null || uservo.getUserImg() == null){
+			
+			 imgpath = "../images/dog.jpg";
+			
+			
+		}else{
+			
+			imgpath= uservo.getUserImg();
+		}
 
 %>
-	<div class="post">
-		<div class="img_area">
-			<img src="<%=ibv.getIboardimg() %>" alt="이미지" id="img<%=i++%>"/>
-		</div>
-		<div class="info_area">
-			<div class="info_box">
-				<a href="#" class="post_title"><%=ibv.getIboardtitle() %></a>
-				<a href="#" class="post_writer">
-					<img src="../images/deden.jpg" alt="프사" />
-					<span><%=ibv.getIboardwriter() %></span>
-				</a>
-			</div>
-		</div>
-		<div class="btn_area">
-		 <a href="#" class="post_like">
-		 	<span>좋아요</span>
-		 	<b><%=ibv.getIboardhits() %></b>
-		 	
-		 </a>
-		 <a href="#" class="comment">
-		 	<span>댓글</span>
-		 	<b>25</b>
-		 </a>
-		
+
+<div id="post_wrap">
+<div class="post">
+
+	<a href="detail.jsp?boardnum=<%=vo.getIboardnum() %>&category=ill">
+	<div class="img_area">
+		<img src="<%=vo.getIboardimg() %>" alt="이미지" id="img<%=j++%>" class="post_img"/>
+	</div>
+	</a>
+	
+	<div class="info_area">
+		<div class="info_box">
+			<a href="detail.jsp?boardnum=<%=vo.getIboardnum() %>&category=ill" class="post_title"><%=vo.getIboardtitle() %></a>
+			<a href="myPage.jsp?writer=<%=vo.getIboardwriter() %> " class="post_writer">
+				<img src="<%=imgpath %>" alt="프사" />
+				<span><%=vo.getIboardwriter() %></span>
+			</a>
 		</div>
 	</div>
+	<div class="btn_area">
+	 <a href="#" class="post_like">
+	 	<span>좋아요</span>
+	 	<b>10</b>
+	 	
+	 </a>
+	 <a href="#" class="comment">
+	 	<span>댓글</span>
+	 	<b>25</b>
+	 </a>
+	
+	
+	</div>
+</div>
+
+
+
+
+
 <%
-	}// for end
+
+	}
 %>
+
+
+
+
 </div>
 
 	<!-- footer part -->

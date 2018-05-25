@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import connection.OracleXE_ConnectionPJ2;
+import vo.IllboardVo;
 import vo.ToonboardVo;
 
 public class ToonBoardDao {
@@ -81,4 +82,40 @@ public class ToonBoardDao {
 		}
 		
 	}//add end	
+	
+	
+	//한건 조회하는 메소드
+	
+			public ToonboardVo getData(int toonboardnum) {
+				sb.setLength(0);
+				sb.append("select * from illboard ");
+				sb.append("where iboardnum= ? ");
+				
+				ToonboardVo vo=null;
+				
+				try {
+					pstmt=conn.prepareStatement(sb.toString());
+					pstmt.setInt(1, toonboardnum);
+					
+					rs=pstmt.executeQuery();
+					rs.next();
+					
+					int no=rs.getInt("toonboardnum");
+					String writer=rs.getString("toonboardwriter");
+					String title=rs.getString("toonboardtitle");
+					String contents=rs.getString("toonboardcontent");
+					String date=rs.getString("toonboarddate");
+					String imgpath=rs.getString("toonboardimg");
+					
+					
+					
+					vo=new ToonboardVo(no, date, title, writer, contents, imgpath, 0, 0, 0, 1);
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return vo;
+			}//getData() end
+	
 }
