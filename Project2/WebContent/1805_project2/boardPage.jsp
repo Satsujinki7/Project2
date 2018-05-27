@@ -69,6 +69,10 @@
 		#search_div {
 			text-align: center;
 		}
+		
+		#send_main {
+			text-align: center;
+		}
 	</style>
 	
 <!-- 	<script type="text/javascript">
@@ -88,6 +92,18 @@
 	</script> -->
 	
 	<script type="text/javascript">
+		window.onload = function() {
+			var userId = <%= session.getAttribute("userName") %>;
+			
+			if(userId == "" || userId == null) {
+				document.getElementById("btn_write").style.display = "none";
+			}
+		}
+		
+		function sendMain() {
+			location.href = 'layout.jsp';
+		}
+	
 		function search() {
 			if(s_text.value == "") {
 				alert("검색어를 입력하세요.");
@@ -161,7 +177,7 @@
 				<td colspan="4">
 					<!-- 등록 누르면 게시글쓰기(DB 입력)로 이동 -->
 					<a href="boardWrite.jsp">
-						<input type="button" value="글쓰기" />
+						<input type="button" id="btn_write" value="글쓰기" />
 					</a>
 				</td>
 			</tr>
@@ -186,10 +202,16 @@
 			<select name="s_option" id="s_option">
 				<option value="boardtitle" selected="selected">제목</option>
 				<option value="boardcontents">내용</option>
+				<option value="boardwriter">작성자</option>
 			</select>
 			<input type="text" name="s_text" id="s_text" />
 			<input type="submit" value="검색" />
 		</form>
+	</div>
+	
+	<div id="send_main">
+		<br>
+		<input type="button" value="메인으로" onclick="sendMain()"/>
 	</div>
 </body>
 </html>

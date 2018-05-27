@@ -1,4 +1,4 @@
-create table UserInfo
+﻿create table UserInfo
 (userID varchar2(20) constraint userID_pk_id primary key,
 userPW varchar2(20), userName varchar2(20),
 userGender varchar2(4), userBirth number(6), 
@@ -131,4 +131,17 @@ userimg varchar2(30),
 userbio varchar2(500));
 
 
+--여기부터 추가 (조현명)
+create table REPLY
+(replyNum number constraint replynum_pk_rn primary key,
+replyBoardNum number constraint replyboardnum_fk_rbn references board(boardnum) on delete cascade not null,
+replyWriter varchar2(20), replyDate date,
+replyParent number, replyComment varchar2(1000) not null);
 
+create sequence reply_replyNum_seq
+start WITH 1
+MINVALUE 1
+NOMAXVALUE
+INCREMENT BY 1
+NOCYCLE
+NOCACHE;

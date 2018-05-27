@@ -13,7 +13,10 @@
 <% 
 	//이미지 업로드용 변수들
 	//실제로 이미지 출력할 값이 담기는 이클립스 폴더 경로
-	String saveDir = request.getRealPath("upload");
+	//어떤 컴에서는 request 객체로 해도 되고 어떤 컴에서는 또 안되더라.
+	//안될 경우 밑의 getServletContext 객체로 써라.
+//	String saveDir = request.getRealPath("upload");
+	String saveDir = getServletContext().getRealPath("upload");
 	int maxSize = 1024*1024*5;
 	
 	//이렇게 생성하면 절대경로상에 이미지파일이 생성됨
