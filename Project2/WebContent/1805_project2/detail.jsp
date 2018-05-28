@@ -1,3 +1,7 @@
+<%@page import="dao.EtcBoardDao"%>
+<%@page import="vo.EtcboardVo"%>
+<%@page import="dao.PrdBoardDao"%>
+<%@page import="vo.PrdboardVo"%>
 <%@page import="vo.ToonboardVo"%>
 <%@page import="dao.ToonBoardDao"%>
 <%@page import="dao.IllBoardDao"%>
@@ -325,12 +329,7 @@
 		date = vo.getIboarddate();
 		img = vo.getIboardimg();
 		content = vo.getIboardcontent();
-			
-			
-		
-		
 	}
-	
 	
 	 //카테고리가 만화라면 
 	else if (cate.equals("toon")){
@@ -338,7 +337,6 @@
 		ToonBoardDao dao = new ToonBoardDao();
 		ToonboardVo vo = new ToonboardVo();
 		
-	
 		int tboardnum = Integer.parseInt(n);
 		vo = dao.getData(tboardnum);
 		
@@ -347,11 +345,39 @@
 		date = vo.getTboarddate();
 		img = vo.getTboardimg();
 		content = vo.getTboardcontent();
-			
-			
-			
-	
 		
+	}
+	//카테고리 패러디(2차창작)
+	else if (cate.equals("prd")){
+		
+		PrdboardVo vo = new PrdboardVo();
+		PrdBoardDao dao = new PrdBoardDao();
+		
+		int pboardnum = Integer.parseInt(n);
+		vo = dao.getData(pboardnum);
+		
+		title = vo.getPboardtitle();
+		writer = vo.getPboardwriter();
+		date = vo.getPboarddate();
+		img = vo.getPboardimg();
+		content = vo.getPboardcontent();
+		
+	}
+	
+	//카테고리 기타
+	else if (cate.equals("etc")){
+		
+		EtcboardVo vo = new EtcboardVo();
+		EtcBoardDao dao = new EtcBoardDao();
+		
+		int eboardnum = Integer.parseInt(n);
+		vo = dao.getData(eboardnum);
+		
+		title = vo.getEboardtitle();
+		writer = vo.getEboardwriter();
+		date = vo.getEboarddate();
+		img = vo.getEboardimg();
+		content = vo.getEboardcontent();
 		
 	}
 	
@@ -360,7 +386,7 @@
 	
 	else{
 		
-		response.sendRedirect("layout.jsp");
+		response.sendRedirect("page_rank.jsp");
 		
 	}
 	

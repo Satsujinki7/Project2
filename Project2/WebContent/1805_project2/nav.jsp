@@ -38,8 +38,8 @@ function logout() {
  				<div id="catediv" class="category">
 						<a href="page_ill.jsp" class="catemenu">일러스트</a>
 						<a href="page_toon.jsp" class="catemenu">만화</a>
-						<a href="#" class="catemenu">창작</a>
-						<a href="#" class="catemenu">기타</a>
+						<a href="page_prd.jsp" class="catemenu">창작</a>
+						<a href="page_etc.jsp" class="catemenu">기타</a>
 						<a href="boardPage.jsp" class="catemenu">자유게시판</a>
 			
 						

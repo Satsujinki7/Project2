@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import connection.OracleXE_ConnectionPJ2;
 import vo.EtcboardVo;
-import vo.IllboardVo;
 
 public class EtcBoardDao {
 	StringBuffer sb = new StringBuffer();
@@ -21,7 +20,7 @@ public class EtcBoardDao {
 	}
 	
 	//전체조회 ->업로드 순으로 
-	public ArrayList<EtcboardVo> alldataIllBoard(){
+	public ArrayList<EtcboardVo> alldataEtcBoard(){
 		ArrayList<EtcboardVo> list = new ArrayList<>();
 		
 		sb.setLength(0);
@@ -57,7 +56,7 @@ public class EtcBoardDao {
 	
 	
 	//새글쓰기
-	public void addIllBoard(EtcboardVo ebv) {
+	public void addEtcBoard(EtcboardVo ebv) {
 		sb.setLength(0);
 		sb.append("insert into etcboard ");
 		sb.append("values(eboard_ebnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?) ");
@@ -84,7 +83,6 @@ public class EtcBoardDao {
 	}//add end
 	
 	//한건 조회하는  메소드
-	
 		public EtcboardVo getData(int eboardnum) {
 			sb.setLength(0);
 			sb.append("select * from etcboard ");

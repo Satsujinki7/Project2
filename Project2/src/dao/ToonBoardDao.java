@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import connection.OracleXE_ConnectionPJ2;
-import vo.IllboardVo;
 import vo.ToonboardVo;
 
 public class ToonBoardDao {
@@ -88,8 +87,8 @@ public class ToonBoardDao {
 	
 			public ToonboardVo getData(int toonboardnum) {
 				sb.setLength(0);
-				sb.append("select * from illboard ");
-				sb.append("where iboardnum= ? ");
+				sb.append("select * from toonboard ");
+				sb.append("where tboardnum= ? ");
 				
 				ToonboardVo vo=null;
 				
@@ -100,12 +99,12 @@ public class ToonBoardDao {
 					rs=pstmt.executeQuery();
 					rs.next();
 					
-					int no=rs.getInt("toonboardnum");
-					String writer=rs.getString("toonboardwriter");
-					String title=rs.getString("toonboardtitle");
-					String contents=rs.getString("toonboardcontent");
-					String date=rs.getString("toonboarddate");
-					String imgpath=rs.getString("toonboardimg");
+					int no=rs.getInt("tboardnum");
+					String writer=rs.getString("tboardwriter");
+					String title=rs.getString("tboardtitle");
+					String contents=rs.getString("tboardcontent");
+					String date=rs.getString("tboarddate");
+					String imgpath=rs.getString("tboardimg");
 					
 					
 					

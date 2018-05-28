@@ -1,29 +1,27 @@
 <%@page import="vo.UserVO"%>
 <%@page import="dao.UserDAO"%>
-<%@page import="vo.IllboardVo"%>
-<%@page import="dao.IllBoardDao"%>
+<%@page import="vo.PrdboardVo"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="dao.PrdBoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <!-- 2차 창작 리스트 페이지!!!  -->
 <%
-//-------일러스트 리스트
-
-
+	PrdBoardDao dao = new PrdBoardDao();
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>frame.jsp</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="pageCss.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
 <style type="text/css">
 
 
 #post_wrap{
 	width: 1100px;
-	height: 1100px;
+	height: 1600px;
 	margin: 0 auto;
 
 }
@@ -132,25 +130,27 @@ margin-right: 10px;
 
 </style>
 
+<title>2차 창작 페이지</title>
 </head>
 <body>
 
+<!-- nav bar part -->
+<div id="container_nav">	
+	<jsp:include page="nav.jsp"></jsp:include>
+</div>
 <a href="illwrite.jsp" id="writebtn">글쓰기</a>
+<div id="post_wrap">
 
 <%
-	IllBoardDao dao = new IllBoardDao();
-	ArrayList<IllboardVo> list =  dao.alldataIllBoard();
-
-	int j = 1;
+	int i=1;
+	ArrayList<PrdboardVo> lsit = dao.alldataPrdBoard();
 	
 	UserDAO userdao = new UserDAO();
 	UserVO uservo = new UserVO();
 	String imgpath = "";
 	
-	
-	for(IllboardVo vo : list){
-		
-		uservo = userdao.getData(vo.getIboardwriter());
+	for(PrdboardVo vo : lsit){
+		uservo = userdao.getData(vo.getPboardwriter());
 		
 		//프로필 사진 등록 안했으면 디폴트 이미지 준다 
 		if(uservo == null || uservo.getUserImg() == null){
@@ -162,67 +162,55 @@ margin-right: 10px;
 			
 			imgpath= uservo.getUserImg();
 		}
-
 %>
-
-
-<div id="post_wrap">
 <div class="post">
-
-	<a href="detail.jsp?boardnum=<%=vo.getIboardnum() %>&category=ill">
-	<div class="img_area">
-		<img src="<%=vo.getIboardimg() %>" alt="이미지" id="img<%=j++%>" class="post_img"/>
-	</div>
-	</a>
-	
-	<div class="info_area">
-		<div class="info_box">
-			<a href="detail.jsp?boardnum=<%=vo.getIboardnum() %>&category=ill" class="post_title"><%=vo.getIboardtitle() %></a>
-			<a href="myPage.jsp?writer=<%=vo.getIboardwriter() %> " class="post_writer">
-				<img src="<%=imgpath %>" alt="프사" />
-				<span><%=vo.getIboardwriter() %></span>
-			</a>
+		<a href="detail.jsp?boardnum=<%=vo.getPboardnum() %>&category=prd">
+		<div class="img_area">
+			<img src="<%=vo.getPboardimg() %>" alt="이미지" id="img<%=i++%>"/>
+		</div></a>
+		
+		<div class="info_area">
+			<div class="info_box">
+				<a href="detail.jsp?boardnum=<%=vo.getPboardnum() %>&category=toon" class="post_title"><%=vo.getPboardtitle() %></a>
+				<a href="myPage.jsp?writer=<%=vo.getPboardwriter() %> " class="post_writer">
+					<img src="<%=imgpath %>" alt="프사" />
+					<span><%=vo.getPboardwriter() %></span>
+				</a>
+			</div>
+		</div>
+		<div class="btn_area">
+		 <a href="#" class="post_like">
+		 	<span>좋아요</span>
+		 	<b><%=vo.getPboardnomination() %></b>
+		 	
+		 </a>
+		 <a href="#" class="comment">
+		 	<span>댓글</span>
+		 	<b>25</b>
+		 </a>
+		
 		</div>
 	</div>
-	<div class="btn_area">
-	 <a href="#" class="post_like">
-	 	<span>좋아요</span>
-	 	<b>10</b>
-	 	
-	 </a>
-	 <a href="#" class="comment">
-	 	<span>댓글</span>
-	 	<b>25</b>
-	 </a>
-	
-	
-	</div>
-</div>
-
-
-
-
-
 <%
-
-	}
+	}// for end
 %>
 
 
 
 
 </div>
-
 
 </body>
 </html>
+
 <script type="text/javascript">
+
 $(function(){
+	
 	for(var i=1 ; i < 10 ; i++){
 			
 		var imgwidth = $("#img"+i).width();
 		var imgheight = $("#img"+i).height();
-
 		
 		if(imgwidth > imgheight){
 			$("#img"+i).css("width","300px");
@@ -246,10 +234,4 @@ $(function(){
 	
 });
 
-
-
-
-
 </script>
-
-

@@ -1,26 +1,23 @@
 <%@page import="vo.UserVO"%>
 <%@page import="dao.UserDAO"%>
-<%@page import="vo.ToonboardVo"%>
-<%@page import="dao.ToonBoardDao"%>
+<%@page import="dao.EtcBoardDao"%>
+<%@page import="vo.EtcboardVo"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-//-------만화 리스트
-
-ToonBoardDao dao = new ToonBoardDao();
-
-%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>만화 페이지</title>
+<%
+//------기타 페이지
+
+EtcBoardDao dao = new EtcBoardDao();
+
+%>
+<meta charset="UTF-8">
 <link rel="stylesheet" href="pageCss.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
 <style type="text/css">
 
 
@@ -135,6 +132,7 @@ margin-right: 10px;
 
 </style>
 
+<title>기타 페이지</title>
 </head>
 <body>
 <!-- nav bar part -->
@@ -146,16 +144,16 @@ margin-right: 10px;
 
 <%
 	int i=1;
-	ArrayList<ToonboardVo> list = dao.alldataToonBoard();
+	ArrayList<EtcboardVo> list = dao.alldataEtcBoard();
 	
 	UserDAO userdao = new UserDAO();
 	UserVO uservo = new UserVO();
 	String imgpath = "";
 	
 	
-	for(ToonboardVo tbv : list){
+	for(EtcboardVo tbv : list){
 		
-		uservo = userdao.getData(tbv.getTboardwriter());
+		uservo = userdao.getData(tbv.getEboardwriter());
 		
 		//프로필 사진 등록 안했으면 디폴트 이미지 준다 
 		if(uservo == null || uservo.getUserImg() == null){
@@ -172,24 +170,24 @@ margin-right: 10px;
 
 	<div class="post">
 	
-		<a href="detail.jsp?boardnum=<%=tbv.getTboardnum() %>&category=toon">
+		<a href="detail.jsp?boardnum=<%=tbv.getEboardnum() %>&category=toon">
 		<div class="img_area">
-			<img src="<%=tbv.getTboardimg() %>" alt="이미지" id="img<%=i++%>"/>
+			<img src="<%=tbv.getEboardimg() %>" alt="이미지" id="img<%=i++%>"/>
 		</div></a>
 		
 		<div class="info_area">
 			<div class="info_box">
-				<a href="detail.jsp?boardnum=<%=tbv.getTboardnum() %>&category=toon" class="post_title"><%=tbv.getTboardtitle() %></a>
-				<a href="myPage.jsp?writer=<%=tbv.getTboardwriter() %> " class="post_writer">
+				<a href="detail.jsp?boardnum=<%=tbv.getEboardnum() %>&category=toon" class="post_title"><%=tbv.getEboardtitle() %></a>
+				<a href="myPage.jsp?writer=<%=tbv.getEboardwriter() %> " class="post_writer">
 					<img src="<%=imgpath %>" alt="프사" />
-					<span><%=tbv.getTboardwriter() %></span>
+					<span><%=tbv.getEboardwriter() %></span>
 				</a>
 			</div>
 		</div>
 		<div class="btn_area">
 		 <a href="#" class="post_like">
 		 	<span>좋아요</span>
-		 	<b><%=tbv.getTboardnomination() %></b>
+		 	<b><%=tbv.getEboardnomination() %></b>
 		 	
 		 </a>
 		 <a href="#" class="comment">
@@ -208,39 +206,7 @@ margin-right: 10px;
 	<div id="footercon">
 		<jsp:include page="footer.jsp"></jsp:include>
 	</div>
+
+
 </body>
 </html>
-<script type="text/javascript">
-
-$(function(){
-	
-	for(var i=1 ; i < 10 ; i++){
-			
-		var imgwidth = $("#img"+i).width();
-		var imgheight = $("#img"+i).height();
-		
-		if(imgwidth > imgheight){
-			$("#img"+i).css("width","300px");
-			imgheight = $("#img"+i).height();
-			var margin = (300-imgheight)/2;
-			$("#img"+i).css({
-					"margin-top": margin,
-					"margin-bottom": margin
-			});
-		}//if end
-		else{
-			$("#img"+i).css("height","300px");
-			imgwidth = $("#img"+i).width();
-			var margin = (300-imgwidth)/2;
-			$("#img"+i).css({
-				"margin-left": margin,
-				"margin-right": margin	
-			});
-		}//else end
-	}//for end
-	
-});
-
-</script>
-
-

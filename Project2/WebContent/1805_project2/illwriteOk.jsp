@@ -1,4 +1,8 @@
 <!-- project2 -->
+<%@page import="dao.EtcBoardDao"%>
+<%@page import="vo.EtcboardVo"%>
+<%@page import="dao.PrdBoardDao"%>
+<%@page import="vo.PrdboardVo"%>
 <%@page import="dao.ToonBoardDao"%>
 <%@page import="vo.ToonboardVo"%>
 <%@page import="dao.IllBoardDao"%>
@@ -39,7 +43,7 @@ if(cat==1){//일러스트
 	ibv.setIboardflag(1);
 	
 	ibd.addIllBoard(ibv);
-	response.sendRedirect("frame_ill.jsp");
+	response.sendRedirect("page_ill.jsp");
 	
 }else if(cat == 2){//만화
 	ToonboardVo tbv = new ToonboardVo();
@@ -51,7 +55,32 @@ if(cat==1){//일러스트
 	tbv.setTboardflag(1);
 	
 	tbd.addtoonBoard(tbv);
-	response.sendRedirect("frame_toon.jsp");
+	response.sendRedirect("page_toon.jsp");
+	
+}else if(cat==3){//2차창작 (패러디)
+	PrdboardVo pbv = new PrdboardVo();
+	PrdBoardDao pbd = new PrdBoardDao();
+	
+	pbv.setPboardtitle(title);
+	pbv.setPboardwriter(writer);
+	pbv.setPboardcontent(content);
+	pbv.setPboardimg(fullname);
+	pbv.setPboardflag(1);
+	
+	pbd.addPrdBoard(pbv);
+	response.sendRedirect("page_prd.jsp");
+}else if(cat ==4){ //기타등등 page
+	EtcboardVo ebv = new EtcboardVo();
+	EtcBoardDao ebd = new EtcBoardDao();
+	
+	ebv.setEboardtitle(title);
+	ebv.setEboardwriter(writer);
+	ebv.setEboardcontent(content);
+	ebv.setEboardimg(fullname);
+	ebv.setEboardflag(1);
+	
+	ebd.addEtcBoard(ebv);
+	response.sendRedirect("page_etc.jsp");
 }
 
 //임시로 해둔 페이지 전환입니다
