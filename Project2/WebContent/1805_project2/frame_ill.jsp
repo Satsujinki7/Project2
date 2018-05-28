@@ -15,8 +15,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>frame.jsp</title>
-<link rel="stylesheet" href="layoutcss.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
@@ -136,10 +134,7 @@ margin-right: 10px;
 
 </head>
 <body>
-<!-- nav bar part -->
-<div id="container_nav">	
-	<jsp:include page="nav.jsp"></jsp:include>
-</div>
+
 <a href="illwrite.jsp" id="writebtn">글쓰기</a>
 
 <%
