@@ -46,7 +46,12 @@
 <body>
 	<%
 		String userName = (String)session.getAttribute("userName");
+		//로그인 안한 상태에서 글쓰기 접근
+		if(userName == null){
+			response.sendRedirect("login.jsp");
+		}
 	%>
+        
 	<div id="write_div">
     <form id="frm" action="#" method="post" name="frm" enctype="multipart/form-data">
     	<div id="frm_wrap">
