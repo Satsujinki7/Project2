@@ -213,12 +213,7 @@ margin-right: 10px;
 
 </div>
 
-	<!-- footer part -->
-	<div id="footer">
-		<p>풋터 부분입니다아ㅏㅇ아아아아</p>
-		<p>폼잡는거 거지같다 ^ㅗ^</p>
-		<p>project date : 20180509~</p>
-	</div>
+
 </body>
 </html>
 <script type="text/javascript">

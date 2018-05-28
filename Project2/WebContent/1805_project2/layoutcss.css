@@ -209,9 +209,10 @@ li {
 	#container_nav {
 		width: auto;
 	}
-	#container_body{
-	
+	#container{
+		height: 800px;
 	}
+	
 	 
 	 #nav,#navwrap,#logo,#menu {
 	 	float: none;

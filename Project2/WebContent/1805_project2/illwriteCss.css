@@ -3,8 +3,8 @@
     
     #upload_img {
     	display : none;
-    	/*width: 500px;
-		margin: 0;*/
+    	width: 500px;
+		margin: 0;
 	}
     
     
@@ -90,9 +90,9 @@
 	
 	#img_div{
 		width: 500px;
-		height: 500px;
 		margin: 20px auto;
-		background-color: skyblue;
+		/*height: 500px;
+		background-color: skyblue;*/
 	
 	}
 	

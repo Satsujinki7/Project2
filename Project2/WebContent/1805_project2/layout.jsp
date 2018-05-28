@@ -26,7 +26,12 @@
 		<%-- <jsp:include page="content.jsp"></jsp:include> --%>
 		
 	</div>
+	<!-- 
+	<div id="footercon">
+		 <jsp:include page="footer.jsp"></jsp:include> 
+	</div>
 	
+	 -->
 
 
 </body>

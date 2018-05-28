@@ -42,7 +42,19 @@ form.example::after {
 }
 </style>
 
+<script type="text/javascript">
+function pageMoveLog() {
+	location.href = 'login.jsp';
+}
 
+function pageMoveReg() {
+	location.href = 'register.jsp';
+}
+function logout() {
+
+	location.href= 'logoutOk.jsp';
+}
+</script>
 
 <div id="nav">
 
