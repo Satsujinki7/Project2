@@ -69,6 +69,7 @@ if(cat==1){//일러스트
 	
 	pbd.addPrdBoard(pbv);
 	response.sendRedirect("page_prd.jsp");
+	
 }else if(cat ==4){ //기타등등 page
 	EtcboardVo ebv = new EtcboardVo();
 	EtcBoardDao ebd = new EtcBoardDao();

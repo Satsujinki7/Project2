@@ -55,6 +55,75 @@ public class EtcBoardDao {
 	}//alldata end
 	
 	
+	//페이징 된 전체조회
+	public ArrayList<EtcboardVo> alldataEtcBoard(int startNum, int endNum){
+		ArrayList<EtcboardVo> list = new ArrayList<>();
+		
+		sb.setLength(0);
+		sb.append("select * ");
+		sb.append("from( select rownum rn, eboardnum, eboarddate, eboardtitle, eboardwriter, eboardcontent, eboardimg, eboardhits, eboardnomination, eboardtoday, eboardflag ");
+		sb.append("from(select * ");
+		sb.append("from etcboard ");
+		sb.append("order by eboardnum desc )");
+		sb.append("where rownum <=?) ");
+		sb.append("where rn >=?  ");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, endNum);
+			pstmt.setInt(2, startNum);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int eboardnum =rs.getInt("eboardnum");
+				String eboarddate = rs.getString("eboarddate") ;
+				String eboardtitle = rs.getString("eboardtitle");
+				String eboardwriter=rs.getString("eboardwriter");
+				String eboardcontent =rs.getString("eboardcontent");
+				String eboardimg =rs.getString("eboardimg");
+				int eboardhits = rs.getInt("eboardhits");
+				int	eboardnomination = rs.getInt("eboardnomination");
+				int eboardtoday = rs.getInt("eboardtoday");
+				int eboardflag = rs.getInt("eboardflag");
+				
+				EtcboardVo ebv = new EtcboardVo(eboardnum, eboarddate, eboardtitle, eboardwriter, eboardcontent, eboardimg, eboardhits, eboardnomination, eboardtoday, eboardflag);
+				
+				list.add(ebv);
+			}//while end
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}//alldata end
+	
+	//총 게시글 개수 조회
+	public int countData() {
+		sb.setLength(0);
+		sb.append("SELECT COUNT(*) FROM ETCBOARD ");
+		
+		int DataNum =0;
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			DataNum = rs.getInt(1);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return DataNum;
+	}//countdata end
+	
 	//새글쓰기
 	public void addEtcBoard(EtcboardVo ebv) {
 		sb.setLength(0);
@@ -83,37 +152,37 @@ public class EtcBoardDao {
 	}//add end
 	
 	//한건 조회하는  메소드
-		public EtcboardVo getData(int eboardnum) {
-			sb.setLength(0);
-			sb.append("select * from etcboard ");
-			sb.append("where eboardnum= ? ");
+	public EtcboardVo getData(int eboardnum) {
+		sb.setLength(0);
+		sb.append("select * from etcboard ");
+		sb.append("where eboardnum= ? ");
+		
+		EtcboardVo vo=null;
+		
+		try {
+			pstmt=conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, eboardnum);
 			
-			EtcboardVo vo=null;
+			rs=pstmt.executeQuery();
+			rs.next();
 			
-			try {
-				pstmt=conn.prepareStatement(sb.toString());
-				pstmt.setInt(1, eboardnum);
-				
-				rs=pstmt.executeQuery();
-				rs.next();
-				
-				int no=rs.getInt("eboardnum");
-				String writer=rs.getString("eboardwriter");
-				String title=rs.getString("eboardtitle");
-				String contents=rs.getString("eboardcontent");
-				String date=rs.getString("eboarddate");
-				String imgpath=rs.getString("eboardimg");
-				
-				
-				
-				vo=new EtcboardVo(no, date, title, writer, contents, imgpath, 0, 0, 0, 1);
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return vo;
-		}//getData() end
+			int no=rs.getInt("eboardnum");
+			String writer=rs.getString("eboardwriter");
+			String title=rs.getString("eboardtitle");
+			String contents=rs.getString("eboardcontent");
+			String date=rs.getString("eboarddate");
+			String imgpath=rs.getString("eboardimg");
+			
+			
+			
+			vo=new EtcboardVo(no, date, title, writer, contents, imgpath, 0, 0, 0, 1);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+	}//getData() end
 		
 	
 	

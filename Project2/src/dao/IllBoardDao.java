@@ -55,6 +55,76 @@ public class IllBoardDao {
 	}//alldata end
 	
 	
+	//페이징 처리된 조회
+	public ArrayList<IllboardVo> alldataIllBoard(int startNum , int endNum){
+		ArrayList<IllboardVo> list = new ArrayList<>();
+		
+		sb.setLength(0);
+		sb.append("select * ");
+		sb.append("from( select rownum rn, iboardnum, iboarddate, iboardtitle, iboardwriter, iboardcontent, iboardimg, iboardhits, iboardnomination, iboardtoday, iboardflag ");
+		sb.append("from(select * ");
+		sb.append("from illboard ");
+		sb.append("order by iboardnum desc )");
+		sb.append("where rownum <=?) ");
+		sb.append("where rn >=?  ");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, endNum);
+			pstmt.setInt(2, startNum);			
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int iboardnum =rs.getInt("iboardnum");
+				String iboarddate = rs.getString("iboarddate") ;
+				String iboardtitle = rs.getString("iboardtitle");
+				String iboardwriter=rs.getString("iboardwriter");
+				String iboardcontent =rs.getString("iboardcontent");
+				String iboardimg =rs.getString("iboardimg");
+				int iboardhits = rs.getInt("iboardhits");
+				int	iboardnomination = rs.getInt("iboardnomination");
+				int iboardtoday = rs.getInt("iboardtoday");
+				int iboardflag = rs.getInt("iboardflag");
+				
+				IllboardVo ibv = new IllboardVo(iboardnum, iboarddate, iboardtitle, iboardwriter, iboardcontent, iboardimg, iboardhits, iboardnomination, iboardtoday, iboardflag);
+				
+				list.add(ibv);
+			}//while end
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}//페이징처리 끝
+	
+	//총 게시글 개수 조회
+	public int countData() {
+		sb.setLength(0);
+		sb.append("SELECT COUNT(*) FROM ILLBOARD ");
+		
+		int DataNum =0;
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			DataNum = rs.getInt(1);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return DataNum;
+	}//countdata end
+	
+	
 	//새글쓰기
 	public void addIllBoard(IllboardVo ibv) {
 		sb.setLength(0);

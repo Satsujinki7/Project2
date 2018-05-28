@@ -294,6 +294,10 @@
  
 
 <body>
+<!-- nav bar part -->
+<div id="container_nav">	
+	<jsp:include page="nav.jsp"></jsp:include>
+</div>
 
 <%
 
@@ -310,6 +314,8 @@
 	String date = "";
 	String img = "";
 	String content = "";
+	String cat= "";
+	
 	
 	//null처리 
 	if(cate != null && n != null) {
@@ -329,6 +335,7 @@
 		date = vo.getIboarddate();
 		img = vo.getIboardimg();
 		content = vo.getIboardcontent();
+		cat = "일러스트";
 	}
 	
 	 //카테고리가 만화라면 
@@ -345,6 +352,7 @@
 		date = vo.getTboarddate();
 		img = vo.getTboardimg();
 		content = vo.getTboardcontent();
+		cat = "만화";
 		
 	}
 	//카테고리 패러디(2차창작)
@@ -361,7 +369,7 @@
 		date = vo.getPboarddate();
 		img = vo.getPboardimg();
 		content = vo.getPboardcontent();
-		
+		cat = "2차창작";
 	}
 	
 	//카테고리 기타
@@ -378,23 +386,20 @@
 		date = vo.getEboarddate();
 		img = vo.getEboardimg();
 		content = vo.getEboardcontent();
-		
+		cat = "기타";
 	}
 	
 	}//외부 if end  
-	
-	
 	else{
 		
 		response.sendRedirect("page_rank.jsp");
-		
 	}
-	
 	
 	
 
 
 %>
+
 	
 	<div id="detail_container">
 		
@@ -404,12 +409,13 @@
 		
 		<div id="postinfo">
 			<span id="info_wrap">
-			<span>카테고리</span>
+			<span><%=cat %></span>
 			<span class="gubun">|</span>
 			<span><%=date.substring(0,16) %></span>
 			<span class="gubun">|</span>
 			<span>조회수</span>
 			<span>120</span>
+			
 			</span>
 		</div>
 		
@@ -421,8 +427,14 @@
 		
 		<div id="post_text">
 		
-			<p><%=content %>
+			<p>
+			<%
+				if(content != null){
+					out.print(content);
+				}else {}
 			
+			
+			%>
 			</p>
 		</div>
 		

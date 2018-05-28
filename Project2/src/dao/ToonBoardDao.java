@@ -55,6 +55,77 @@ public class ToonBoardDao {
 	}//alldata  end
 	
 	
+	//페이징 전체 조회
+	public ArrayList<ToonboardVo> alldataToonBoard(int startNum , int endNum){
+		ArrayList<ToonboardVo> list = new ArrayList<>();
+		
+		sb.setLength(0);
+		sb.append("select * ");
+		sb.append("from( select rownum rn, tboardnum, tboarddate, tboardtitle, tboardwriter, tboardcontent, tboardimg, tboardhits, tboardnomination, tboardtoday, tboardflag ");
+		sb.append("from(select * ");
+		sb.append("from Toonboard ");
+		sb.append("order by tboardnum desc )");
+		sb.append("where rownum <=?) ");
+		sb.append("where rn >=?  ");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, endNum);
+			pstmt.setInt(2, startNum);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int tboardnum =rs.getInt("tboardnum");
+				String tboarddate = rs.getString("tboarddate") ;
+				String tboardtitle = rs.getString("tboardtitle");
+				String tboardwriter=rs.getString("tboardwriter");
+				String tboardcontent =rs.getString("tboardcontent");
+				String tboardimg =rs.getString("tboardimg");
+				int tboardhits = rs.getInt("tboardhits");
+				int	tboardnomination = rs.getInt("tboardnomination");
+				int tboardtoday = rs.getInt("tboardtoday");
+				int tboardflag = rs.getInt("tboardflag");
+				
+				ToonboardVo tbv = new ToonboardVo(tboardnum, tboarddate, tboardtitle, tboardwriter, tboardcontent, tboardimg, tboardhits, tboardnomination, tboardtoday, tboardflag);
+				
+				list.add(tbv);
+			}//while end
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}//alldata  end
+	
+	
+	//전체 레코드 개수 조회
+	public int countData() {
+		sb.setLength(0);
+		sb.append("SELECT COUNT(*) FROM TOONBOARD ");
+		
+		int DataNum =0;
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			DataNum = rs.getInt(1);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return DataNum;
+	}//countdata end
+	
+	
 	//새글쓰기
 	public void addtoonBoard(ToonboardVo tbv) {
 		sb.setLength(0);
