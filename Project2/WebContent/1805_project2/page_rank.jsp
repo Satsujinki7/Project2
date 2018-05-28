@@ -18,7 +18,7 @@
 		<div id="header">
 			<jsp:include page="nav.jsp"></jsp:include>
 		</div>
-		<div id="content_rank">
+		<div id="content_rank"> 
 			<div id="container_body">
 	        <div id="right_rank" class="body_div"><jsp:include page="today_ranking.jsp"></jsp:include></div>
 	        <div id="left_rank" class="body_div"><jsp:include page="cat_ranking.jsp"></jsp:include></div>
