@@ -217,76 +217,12 @@ margin-right: 10px;
 </body>
 </html>
 <script type="text/javascript">
-
 $(function(){
-	
-	  
-    $("#downul").hide();
-    
-  	console.log("layout자바스크립트 실행단");
-    
-    var width = $(window).width();
-    
-      
-    //창 사이즈가 변하면 변한 width값을 그때그때 저장 
-    $(window).resize(function(){
-  
-    width = $(window).width();
-    
-    //console.log(width);
-    });
-    
-    
-    
-    
-      
-      // ... 메뉴 클릭시 데스크탑 모드- 위아래로 효과 / 모바일 모드 - 양옆으로 효과
-      $("#etc").click(function(){
-        if(width > 958)
-        $("#etc ul").stop().slideToggle(500); 
-        else{
-        $("#etc ul").hide();
-        $("#leftbar").animate({"left":"0"},500);
-        }
-          
-        
-      }); 
-      
-      
-      
-      //메인 메뉴 마우스오버 할 때 css효과 주기 . 모바일 모드에선 사라짐 
-      $(".maina").on('mouseover',function(){
-        if(width > 958){
-        $(this).css({
-          "color":"#80b3ff",
-           "border-bottom": "5px solid #80b3ff"
-            
-        });
-        }
-      });
-      
-      $(".maina").on('mouseout',function(){
-        if(width > 958){
-        $(this).css({
-            "color" :"#004080",
-            "border" : "none"
-            
-        });
-        }
-      });
-      
-      
-      $("#leftbar p").click(function(){
-        
-        $("#leftbar").animate({"left":"-1500px"},500);
-        
-      });
-
-	//-------------요기서부터------------------------------------------
 	for(var i=1 ; i < 10 ; i++){
 			
 		var imgwidth = $("#img"+i).width();
 		var imgheight = $("#img"+i).height();
+
 		
 		if(imgwidth > imgheight){
 			$("#img"+i).css("width","300px");

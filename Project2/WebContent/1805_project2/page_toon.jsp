@@ -8,14 +8,14 @@
 <%
 //-------만화 리스트
 
-ToonBoardDao tbd = new ToonBoardDao();
+ToonBoardDao dao = new ToonBoardDao();
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>frame.jsp</title>
+<title>만화 페이지</title>
 <link rel="stylesheet" href="pageCss.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -146,7 +146,7 @@ margin-right: 10px;
 
 <%
 	int i=1;
-	ArrayList<ToonboardVo> list = tbd.alldataToonBoard();
+	ArrayList<ToonboardVo> list = dao.alldataToonBoard();
 	
 	UserDAO userdao = new UserDAO();
 	UserVO uservo = new UserVO();
