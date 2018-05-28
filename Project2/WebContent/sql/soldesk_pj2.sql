@@ -1,4 +1,4 @@
-ï»¿create table UserInfo
+create table UserInfo
 (userID varchar2(20) constraint userID_pk_id primary key,
 userPW varchar2(20), userName varchar2(20),
 userGender varchar2(4), userBirth number(6), 
@@ -51,7 +51,7 @@ increment by 1
 nocache
 nocycle;
 
---insert by ì„ ë¯¼ --
+--insert by ?„ ë¯? --
 create table illboard(
 iboardnum number constraint ibnum_pk_bn primary key,
 iboarddate date,
@@ -124,22 +124,19 @@ nocycle
 /
 
 
-
-
-
----------------userInfoì— ì»¬ëŸ¼ì¶”ê°€ --------------
+---------------userInfo?— ì»¬ëŸ¼ì¶”ê? --------------
 alter table userinfo
 add(
 userimg varchar2(30),
 userbio varchar2(500));
 
 
---ì—¬ê¸°ë¶€í„° ì¶”ê°€ (ì¡°í˜„ëª…)
+--¿©±âºÎÅÍ Ãß°¡ (Á¶Çö¸í)
 create table REPLY
 (replyNum number constraint replynum_pk_rn primary key,
 replyBoardNum number constraint replyboardnum_fk_rbn references board(boardnum) on delete cascade not null,
 replyWriter varchar2(20), replyDate date,
-replyParent number, replyComment varchar2(1000) not null);
+replyComment varchar2(1000) not null);
 
 create sequence reply_replyNum_seq
 start WITH 1
@@ -149,24 +146,20 @@ INCREMENT BY 1
 NOCYCLE
 NOCACHE;
 
---0528 ETCtable ì¶”ê°€
-create table etcboard(
-eboardnum number constraint ebnum_pk_bn primary key,
-eboarddate date,
-eboardtitle varchar2(200),
-eboardwriter varchar2(20),
-eboardcontent varchar2(4000),
-eboardimg varchar2(500),
-eboardhits number(8,0),
-eboardnomination number(8,0),
-eboardtoday number(8,0),
-eboardflag number(1)
-)
+create table RE_REPLY
+(reReplyNum number constraint rereplynum_pk_rn primary key,
+reReplyParentNum number constraint rereplyparentnum_fk_rbn references reply(replynum) on delete cascade not null,
+reReplyWriter varchar2(20), reReplyDate date,
+reReplyComment varchar2(1000) not null);
 
-create sequence eboard_ebnum_seq
-start with 1
-minvalue 1
-nomaxvalue
-increment by 1
-nocache
-nocycle;
+create sequence rereply_rereplyNum_seq
+start WITH 1
+MINVALUE 1
+NOMAXVALUE
+INCREMENT BY 1
+NOCYCLE
+NOCACHE;
+
+alter table reply
+add (groupNum number, depth number, orderNum number, parentReplyNum number);
+
