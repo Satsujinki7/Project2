@@ -5,22 +5,28 @@ public class ReplyVO {
 	private int replyBoardNum;
 	private String replyWriter;
 	private String replyDate;
-	private int replyParent;
 	private String replyComment;
+	private int groupNum;
+	private int depth;
+	private int orderNum;
+	private int parentReplyNum;
 	
 	public ReplyVO() {
 		
 	}
 
-	public ReplyVO(int replyNum, int replyBoardNum, String replyWriter, String replyDate, int replyParent,
-			String replyComment) {
+	public ReplyVO(int replyNum, int replyBoardNum, String replyWriter, String replyDate, String replyComment,
+			int groupNum, int depth, int orderNum, int parentReplyNum) {
 		super();
 		this.replyNum = replyNum;
 		this.replyBoardNum = replyBoardNum;
 		this.replyWriter = replyWriter;
 		this.replyDate = replyDate;
-		this.replyParent = replyParent;
 		this.replyComment = replyComment;
+		this.groupNum = groupNum;
+		this.depth = depth;
+		this.orderNum = orderNum;
+		this.parentReplyNum = parentReplyNum;
 	}
 
 	public int getReplyNum() {
@@ -55,14 +61,6 @@ public class ReplyVO {
 		this.replyDate = replyDate;
 	}
 
-	public int getReplyParent() {
-		return replyParent;
-	}
-
-	public void setReplyParent(int replyParent) {
-		this.replyParent = replyParent;
-	}
-
 	public String getReplyComment() {
 		return replyComment;
 	}
@@ -70,4 +68,37 @@ public class ReplyVO {
 	public void setReplyComment(String replyComment) {
 		this.replyComment = replyComment;
 	}
+
+	public int getGroupNum() {
+		return groupNum;
+	}
+
+	public void setGroupNum(int groupNum) {
+		this.groupNum = groupNum;
+	}
+
+	public int getDepth() {
+		return depth;
+	}
+
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
+
+	public int getOrderNum() {
+		return orderNum;
+	}
+
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
+	}
+
+	public int getParentReplyNum() {
+		return parentReplyNum;
+	}
+
+	public void setParentReplyNum(int parentReplyNum) {
+		this.parentReplyNum = parentReplyNum;
+	}
+	
 }

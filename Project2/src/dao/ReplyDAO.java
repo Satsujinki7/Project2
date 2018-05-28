@@ -24,7 +24,7 @@ public class ReplyDAO {
 	public void addReply(ReplyVO vo) {
 		sb.setLength(0);
 		sb.append("insert into reply ");
-		sb.append("values (REPLY_REPLYNUM_SEQ.nextval, ?, ?, sysdate, 0, ?) ");
+		sb.append("values (REPLY_REPLYNUM_SEQ.nextval, ?, ?, sysdate, ?, 0, 0, 0, 0) ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -34,11 +34,12 @@ public class ReplyDAO {
 			pstmt.setString(3, vo.getReplyComment());
 			
 			pstmt.executeUpdate();
+			//pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 	} //addReply end
 	
 	//전체 댓글 조회
@@ -48,6 +49,7 @@ public class ReplyDAO {
 		sb.setLength(0);
 		sb.append("select * from reply ");
 		sb.append("where replyboardnum = ? ");
+		sb.append("order by groupnum asc, ordernum asc ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -60,10 +62,13 @@ public class ReplyDAO {
 				int replyBoardNum = rs.getInt("replyboardnum");
 				String replyWriter = rs.getString("replywriter");
 				String replyDate = rs.getString("replydate");
-				int replyParent = rs.getInt("replyparent");
 				String replyComment = rs.getString("replycomment");
-				
-				ReplyVO vo = new ReplyVO(replyNum, replyBoardNum, replyWriter, replyDate, replyParent, replyComment);
+				int groupNum = rs.getInt("groupnum");
+				int depth = rs.getInt("depth");
+				int orderNum = rs.getInt("ordernum");
+				int parentReplyNum = rs.getInt("parentreplynum");
+
+				ReplyVO vo = new ReplyVO(replyNum, replyBoardNum, replyWriter, replyDate, replyComment, groupNum, depth, orderNum, parentReplyNum);
 				list.add(vo);
 			}
 			
@@ -73,4 +78,103 @@ public class ReplyDAO {
 
 		return list;
 	} //getAllReply end
+	
+	//부모 댓글 숫자 구하기
+	public int getCountByParentReply(ReplyVO vo) {
+		sb.setLength(0);
+		sb.append("select count(parentreplynum) from reply ");
+		sb.append("where parentreplynum = ? ");
+		
+		int parent_cnt = 0;
+		
+		try {
+			pstmt.setInt(1, vo.getParentReplyNum());
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				parent_cnt = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return parent_cnt;
+	} //getCountByParentReply end
+	
+	//해당 댓글부터 시작해서 부모 댓글과 댓글 번호가 같은것부터 순서대로 출력
+	public int getMaxOrderNumByParentReply(ReplyVO vo) {
+		sb.setLength(0);
+		sb.append("select ordernum from (select * from reply ");
+		sb.append("start with replynum = ? ");
+		sb.append("connect by prior replynum = parentreplynum ");
+		sb.append("order by ordernum desc) ");
+		sb.append("where rownum = 1 ");
+		
+		int maxOrderNum = 0;
+		
+		try {
+			pstmt.setInt(1, vo.getReplyNum());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				maxOrderNum = rs.getInt(1);
+			} else {
+				return 0;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return maxOrderNum;
+	} //getMaxOrderNumByParentReply end
+	
+	//해당 댓글의 순서 가져오기
+	public int getLatestOrderNumByParentNum(ReplyVO vo) {
+		sb.setLength(0);
+		sb.append("select ordernum from reply ");
+		sb.append("where replynum = ? ");
+		
+		int getLatestOrder = 0;
+		
+		try {
+			pstmt.setInt(1, vo.getParentReplyNum());
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				getLatestOrder = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return getLatestOrder;
+	} //getLatestOrderNumByParentNum end
+	
+	//신규 댓글 작성되면 그룹번호 내의 순번 증가 
+	public void updateOrderNumByGroupNum(ReplyVO vo) {
+		sb.setLength(0);
+		sb.append("update reply ");
+		sb.append("set ordernum = ordernum + 1 ");
+		sb.append("where ordernum >= ? and groupnum = ? ");
+		
+		try {
+			pstmt.setInt(1, vo.getOrderNum());
+			pstmt.setInt(2, vo.getGroupNum());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	} //updateOrderNumByGroupNum end
+	
+	/*public boolean addNewReplyDepth(ReplyVO vo) {
+		int orderNum = this.getNewOrderNum(vo);
+		vo.setOrderNum(orderNum);
+		
+		if(orderNum > 0) {
+			updateOrderNumByGroupNum(vo);
+		}
+		
+		return addReply(vo) > 0;
+	}
+	
+	private int getNewOrderNum(ReplyVO vo) {
+		
+	}*/
 }

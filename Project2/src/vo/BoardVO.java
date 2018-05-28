@@ -15,8 +15,8 @@ public class BoardVO {
 		
 	}
 
-	public BoardVO(int boardNum, String boardDate, String boardWriter, String boardTitle, String boardContents, int status, int boardHits,
-			int boardNomination, String boardImage) {
+	public BoardVO(int boardNum, String boardDate, String boardWriter, String boardTitle, String boardContents,
+			int status, int boardHits, int boardNomination, String boardImage) {
 		super();
 		this.boardNum = boardNum;
 		this.boardDate = boardDate;
@@ -105,4 +105,5 @@ public class BoardVO {
 	public void setBoardImage(String boardImage) {
 		this.boardImage = boardImage;
 	}
+
 }

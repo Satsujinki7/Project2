@@ -93,7 +93,7 @@
 	
 	<script type="text/javascript">
 		window.onload = function() {
-			var userId = <%= session.getAttribute("userName") %>;
+			var userId = "<%= session.getAttribute("userName") %>";
 			
 			if(userId == "" || userId == null) {
 				document.getElementById("btn_write").style.display = "none";

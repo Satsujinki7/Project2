@@ -46,7 +46,7 @@ public class BoardDAO {
 				int boardHits = rs.getInt("boardhits");
 				int boardNomination = rs.getInt("boardNomination");
 				String boardImage = rs.getString("boardImage");
-				
+
 				BoardVO vo = new BoardVO(boardNum, boardDate, boardWriter, boardTitle, boardContents, status, boardHits, boardNomination, boardImage);
 				list.add(vo);
 			}
@@ -142,8 +142,9 @@ public class BoardDAO {
 			int boardHits = rs.getInt("boardhits");
 			int boardNomination = rs.getInt("boardnomination");
 			String boardImage = rs.getString("boardImage");
-			
+
 			vo = new BoardVO(boardNum, boardDate, boardWriter, boardTitle, boardContents, status, boardHits, boardNomination, boardImage);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -175,8 +176,9 @@ public class BoardDAO {
 				int boardHits = rs.getInt("boardhits");
 				int boardNomination = rs.getInt("boardnomination");
 				String boardImage = rs.getString("boardImage");
-				
+
 				vo = new BoardVO(boardNum, boardDate, boardWriter, boardTitle, boardContents, status, boardHits, boardNomination, boardImage);
+				
 			}
 			
 		} catch (Exception e) {
@@ -213,8 +215,9 @@ public class BoardDAO {
 				int boardHits = rs.getInt("boardhits");
 				int boardNomination = rs.getInt("boardNomination");
 				String boardImage = rs.getString("boardImage");
-				
+
 				BoardVO vo = new BoardVO(boardNum, boardDate, boardWriter, boardTitle, boardContents, status, boardHits, boardNomination, boardImage);
+				
 				list.add(vo);
 			}
 			

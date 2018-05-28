@@ -17,7 +17,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>상세보기</title>
 	<%
-		session.getAttribute("userName");
+		String currentUser = (String)session.getAttribute("userName");
 		
 		String bn = request.getParameter("boardnum");
 		int bnum = 0;
@@ -60,6 +60,17 @@
 			width: 50px;
 		}
 		
+		#rep_writer {
+			text-align: center;
+			color: red;
+		}
+		#rep_context {
+			color: green;
+		}
+		#rep_date {
+			color: blue;
+		}
+		
 		#uname, #cname {
 			display: none;
 		}
@@ -68,41 +79,19 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	
 	<script type="text/javascript">
-		<%-- function clickEvent() {
-			console.log(btn.value);
+		window.onload = function() {		
+			var userId = "<%= currentUser %>";
 			
-			if(btn.value == "목록") {
-				location.href = 'boardPage.jsp';
-			} else if(btn.value == "수정") {
-				location.href = 'boardModify.jsp?boardnum=' + <%= vo.getBoardNum() %>;
-			} else if(btn.value == "삭제") {
-				location.href = 'boardDelete.jsp?boardnum=' + <%= vo.getBoardNum() %>;
-			} else if(btn.value == "추천") {
-				alert("추천되었습니다.");
-				location.href = 'nominateOK.jsp?boardnum=' + <%= vo.getBoardNum() %>;
-			}
-		} --%>
-		
-		window.onload = function() {
-			/*
 			//세션 정보가 없으면 모든 기능 봉쇄
-			if(userId == "" || userId == null) {
-				document.getElementById("btn_nom").style.display = "none";
-				document.getElementById("btn_mod").style.display = "none";
-				document.getElementById("btn_del").style.display = "none";
-			}
-			
 			//글쓴이와 현재 유저가 동일한지 판단
 			//동일하다면 자기 글 추천 비활성화
 			//동일하지 않다면 수정 및 삭제 버튼 비활성화
-			if(userId == boardWriter) {
+			if(userId == "null" || userId == null) {
 				document.getElementById("btn_nom").style.display = "none";
-			} else {
 				document.getElementById("btn_mod").style.display = "none";
 				document.getElementById("btn_del").style.display = "none";
-			}*/
-			
-			if(uname.value == cname.value) {
+				document.getElementById("isHidden").style.display = "none";
+			} else if(userId == boardwriter.value) {
 				document.getElementById("btn_nom").style.display = "none";
 			} else {
 				document.getElementById("btn_mod").style.display = "none";
@@ -132,8 +121,9 @@
 	<%-- <jsp:useBean id="vo" class="bean.UserBean" scope="session"></jsp:useBean> --%>
 	<h2><%= session.getAttribute("userName") %> 님, 환영합니다. </h2>
 	
-	<form action="replyOK.jsp">
-		<input type="hidden" name="boardnum" value="<%= vo.getBoardNum() %>"/>
+	<form id="frm" action="replyOK.jsp">
+		<input type="hidden" id="boardnum" name="boardnum" value="<%= vo.getBoardNum() %>"/>
+		<input type="hidden" id="boardwriter" name="boardwriter" value="<%= vo.getBoardWriter() %>"/>
 		<table>
 			<tr id="top">
 				<th id="t1">작성자</th>
@@ -170,7 +160,7 @@
 			
 			<%-- <c:if test="${ sessionScope.sessionID != null }"></c:if> --%>
 			
-			<tr id="reply">
+			<tr>
 				<th>댓글</th>
 				<td colspan="5">
 					<div id="showReply">
@@ -179,23 +169,28 @@
 						
 							int boardNum = vo.getBoardNum();
 							ArrayList<ReplyVO> r_list = r_dao.getAllReply(boardNum);
-							
 							for(ReplyVO r_vo : r_list) {
 							
 						%>
+						
 						<label for=""><%= r_vo.getReplyWriter() %></label>&nbsp;
 						<label for=""><%= r_vo.getReplyComment() %></label>&nbsp;
 						<label for=""><%= r_vo.getReplyDate() %></label>
-						<br>
+						<a href="#">[답글]</a>
+						<br><br>
 						<%
 							}
 						%>
+						
 					</div>
+					<div id="isHidden">
 					<hr>
-					<input type="text" name="userid" id="userid" value="<%= session.getAttribute("userName") %>" disabled="disabled"/>
-					<%-- <label for=""><%= session.getAttribute("userName") %></label> --%>
-					<textarea name="reply" id="reply" cols="40" rows="4"></textarea>
-					<input type="submit" value="댓글등록" />
+						<input type="text" name="userid" id="userid" value="<%= session.getAttribute("userName") %>" disabled="disabled"/>
+						<%-- <label for=""><%= session.getAttribute("userName") %></label> --%>
+						<textarea name="reply" id="reply" cols="40" rows="4"></textarea>
+						<input type="submit" value="댓글등록" />
+					</div>
+					
 				</td>
 			</tr>
 			<tr>
@@ -236,13 +231,13 @@
 		</table>
 	</form>
 	
-	<div id="test">
+	<%-- <div id="test">
 		<textarea name="cname" id="cname" cols="10" rows="10">
 			<%= session.getAttribute("userName") %>
 		</textarea>
 		<textarea name="uname" id="uname" cols="10" rows="10">
 			<%= vo.getBoardWriter() %>
 		</textarea>
-	</div>
+	</div> --%>
 </body>
 </html>
