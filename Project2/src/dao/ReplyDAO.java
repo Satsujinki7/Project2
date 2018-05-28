@@ -163,7 +163,8 @@ public class ReplyDAO {
 		}
 	} //updateOrderNumByGroupNum end
 	
-	/*public boolean addNewReplyDepth(ReplyVO vo) {
+	
+	public void addNewReplyDepth(ReplyVO vo) {
 		int orderNum = this.getNewOrderNum(vo);
 		vo.setOrderNum(orderNum);
 		
@@ -171,10 +172,20 @@ public class ReplyDAO {
 			updateOrderNumByGroupNum(vo);
 		}
 		
-		return addReply(vo) > 0;
+		addReply(vo);
+		//return addReply(vo) > 0;
 	}
 	
 	private int getNewOrderNum(ReplyVO vo) {
-		
-	}*/
+		if(getCountByParentReply(vo) > 0) {
+			int newOrderNum = getMaxOrderNumByParentReply(vo);
+			return newOrderNum + 1;
+		} else {
+			if(vo.getParentReplyNum() != 0) {
+				int newOrderNum = getLatestOrderNumByParentNum(vo);
+				return newOrderNum + 1;
+			}
+		}
+		return 0;
+	}
 }

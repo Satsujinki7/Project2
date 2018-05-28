@@ -177,6 +177,7 @@
 						<label for=""><%= r_vo.getReplyComment() %></label>&nbsp;
 						<label for=""><%= r_vo.getReplyDate() %></label>
 						<a href="#">[답글]</a>
+						
 						<br><br>
 						<%
 							}
@@ -231,13 +232,23 @@
 		</table>
 	</form>
 	
-	<%-- <div id="test">
-		<textarea name="cname" id="cname" cols="10" rows="10">
-			<%= session.getAttribute("userName") %>
-		</textarea>
-		<textarea name="uname" id="uname" cols="10" rows="10">
-			<%= vo.getBoardWriter() %>
-		</textarea>
+	
+	
+	
+	
+	<%-- <div id="anotherPart" align="center">
+		<div id="anotherWrap">
+			<form id="reply_write">
+				<input type="hidden" id="replyboardnum" name="replyboardnum" value="${board.boardNum}" />
+				<input type="hidden" id="replynum" name="replynum" value="0" />
+				<input type="hidden" id="groupnum" name="groupnum" value="0" />
+				<input type="hidden" id="parentreplynum" name="parentreplynum" value="0" />
+				<input type="hidden" id="ordernum" name="ordernum" value="0" />
+				<input type="hidden" id="depth" name="depth" value="0" />
+				
+				<textarea rows="" cols=""></textarea>
+			</form>
+		</div>
 	</div> --%>
 </body>
 </html>
