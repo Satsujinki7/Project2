@@ -124,6 +124,9 @@ nocycle
 /
 
 
+
+
+
 ---------------userInfo에 컬럼추가 --------------
 alter table userinfo
 add(
@@ -145,3 +148,25 @@ NOMAXVALUE
 INCREMENT BY 1
 NOCYCLE
 NOCACHE;
+
+--0528 ETCtable 추가
+create table etcboard(
+eboardnum number constraint ebnum_pk_bn primary key,
+eboarddate date,
+eboardtitle varchar2(200),
+eboardwriter varchar2(20),
+eboardcontent varchar2(4000),
+eboardimg varchar2(500),
+eboardhits number(8,0),
+eboardnomination number(8,0),
+eboardtoday number(8,0),
+eboardflag number(1)
+)
+
+create sequence eboard_ebnum_seq
+start with 1
+minvalue 1
+nomaxvalue
+increment by 1
+nocache
+nocycle;
