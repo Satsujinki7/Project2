@@ -14,7 +14,7 @@
 
  </head>
 <body>
-	<div id="container">	
+	<div id="container">
 		<div id="header">
 			<jsp:include page="nav.jsp"></jsp:include>
 		</div>
