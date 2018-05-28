@@ -16,7 +16,7 @@ ToonBoardDao tbd = new ToonBoardDao();
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>frame.jsp</title>
-<link rel="stylesheet" href="layoutcss.css" />
+<link rel="stylesheet" href="pageCss.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -26,7 +26,7 @@ ToonBoardDao tbd = new ToonBoardDao();
 
 #post_wrap{
 	width: 1100px;
-	height: 1100px;
+	height: 1600px;
 	margin: 0 auto;
 
 }
@@ -205,10 +205,8 @@ margin-right: 10px;
 </div>
 
 	<!-- footer part -->
-	<div id="footer">
-		<p>풋터 부분입니다아ㅏㅇ아아아아</p>
-		<p>폼잡는거 거지같다 ^ㅗ^</p>
-		<p>project date : 20180509~</p>
+	<div id="footercon">
+		<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 </body>
 </html>
@@ -216,69 +214,6 @@ margin-right: 10px;
 
 $(function(){
 	
-	  
-    $("#downul").hide();
-    
-  	console.log("layout자바스크립트 실행단");
-    
-    var width = $(window).width();
-    
-      
-    //창 사이즈가 변하면 변한 width값을 그때그때 저장 
-    $(window).resize(function(){
-  
-    width = $(window).width();
-    
-    //console.log(width);
-    });
-    
-    
-    
-    
-      
-      // ... 메뉴 클릭시 데스크탑 모드- 위아래로 효과 / 모바일 모드 - 양옆으로 효과
-      $("#etc").click(function(){
-        if(width > 958)
-        $("#etc ul").stop().slideToggle(500); 
-        else{
-        $("#etc ul").hide();
-        $("#leftbar").animate({"left":"0"},500);
-        }
-          
-        
-      }); 
-      
-      
-      
-      //메인 메뉴 마우스오버 할 때 css효과 주기 . 모바일 모드에선 사라짐 
-      $(".maina").on('mouseover',function(){
-        if(width > 958){
-        $(this).css({
-          "color":"#80b3ff",
-           "border-bottom": "5px solid #80b3ff"
-            
-        });
-        }
-      });
-      
-      $(".maina").on('mouseout',function(){
-        if(width > 958){
-        $(this).css({
-            "color" :"#004080",
-            "border" : "none"
-            
-        });
-        }
-      });
-      
-      
-      $("#leftbar p").click(function(){
-        
-        $("#leftbar").animate({"left":"-1500px"},500);
-        
-      });
-
-	//-------------요기서부터------------------------------------------
 	for(var i=1 ; i < 10 ; i++){
 			
 		var imgwidth = $("#img"+i).width();
@@ -305,10 +240,6 @@ $(function(){
 	}//for end
 	
 });
-
-
-
-
 
 </script>
 

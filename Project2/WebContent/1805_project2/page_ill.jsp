@@ -5,15 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>layout.jsp</title>
-<link rel="stylesheet" href="newcss.css" />
+<title>일러스트 페이지 </title>
+<link rel="stylesheet" href="pageCss.css" />
 
  </head>
 <body>
-
-	
-	
-	
 	<div id="container">
 
 		<div id="header">
@@ -23,15 +19,14 @@
 		<div id="contents">
 		 <jsp:include page="frame_ill.jsp"></jsp:include> 
 		</div>
-		<%-- <jsp:include page="content.jsp"></jsp:include> --%>
 		
+	 
+	
 	</div>
-	<!-- 
+	
 	<div id="footercon">
 		 <jsp:include page="footer.jsp"></jsp:include> 
 	</div>
-	
-	 -->
 
 
 </body>

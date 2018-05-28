@@ -1,34 +1,38 @@
 @charset "UTF-8";
 
-
-
-
-#container {
-	width: 1500px;
-	heihgt: auto;
-	margin: 20px auto;
-	
-	
+form.example input[type=text] {
+    padding: 3px;
+    font-size: 15px;
+    border: 2px solid grey;
+    float: left;
+    width: 150px;
+    background: #f1f1f1;
+  
 }
 
-
-#contents{
-	
-	width: 1500px;
-	margin : 0 auto;
-	
+form.example button {
+    float: left;
+    width: 40px;
+    padding: 3px;
+    background: gray;
+    color: white;
+    font-size: 15px;
+    border: 2px solid grey;
+    border-left: none;
+    cursor: pointer;
+     
+   
 }
 
- 
-#header {
-	
-	width: 1500px;
-	height: 150px;
-	margin : 0 auto;
-	
+form.example button:hover {
+    background: #0b7dda;
 }
 
-
+form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+}
 #nav {
 	
 	width: 1200px;
@@ -36,7 +40,6 @@
 	margin: 0 auto;
 	
 }
-
 
 #logo{
 	width: 200px;
@@ -158,6 +161,8 @@
 #catediv:hover #catediv {
     display: block;
 }
+
+
 
 #etc:hover #etcdiv {
     display: block;
@@ -301,5 +306,21 @@
 	#mypost,#like{
 		border-right: 1px solid #D5D5D5;
 	}
+ 
+#header {
+	
+	width: 1500px;
+	height: 150px;
+	margin : 0 auto;
+	
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+
+
 
 

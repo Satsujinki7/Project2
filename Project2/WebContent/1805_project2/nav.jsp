@@ -3,44 +3,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-
-
-
-form.example input[type=text] {
-    padding: 3px;
-    font-size: 15px;
-    border: 2px solid grey;
-    float: left;
-    width: 150px;
-    background: #f1f1f1;
-  
-}
-
-form.example button {
-    float: left;
-    width: 40px;
-    padding: 3px;
-    background: gray;
-    color: white;
-    font-size: 15px;
-    border: 2px solid grey;
-    border-left: none;
-    cursor: pointer;
-     
-   
-}
-
-form.example button:hover {
-    background: #0b7dda;
-}
-
-form.example::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-</style>
+<link rel="stylesheet" href="nav.css" />
 
 <script type="text/javascript">
 function pageMoveLog() {
@@ -56,27 +19,28 @@ function logout() {
 }
 </script>
 
+<div id="header">
 <div id="nav">
 
 
 
 	<div id="logo">
-	<a href="layout.jsp"><img src="../images/logo2.png" alt="검색" /></a>
+	<a href="page_rank.jsp"><img src="../images/logo2.png" alt="검색" /></a>
 	</div>
 	
 	<div id="menu">
 	
 		<ul id="mainul">
 			<li class="mainmenu"><a href="#" class="maina">타임라인</a></li>
-			<li class="mainmenu"><a href="#" class="maina">랭킹</a></li>
+			<li class="mainmenu"><a href="page_rank.jsp" class="maina">랭킹</a></li>
 			<li class="mainmenu" id="cate" >
 				<a href="#" class="maina category">카테고리</a>
- <div id="catediv" class="category">
-						<a href="#" class="catemenu">게임</a>
-						<a href="#" class="catemenu">일러스트</a>
+ 				<div id="catediv" class="category">
+						<a href="page_ill.jsp" class="catemenu">일러스트</a>
+						<a href="page_toon.jsp" class="catemenu">만화</a>
 						<a href="#" class="catemenu">창작</a>
 						<a href="#" class="catemenu">기타</a>
-						<a href="#" class="catemenu">자유게시판</a>
+						<a href="boardPage.jsp" class="catemenu">자유게시판</a>
 			
 						
 				</div> 
@@ -138,9 +102,7 @@ function logout() {
 	
 	
 </div>
-
-
-	
+</div>
 
 
 
