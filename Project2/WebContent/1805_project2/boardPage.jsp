@@ -43,6 +43,7 @@
 			border: 1px solid black;
 			border-collapse: collapse;
 			text-align: center;
+			padding: 20px;
 		}
 		th {
 			padding: 3px;
@@ -53,6 +54,7 @@
 		.col, .col4, .col5 {
 			width: 10%;
 			text-align: center;
+			padding: 20px;
 		}
 		.col2 {
 			width: 50%;
@@ -72,6 +74,29 @@
 		
 		#send_main {
 			text-align: center;
+		}
+		
+		
+		#pageCon{
+			width: 400px;
+			height: 50px;
+			margin: 0 auto;
+		}
+		#pageNum{
+			background-color: skyblue;
+			width : 30px;
+			height: 30px;
+			float: left;
+			text-align: center;
+			margin: 10px;
+			color: white;
+		}
+		#pageNum:hover{
+			background-color: black;
+		}
+		#de_con:hover{
+			color: red;
+			font-weight: bold;
 		}
 	</style>
 	
@@ -101,7 +126,7 @@
 		}
 		
 		function sendMain() {
-			location.href = 'layout.jsp';
+			location.href = 'page_rank.jsp';
 		}
 	
 		function search() {
@@ -114,7 +139,10 @@
 	</script>
 </head>
 <body>
-	<h2><%= session.getAttribute("userName") %> 님, 환영합니다.</h2>
+<div id="container_nav">	
+	<jsp:include page="nav.jsp"></jsp:include>
+</div>
+	<h2 align="center"><%= session.getAttribute("userName") %> 님, 환영합니다.</h2>
 <!-- 	<select name="boardSelect" id="boardSelect" onchange="changeBoard()">
 		<option value="-----">-----</option>
 		<option value="자유">자유 게시판</option>
@@ -143,7 +171,7 @@
 			<tr>
 				<td class="col"><%= vo.getBoardNum() %></td>
 				<td class="col">
-					<a href="detailContents.jsp?boardnum=<%= vo.getBoardNum() %>">
+					<a href="detailContents.jsp?boardnum=<%= vo.getBoardNum() %>" id="de_con">
 						<%= vo.getBoardTitle() %>
 					</a>
 				</td>
@@ -157,7 +185,7 @@
 			
 			<!-- 페이징 목록 -->
 			<tr>
-				<td colspan="4" id="page">
+				<%-- <td colspan="4" id="page">
 				<%
 					for(int i=currentPage-4; i<currentPage+4; i++) {
 						if(i<=0) {
@@ -167,14 +195,14 @@
 						} else {
 							
 				%>
-					<a href="boardPage.jsp?cp=<%= i %>">[<%=i%>]</a>
+					<a href="boardPage.jsp?cp=<%= i %>"><div id="pageNum">[<%=i%>]</div></a>
 				<%
 						}
 					}
 
 				%>
-				</td>
-				<td colspan="4">
+				</td> --%>
+				<td colspan="5">
 					<!-- 등록 누르면 게시글쓰기(DB 입력)로 이동 -->
 					<a href="boardWrite.jsp">
 						<input type="button" id="btn_write" value="글쓰기" />
@@ -191,6 +219,24 @@
 				</td>
 			</tr> --%>
 		</table>
+	</div>
+	
+	<div id="pageCon">
+	<%
+		for(int i=currentPage-4; i<currentPage+4; i++) {
+			if(i<=0) {
+				continue;
+			} else if(i>p_totalNum) {
+				break;
+			} else {
+				
+	%>
+		<a href="boardPage.jsp?cp=<%= i %>"><div id="pageNum">[<%=i%>]</div></a>
+	<%
+			}
+		}
+
+	%>
 	</div>
 	
 	<!-- 검색 기능 -->
@@ -212,6 +258,11 @@
 	<div id="send_main">
 		<br>
 		<input type="button" value="메인으로" onclick="sendMain()"/>
+		<br>
+	</div>
+	
+	<div id="footercon">
+		 <jsp:include page="footer.jsp"></jsp:include> 
 	</div>
 </body>
 </html>

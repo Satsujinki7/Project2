@@ -23,6 +23,9 @@
 		int bnum = 0;
 		BoardDAO dao = new BoardDAO();
 		BoardVO vo = new BoardVO();
+		
+		ReplyDAO re_dao = new ReplyDAO();
+		ReplyVO re_vo = new ReplyVO();
 	
 		if(bn!=null) {
 			bnum = Integer.parseInt(bn);
@@ -46,6 +49,7 @@
 			border: 1px solid black;
 			border-collapse: collapse;
 			text-align: center;
+			padding: 20px;
 		}
 		th {
 			padding: 3px;
@@ -73,6 +77,10 @@
 		
 		#uname, #cname {
 			display: none;
+		}
+		
+		#wrap {
+			margin-bottom: 100px;
 		}
 	</style>
 	
@@ -113,15 +121,26 @@
 			location.href = 'nominateOK.jsp?boardnum=' + <%= vo.getBoardNum() %>;
 		}
 		
-		
+		function deleteReply(repno) {
+			if(!confirm("삭제하시겠습니까?")) {
+				return;
+			}
+			
+			var form = document.frm;
+			form.action = "replyDelete.jsp";
+			form.submit();
+			
+		}
 
 	</script>
 </head>
 <body>
+<div id="container_nav">	
+	<jsp:include page="nav.jsp"></jsp:include>
+</div>
 	<%-- <jsp:useBean id="vo" class="bean.UserBean" scope="session"></jsp:useBean> --%>
-	<h2><%= session.getAttribute("userName") %> 님, 환영합니다. </h2>
-	
-	<form id="frm" action="replyOK.jsp">
+<div id="wrap">
+	<form id="frm" name="frm" action="replyOK.jsp">
 		<input type="hidden" id="boardnum" name="boardnum" value="<%= vo.getBoardNum() %>"/>
 		<input type="hidden" id="boardwriter" name="boardwriter" value="<%= vo.getBoardWriter() %>"/>
 		<table>
@@ -172,11 +191,14 @@
 							for(ReplyVO r_vo : r_list) {
 							
 						%>
-						
+						<input type="hidden" name="rep_num" value="<%= r_vo.getReplyNum() %>"/>
 						<label for=""><%= r_vo.getReplyWriter() %></label>&nbsp;
 						<label for=""><%= r_vo.getReplyComment() %></label>&nbsp;
 						<label for=""><%= r_vo.getReplyDate() %></label>
 						<a href="#">[답글]</a>
+						<a href="#" onclick="deleteReply(<%= r_vo.getReplyNum() %>)">[삭제]</a>
+						<%-- <a href="replyDelete.jsp?replynum=<%= r_vo.getReplyNum() %>">[삭제]</a> --%>
+						
 						
 						<br><br>
 						<%
@@ -185,7 +207,7 @@
 						
 					</div>
 					<div id="isHidden">
-					<hr>
+					<hr><br>
 						<input type="text" name="userid" id="userid" value="<%= session.getAttribute("userName") %>" disabled="disabled"/>
 						<%-- <label for=""><%= session.getAttribute("userName") %></label> --%>
 						<textarea name="reply" id="reply" cols="40" rows="4"></textarea>
@@ -231,7 +253,7 @@
 			</tr>
 		</table>
 	</form>
-	
+</div>
 	
 	
 	
@@ -250,5 +272,9 @@
 			</form>
 		</div>
 	</div> --%>
+	
+	<div id="footercon">
+		 <jsp:include page="footer.jsp"></jsp:include> 
+	</div>
 </body>
 </html>

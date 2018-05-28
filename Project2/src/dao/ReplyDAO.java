@@ -49,7 +49,8 @@ public class ReplyDAO {
 		sb.setLength(0);
 		sb.append("select * from reply ");
 		sb.append("where replyboardnum = ? ");
-		sb.append("order by groupnum asc, ordernum asc ");
+		sb.append("order by replydate ");
+//		sb.append("order by groupnum asc, ordernum asc ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -77,6 +78,41 @@ public class ReplyDAO {
 		}
 
 		return list;
+	} //getAllReply end
+	
+	//현재 댓글 하나 조회
+	public ReplyVO getCurrentReply(int replynum) {
+		sb.setLength(0);
+		sb.append("select * from reply ");
+		sb.append("where replynum = ? ");
+		
+		ReplyVO vo = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			
+			pstmt.setInt(1, replynum);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int replyNum = rs.getInt("replynum");
+				int replyBoardNum = rs.getInt("replyboardnum");
+				String replyWriter = rs.getString("replywriter");
+				String replyDate = rs.getString("replydate");
+				String replyComment = rs.getString("replycomment");
+				int groupNum = rs.getInt("groupnum");
+				int depth = rs.getInt("depth");
+				int orderNum = rs.getInt("ordernum");
+				int parentReplyNum = rs.getInt("parentreplynum");
+
+				vo = new ReplyVO(replyNum, replyBoardNum, replyWriter, replyDate, replyComment, groupNum, depth, orderNum, parentReplyNum);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return vo;
 	} //getAllReply end
 	
 	//부모 댓글 숫자 구하기
@@ -162,6 +198,22 @@ public class ReplyDAO {
 			// TODO: handle exception
 		}
 	} //updateOrderNumByGroupNum end
+	
+	//댓글 삭제
+	//sql문 틀리지도 않았는데 대체 왜 동작안함?
+	public void deleteReplyNum(int repbno, int repno) {
+		sb.setLength(0);
+		sb.append("delete reply ");
+		sb.append("where replyboardnum = ? and replynum = ? ");
+		
+		try {
+			pstmt.setInt(1, repbno);
+			pstmt.setInt(2, repno);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	} //deleteReplyNum end
 	
 	
 	public void addNewReplyDepth(ReplyVO vo) {
