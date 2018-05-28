@@ -8,10 +8,14 @@
     <title></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript">
+    	var cat = 0;
+    	
         $(function() {
             $("#imgInp").on('change', function(){
                 readURL(this);
             });
+            
+           
         });
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -20,12 +24,23 @@
             reader.onload = function (e) {
                     $('#upload_img').attr('src', e.target.result);
                     $('#upload_img').css('display', 'inline');
-                    var width = $('#upload_img').width()
-                    console.log(width);
                 }
               reader.readAsDataURL(input.files[0]);
             }
         }
+        
+        function subcheck() {
+			if (cat == 1 || cat == 2 || cat == 3 || cat == 4 ){
+				document.frm.action = "illwriteOk.jsp";
+				document.frm.submit();
+			}else{
+				alert("카테고리를 선택해 주세요");
+			}
+		}
+        function catvalue(data) {
+			cat = data.value;
+		}
+        
     </script>
 </head>
 <body>
@@ -33,7 +48,7 @@
 		String userName = (String)session.getAttribute("userName");
 	%>
 	<div id="write_div">
-    <form id="frm" action="illwriteOk.jsp" method="post" name="frm" enctype="multipart/form-data">
+    <form id="frm" action="#" method="post" name="frm" enctype="multipart/form-data">
     	<div id="frm_wrap">
     	<div id="writer">
 			<p>작성자 : 
@@ -45,8 +60,8 @@
         	<div id="img_div">
         		<img id="upload_img" src="#" alt="이미지" /></div>
     		<div id="title_div">
-    			<input type="text" name="title" id="title" placeholder="제목을 입력하세요"/>
-    			<select id="option" name="option">
+    			<input type="text" name="title" id="title" placeholder="제목을 입력하세요" required="required"/>
+    			<select id="option" name="option" onchange="catvalue(this)">
 					  <option value="0">카테고리선택</option>
 					  <option value="1">일러스트</option>
 					  <option value="2">만화</option>
@@ -65,8 +80,7 @@
         	</div>
         	
         	<div id="submit_div">
-        			<button>업로드</button>
-        			<input type="submit" value="업로드" />
+      		  	 <button value="업로드" id="subbtn" onclick="subcheck()">업로드</button>
         	</div>
         	</div>        
     </form>

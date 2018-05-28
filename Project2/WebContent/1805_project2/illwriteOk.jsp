@@ -15,7 +15,7 @@ int maxSize = 1024*1024*5;
 //절대경로상에 이미지파일 생성됨, 이클립스 경로상에 가상 참조 & 뿌려줌
 MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 
-String writer = multi.getParameter("wr");
+String writer =(String)session.getAttribute("userName");
 String title = multi.getParameter("title");
 String content = multi.getParameter("content");
 //파일 이름을 온전하게 받아오기 위해 사용함
