@@ -21,7 +21,7 @@
 	        <div id="right_rank" class="body_div"><jsp:include page="today_ranking.jsp"></jsp:include></div>
 	        <div id="left_rank" class="body_div"><jsp:include page="cat_ranking.jsp"></jsp:include></div>
 	        <div id="tag_rank" class="body_div"><jsp:include page="tag_ranking.jsp"></jsp:include></div>
-	        <div id="new_rank" class="body_div"></div>
+	        <div id="new_rank" class="body_div"><a href="illwrite.jsp">글쓰러가아아아기!!!!!!</a></div>
 	        <div id="board_new" class="body_div"></div>
 	        
 	        <!-- 

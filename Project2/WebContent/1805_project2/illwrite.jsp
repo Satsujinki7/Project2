@@ -29,14 +29,15 @@
     </script>
 </head>
 <body>
-
+	<%
+		String userName = (String)session.getAttribute("userName");
+	%>
 	<div id="write_div">
-	<!-- action ->illwriteOk.jsp method="post" -->
     <form id="frm" action="illwriteOk.jsp" method="post" name="frm" enctype="multipart/form-data">
     	<div id="frm_wrap">
     	<div id="writer">
 			<p>작성자 : 
-				<input type="text" name="wr" id="wr"  />
+				<input type="text" name="wr" id="wr" disabled="disabled" value="<%= userName %>"   />
 			</p>
 		</div>
     	<div id="file_div">
