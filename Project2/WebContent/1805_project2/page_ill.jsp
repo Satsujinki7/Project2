@@ -201,7 +201,7 @@ margin-right: 10px;
 		}
 %>
 <div class="post">
-		<a href="detail.jsp?boardnum=<%=vo.getIboardnum() %>&category=prd">
+		<a href="detail.jsp?boardnum=<%=vo.getIboardnum() %>&category=ill">
 		<div class="img_area">
 			<img src="<%=vo.getIboardimg() %>" alt="이미지" id="img<%=i++%>"/>
 		</div></a>
