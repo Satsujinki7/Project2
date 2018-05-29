@@ -186,7 +186,6 @@ public class UserDAO {
 	
 	
 	//한건 조회하는 메소드
-	
 	public UserVO getData(String iboardwriter) {
 		sb.setLength(0);
 		sb.append("select * from userinfo ");
@@ -197,6 +196,49 @@ public class UserDAO {
 		try {
 			pstmt=conn.prepareStatement(sb.toString());
 			pstmt.setString(1, iboardwriter);
+			
+			rs=pstmt.executeQuery();
+			rs.next();
+			
+			String userName =rs.getString("username");
+			String userId = rs.getString("userid");
+			String userPw = rs.getString("userpw");
+			String userGender = rs.getString("usergender");
+			int userBirth = rs.getInt("userbirth");
+			String userNicName = rs.getString("usernicname");
+			String userAddress = rs.getString("useraddress");
+			String userPhone = rs.getString("userphone");
+			String userEmail = rs.getString("useremail");
+			int userFollower = rs.getInt("userfollower");
+			int userFollowing = rs.getInt("userfollowing");
+			String userImg = rs.getString("userimg");
+			String userBio = rs.getString("userbio");
+			
+			
+
+			vo = new UserVO(userId, userPw, userName, userGender, userBirth, userNicName,
+					userAddress, userEmail, userPhone, userFollower, userFollowing, userImg, userBio);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+	}//getData()  end
+	
+	
+	//유저 아이디로 유저 이름 검색
+	public UserVO getDataById(String writer) {
+		sb.setLength(0);
+		sb.append("select * from userinfo ");
+		sb.append("where userid= ? ");
+		
+		UserVO vo=null;
+		
+		try {
+			pstmt=conn.prepareStatement(sb.toString());
+			pstmt.setString(1, writer);
 			
 			rs=pstmt.executeQuery();
 			rs.next();

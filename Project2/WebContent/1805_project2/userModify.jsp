@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Registration</title>
+<title>회원정보 수정</title>
 <style>	
 	#regDiv {
 		width: 800px;
-		height: 740px;
+		height: 840px;
 		border: 1px solid black;
 		position:relative;
 		margin: 0 auto;		
@@ -85,9 +85,8 @@
 	#emailbox{top: -250px; height: 50px;}
 	#email{position: relative; left: 160px; width: 115px; height: 20px; top: -290px;}
 	
-	#addressbox{top: -270px; height: 50px;}
-	#address{position: relative; left: 160px; width: 115px; height: 20px; top: -310px;}
-	
+	#introduce{top : -280px; height: 50px;}
+	#intro{position:relative; left: 160px; top : -330px; width : 400px;	height: 100px;	}	
 	#reg{position: relative; top: -290px; width: 100px; height: 40px; border: 1px solid brown; background-color: brown; color: white; font-weight: bold;}
 	#reset{position: relative; top: -290px; width: 100px; height: 40px; border: 1px solid gray; background-color: gray; font-weight: bold;}	
 	
@@ -120,19 +119,14 @@
 	#reset{
 		position: relative; left: 300px;
 	}
-	
+
 	
 </style>
 	
 	<script>
 		//유효성 검사
 		function chkValidate() {
-			/* var gender = Integer.parseInt(re)
-			for(var i=0; i<gender.value.length; i++){
-				if(phone.value[i].checked == true) {
-					console.log(gender.value);
-				}
-			} */			
+					
 			
 			if(pw.value.length != 16 && pw.value.length > 16) {
 				alert("비밀번호는 16자리까지만 입력하세요.");
@@ -172,21 +166,19 @@
 %>
 	<div id="regDiv">
 		<br />			
-		<h3>※ 회원정보수정</h3><br />
+		<h2  style="margin-left : 30px">※ 회원정보수정</h2><br />
 		<span id="req" style="font-size: 12px">✓ 표시 항목은 필수 항목입니다.</span>
+		<form action="# %>" method="GET">
+		<!-- 
 		<form action="userModifyOk.jsp?id=<%= session.getAttribute("userId") %>" method="GET">
+		 -->
 			<div>
-				
 					<div class="basic"><strong><span>✓</span> 아이디</strong></div>
 					<div id="tp1">
 						<input class="text_class" type="text" name="id" id="id" placeholder="<%= session.getAttribute("userId") %>" disabled="disabled" required/>																	
 						
-						<p id="pid">＊ 6~16자까지 영문자(소문자), 숫자 사용 가능합니다.</p>
 					</div>
 					
-						
-					
-				
 					<div class="basic" id="pwbox"><strong id="pwsp"><span>✓</span> 비밀번호</strong></div>
 					
 						<input class="text_class" type="text" name="pw" id="pw" placeholder="비밀번호 입력" required/>
@@ -206,13 +198,7 @@
 						<input class="text_class" type="text" name="name" id="name" placeholder="<%= session.getAttribute("userName") %>" disabled="disabled" required/>
 					</div>
 				</div>
-				<div>
-					<div class="basic" id="genderck"><strong><span>✓</span> 성별</strong></div>
-					<div id="gender">
-						<input type="radio" disabled="disabled" name="gender" value="1" checked="checked" /><span class="gendersp">남자</span>
-						<input type="radio" disabled="disabled" name="gender" value="2" /><span class="gendersp">여자</span>
-					</div>
-				</div>
+				
 				<div>
 					<div class="basic" id="birthbox"><strong><span>✓</span> 생년월일</strong></div>
 					<div>
@@ -230,9 +216,6 @@
 				<div>
 					<div class="basic" id="phonebox"><strong><span>✓</span> 연락처</strong></div>
 					<div>
-						<!-- <input type="text" name="mp0" id="mp0" value="010" size="1" disabled="disabled"/>
-						<input type="text" name="mp1" id="mp1" size="3" required />
-						<input type="text" name="mp2" id="mp2" size="3" required /> -->
 						<input type="text" name="phone" id="phone" required disabled="disabled" placeholder="연락처 입력" />
 					</div>
 				</div>
@@ -243,16 +226,15 @@
 					</div>
 				</div>
 				<div>
-					<div class="basic" id="addressbox"><strong><span>✓</span> 주소</strong></div>
+					<div class="basic" id="introduce"><strong><span>✓</span> 자기소개</strong></div>
 					<div>
-						<input type="text" name="address" id="address"  placeholder="주소 입력" required/>
+						<input type="text" name="intro" id="intro" />
 					</div>
 				</div>
 				
-					
-						<input type="submit" value="Go" id="reg" onclick="chkValidate()" />
-						<input type="reset" value="Reset" id="reset"/>
-					
+					<!-- button!!!!!!!!!!!!!!!!!!!!!!!!  -->
+					<input type="submit" value="수정" id="reg" onclick="chkValidate()" />
+					<input type="button" value="뒤로가기" id="reset"/>
 				
 			</div>
 		</form>

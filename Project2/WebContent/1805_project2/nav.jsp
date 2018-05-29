@@ -1,3 +1,5 @@
+<%@page import="vo.UserVO"%>
+<%@page import="dao.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -17,6 +19,14 @@ function logout() {
 
 	location.href= 'logoutOk.jsp';
 }
+
+function pageMoveWrite() {
+	location.href = 'illwrite.jsp';
+}
+function pageMoveMypage() {
+	location.href = 'myPage.jsp?id='%>;
+}
+
 </script>
 
 <div id="header">
@@ -64,12 +74,18 @@ function logout() {
 	
 	
 	<% 
-		Object user = session.getAttribute("userName");
+		Object ur = session.getAttribute("userName");
+		String user = ur.toString();
+	
+		UserDAO dao = new UserDAO();
+		UserVO  vo = new UserVO();
+		
+		vo = dao.getData(user);
 	
 	%>
 	
 	<div id="navright">
-		<%
+	<%
 	   if(user == null){
 	%>
 		<input type="button" value="로그인" onclick="pageMoveLog()"/>
@@ -81,8 +97,9 @@ function logout() {
 		
 		%>
 		
-		<a href="illwrite.jsp">업로드</a>
-		<span><%=user %></span>
+		<input type="button" value="업로드" onclick="pageMoveWrite()"/>
+		<a href="myPage.jsp?id=<%=vo.getUserId()%>">
+		<input type="button" value="<%=user %>"  /></a>
 		
 		<%
 		

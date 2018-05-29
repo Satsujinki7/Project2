@@ -221,8 +221,8 @@ margin-right: 10px;
 		
 		<div class="info_area">
 			<div class="info_box">
-				<a href="detail.jsp?boardnum=<%=tbv.getTboardnum() %>&category=toon" class="post_title"><%=tbv.getTboardtitle() %></a>
-				<a href="myPage.jsp?writer=<%=tbv.getTboardwriter() %> " class="post_writer">
+				<a href="hitsUpOk.jsp?boardnum=<%=tbv.getTboardnum() %>&category=toon" class="post_title"><%=tbv.getTboardtitle() %></a>
+				<a href="myPage.jsp?id=<%=uservo.getUserId() %>" class="post_writer">
 					<img src="<%=imgpath %>" alt="프사" />
 					<span><%=tbv.getTboardwriter() %></span>
 				</a>

@@ -86,6 +86,7 @@
 		width: 150px;
 		height: 150px;
 		border-radius: 50%;
+		border : 5px solid white;
 		background-color: gray;
 		margin : 25px;
 		
@@ -298,69 +299,74 @@
 <body>
 
 	<%
-	String writer = request.getParameter("writer");
-		
+	Object ur =session.getAttribute("userName");
+	String user = ur.toString();
 	
-	if(writer != null){
 	UserDAO dao = new UserDAO();
 	UserVO vo = new UserVO();
 	
 	
-	vo = dao.getData(writer);
+	String writer = request.getParameter("id");
+	vo = dao.getDataById(writer);
 	
+	String wri = vo.getUserName();
 	
-	
-	
+	String img = vo.getUserImg();
+	if(img == null){
+		img = "../images/kobugi.jpg";
+	}
+	String bio = vo.getUserBio();
+	if(bio == null){
+		bio ="";
+	}
 	%>
-
-
+	<!-- nav bar part -->
+	<div id="container_nav">	
+	<jsp:include page="nav.jsp"></jsp:include>
+	</div>
+	
+	
 	<div id="mycontainer">
 	
-	<!-- -------------내 정보 부분-------------- -->
-		
-		
-		<div id="myinfo">
-		
-		<!-- 프로필 이미지 -->
-			<div id="myinfo_img">
-				<img src="<%=vo.getUserImg() %>" alt="프사" />
-			</div>
-			
-		<!-- 닉네임,팔로워등 텍스트 정보 -->
-			<div id="myinfo_text">
-				<h2><%=vo.getUserName() %></h2>
-				<span id="bio"><%=vo.getUserBio() %></span>
-				<span id="follow">
-				<a href="#" id="follower">팔로우<span>10</span></a>
-				<a href="#" id="following">팔로워<span>20</span></a>
-				</span>
-				
-				<a href="#" id="p_modify">프로필수정</a>
-			</div>
-		</div>
-		
-		<%
-		
-	}else{
-		
-		response.sendRedirect("detail.jsp");
-	}
+	<!-- -------------글쓴이 정보 부분-------------- -->
+	<div id="myinfo">
 	
+	<!-- 프로필 이미지 -->
+	<div id="myinfo_img">
+		<img src="<%=img %>" alt="프사" />
+	</div>
+	<!-- 닉네임,팔로워등 텍스트 정보 -->
+	<div id="myinfo_text">
+		<h2><%=vo.getUserName() %></h2>
+		<span id="bio"><%=bio %></span>
+		<span id="follow">
+		<a href="#" id="follower">팔로우<span>10</span></a>
+		<a href="#" id="following">팔로워<span>20</span></a>
+		</span>
+	<%
+	if(user.equals(wri)){
+		//user이랑 해당 글의 writer 가 일치한다면
+	%>
+			<a href="userModify.jsp" id="p_modify">프로필수정</a>	
+	<%
+	}
+	%>
+		</div>
+	</div>
 		
-		
-		%>
+	<%
+	%>
 		
 	<!-- ----------내 컨텐츠 보기------------ -->
-		<div id="mycontents">
+	<div id="mycontents">
 		
-		<!-- 컨텐츠바- 누를때마다 내용바뀜 -->
-			<div id="contentsbar">
-				<a href="#" id="mypost">작품</a>
-				<a href="#" id="like">좋아요</a>
-				<!-- <a href="#" id="gonggam">공감</a> -->
-			</div>
-		
-		
+	<!-- 컨텐츠바- 누를때마다 내용바뀜 -->
+		<div id="contentsbar">
+			<a href="#" id="mypost">작품</a>
+			<a href="#" id="like">좋아요</a>
+			<!-- <a href="#" id="gonggam">공감</a> -->
+		</div>
+			
 		
 		</div>
 	</div>
