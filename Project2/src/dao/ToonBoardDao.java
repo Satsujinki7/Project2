@@ -130,7 +130,7 @@ public class ToonBoardDao {
 	public void addtoonBoard(ToonboardVo tbv) {
 		sb.setLength(0);
 		sb.append("insert into toonboard ");
-		sb.append("values(tboard_tbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?) ");
+		sb.append("values(pboard_pbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?) ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());

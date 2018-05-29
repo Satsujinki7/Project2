@@ -129,7 +129,7 @@ public class IllBoardDao {
 	public void addIllBoard(IllboardVo ibv) {
 		sb.setLength(0);
 		sb.append("insert into illboard ");
-		sb.append("values(iboard_ibnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?) ");
+		sb.append("values(pboard_pbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?) ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());

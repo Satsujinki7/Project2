@@ -128,7 +128,7 @@ public class EtcBoardDao {
 	public void addEtcBoard(EtcboardVo ebv) {
 		sb.setLength(0);
 		sb.append("insert into etcboard ");
-		sb.append("values(eboard_ebnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?) ");
+		sb.append("values(pboard_pbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?) ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
