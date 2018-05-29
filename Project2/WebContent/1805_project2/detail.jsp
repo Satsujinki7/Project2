@@ -454,11 +454,13 @@
 		
 		 <div id="like_area">
 			
-			<div id="like_box" onclick="likeclick()">
+			<a href="likeOk.jsp?bn=<%=boardnum %>&cat=<%=cate%>">
+			<div id="like_box">
 				<span id="heart">♥</span>
 				<span>좋아요</span>
 				<span id="likecount"><%=like %></span>
 			</div>
+			</a>
 		
 		</div>
 		

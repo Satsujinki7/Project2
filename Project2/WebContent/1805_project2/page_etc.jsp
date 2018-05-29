@@ -226,6 +226,7 @@ margin-right: 10px;
 		</div>
 		<div class="btn_area">
 		 <a href="#" class="post_like">
+		 	<!-- 좋아요오!!! -->
 		 	<span>좋아요</span>
 		 	<b><%=tbv.getEboardnomination() %></b>
 		 	

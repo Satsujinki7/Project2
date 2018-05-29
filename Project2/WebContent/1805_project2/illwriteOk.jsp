@@ -43,7 +43,9 @@ if(cat==1){//일러스트
 	ibv.setIboardflag(1);
 	
 	ibd.addIllBoard(ibv);
+	//out.print(ibv.getIboardnum());
 	response.sendRedirect("page_ill.jsp");
+	
 	
 }else if(cat == 2){//만화
 	ToonboardVo tbv = new ToonboardVo();
@@ -81,7 +83,9 @@ if(cat==1){//일러스트
 	ebv.setEboardflag(1);
 	
 	ebd.addEtcBoard(ebv);
-	response.sendRedirect("page_etc.jsp");
+	
+	out.print(ebv.getEboardnum());
+	//response.sendRedirect("page_etc.jsp");
 }
 
 //임시로 해둔 페이지 전환입니다

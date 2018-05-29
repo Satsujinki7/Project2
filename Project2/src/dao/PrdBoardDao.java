@@ -21,7 +21,7 @@ public class PrdBoardDao {
 	
 	//전체조회 ->업로드 순으로 
 	public ArrayList<PrdboardVo> alldataPrdBoard(){
-		ArrayList<PrdboardVo> list = new ArrayList<>();
+		ArrayList<PrdboardVo> list = new ArrayList<>() ;
 		
 		sb.setLength(0);
 		sb.append("select * from prdboard order by pboardnum desc");

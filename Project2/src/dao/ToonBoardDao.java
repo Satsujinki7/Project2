@@ -124,7 +124,7 @@ public class ToonBoardDao {
 	//추천수 증가
 	public void incrementNomination(int boardnum) {
 		sb.setLength(0);
-		sb.append("update toonoard ");
+		sb.append("update toonboard ");
 		sb.append("set tboardnomination = tboardnomination +1 ");
 		sb.append("where tboardnum = ? ");
 		
