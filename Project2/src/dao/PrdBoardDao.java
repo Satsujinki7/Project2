@@ -55,6 +55,42 @@ public class PrdBoardDao {
 	}//alldata end
 	
 	
+	//전체조회 ->좋아요 순으로 
+	public ArrayList<PrdboardVo> likePrdBoard(){
+		ArrayList<PrdboardVo> list = new ArrayList<>() ;
+		
+		sb.setLength(0);
+		sb.append("select * from prdboard order by pboardnomination desc");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int pboardnum =rs.getInt(1);
+				String pboarddate = rs.getString(2) ;
+				String pboardtitle = rs.getString(3);
+				String pboardwriter=rs.getString(4);
+				String pboardcontent =rs.getString(5);
+				String pboardimg =rs.getString(6);
+				int pboardhits = rs.getInt(7);
+				int	pboardnomination = rs.getInt(8);
+				int pboardtoday = rs.getInt(9);
+				int pboardflag = rs.getInt(10);
+				
+				PrdboardVo pbv = new PrdboardVo(pboardnum, pboarddate, pboardtitle, pboardwriter, pboardcontent, pboardimg, pboardhits, pboardnomination, pboardtoday, pboardflag);
+				
+				list.add(pbv);
+			}//while end
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}//alldata end
+
+	
 	//페이징 처리된 전체조회
 	public ArrayList<PrdboardVo> alldataPrdBoard(int startNum , int endNum){
 		ArrayList<PrdboardVo> list = new ArrayList<>();
@@ -204,6 +240,7 @@ public class PrdBoardDao {
 		
 	}//추천수 증가 endㄴ	
 	
+	//전체 게시글
 	public int countData() {
 		sb.setLength(0);
 		sb.append("SELECT COUNT(*) FROM PRDBOARD ");
@@ -226,4 +263,34 @@ public class PrdBoardDao {
 		
 		return DataNum;
 	}//countdata end
+	
+	//이름으로 검색하여 최신순 정렬한 뒤 글번호를 가져옴
+	public int getDataByName(String writer) {
+		sb.setLength(0);
+		sb.append("select * from prdboard ");
+		sb.append("where pboardwriter =? ");
+		sb.append("order by pboardnum desc ");
+		
+		int no =0;
+		
+		try {
+			pstmt=conn.prepareStatement(sb.toString());
+			pstmt.setString(1, writer);
+			
+			rs=pstmt.executeQuery();
+			rs.next();
+			
+			no=rs.getInt("pboardnum");
+			
+			return no;
+		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return no;
+		}
+	
+	}//getData() end
+	
 }

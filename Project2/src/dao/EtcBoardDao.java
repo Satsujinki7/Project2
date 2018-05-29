@@ -55,6 +55,42 @@ public class EtcBoardDao {
 	}//alldata end
 	
 	
+	//좋아요 순 으로 정렬
+	public ArrayList<EtcboardVo> likeEtcBoard(){
+		ArrayList<EtcboardVo> list = new ArrayList<>();
+		
+		sb.setLength(0);
+		sb.append("select * from etcboard order by eboardnomination desc");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int eboardnum =rs.getInt(1);
+				String eboarddate = rs.getString(2) ;
+				String eboardtitle = rs.getString(3);
+				String eboardwriter=rs.getString(4);
+				String eboardcontent =rs.getString(5);
+				String eboardimg =rs.getString(6);
+				int eboardhits = rs.getInt(7);
+				int	eboardnomination = rs.getInt(8);
+				int eboardtoday = rs.getInt(9);
+				int eboardflag = rs.getInt(10);
+				
+				EtcboardVo ebv = new EtcboardVo(eboardnum, eboarddate, eboardtitle, eboardwriter, eboardcontent, eboardimg, eboardhits, eboardnomination, eboardtoday, eboardflag);
+				
+				list.add(ebv);
+			}//while end
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}//alldata end
+	
+	
 	//페이징 된 전체조회
 	public ArrayList<EtcboardVo> alldataEtcBoard(int startNum, int endNum){
 		ArrayList<EtcboardVo> list = new ArrayList<>();
@@ -223,6 +259,36 @@ public class EtcBoardDao {
 		}
 		
 	}//추천수 증가 end
+	
+	//이름으로 검색하여 최신순 정렬한 뒤 글번호를 가져옴
+	public int getDataByName(String writer) {
+		sb.setLength(0);
+		sb.append("select * from Etcboard ");
+		sb.append("where eboardwriter =? ");
+		sb.append("order by eboardnum desc ");
+		
+		int no =0;
+		
+		try {
+			pstmt=conn.prepareStatement(sb.toString());
+			pstmt.setString(1, writer);
+			
+			rs=pstmt.executeQuery();
+			rs.next();
+			
+			no=rs.getInt("eboardnum");
+			
+			return no;
+		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return no;
+		}
+	
+	}//getData() end
+			
 	
 	
 }

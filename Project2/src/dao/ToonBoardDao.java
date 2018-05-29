@@ -196,37 +196,104 @@ public class ToonBoardDao {
 	
 	//한건 조회하는 메소드
 	
-			public ToonboardVo getData(int tboardnum) {
-				sb.setLength(0);
-				sb.append("select * from toonboard ");
-				sb.append("where tboardnum= ? ");
+	public ToonboardVo getData(int tboardnum) {
+		sb.setLength(0);
+		sb.append("select * from toonboard ");
+		sb.append("where tboardnum= ? ");
+		
+		ToonboardVo vo=null;
+		
+		try {
+			pstmt=conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, tboardnum);
+			
+			rs=pstmt.executeQuery();
+			rs.next();
+			
+			String tboarddate = rs.getString("tboarddate") ;
+			String tboardtitle = rs.getString("tboardtitle");
+			String tboardwriter=rs.getString("tboardwriter");
+			String tboardcontent =rs.getString("tboardcontent");
+			String tboardimg =rs.getString("tboardimg");
+			int tboardhits = rs.getInt("tboardhits");
+			int	tboardnomination = rs.getInt("tboardnomination");
+			int tboardtoday = rs.getInt("tboardtoday");
+			int tboardflag = rs.getInt("tboardflag");
+			
+			vo = new ToonboardVo(tboardnum, tboarddate, tboardtitle, tboardwriter, tboardcontent, tboardimg, tboardhits, tboardnomination, tboardtoday, tboardflag);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+	}//getData() end
+	
+	
+	
+	//랭킹순 정렬/좋아요 순으로
+	public ArrayList<ToonboardVo> likeToonBoard(){
+		ArrayList<ToonboardVo> list = new ArrayList<>();
+		
+		sb.setLength(0);
+		sb.append("select * from toonboard order by tboardnomination desc");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int tboardnum =rs.getInt(1);
+				String tboarddate = rs.getString(2) ;
+				String tboardtitle = rs.getString(3);
+				String tboardwriter=rs.getString(4);
+				String tboardcontent =rs.getString(5);
+				String tboardimg =rs.getString(6);
+				int tboardhits = rs.getInt(7);
+				int	tboardnomination = rs.getInt(8);
+				int tboardtoday = rs.getInt(9);
+				int tboardflag = rs.getInt(10);
 				
-				ToonboardVo vo=null;
+				ToonboardVo tbv = new ToonboardVo(tboardnum, tboarddate, tboardtitle, tboardwriter, tboardcontent, tboardimg, tboardhits, tboardnomination, tboardtoday, tboardflag);
 				
-				try {
-					pstmt=conn.prepareStatement(sb.toString());
-					pstmt.setInt(1, tboardnum);
-					
-					rs=pstmt.executeQuery();
-					rs.next();
-					
-					String tboarddate = rs.getString("tboarddate") ;
-					String tboardtitle = rs.getString("tboardtitle");
-					String tboardwriter=rs.getString("tboardwriter");
-					String tboardcontent =rs.getString("tboardcontent");
-					String tboardimg =rs.getString("tboardimg");
-					int tboardhits = rs.getInt("tboardhits");
-					int	tboardnomination = rs.getInt("tboardnomination");
-					int tboardtoday = rs.getInt("tboardtoday");
-					int tboardflag = rs.getInt("tboardflag");
-					
-					vo = new ToonboardVo(tboardnum, tboarddate, tboardtitle, tboardwriter, tboardcontent, tboardimg, tboardhits, tboardnomination, tboardtoday, tboardflag);
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return vo;
-			}//getData() end
+				list.add(tbv);
+			}//while end
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}//랭킹순 정렬
+	
+	//이름으로 검색해 최신순 정렬, 글번호 가져옴
+	public int getDataByName(String writer) {
+		sb.setLength(0);
+		sb.append("select * from toonboard ");
+		sb.append("where tboardwriter =? ");
+		sb.append("order by tboardnum desc ");
+		
+		int no =0;
+		
+		try {
+			pstmt=conn.prepareStatement(sb.toString());
+			pstmt.setString(1, writer);
+			
+			rs=pstmt.executeQuery();
+			rs.next();
+			
+			no=rs.getInt("tboardnum");
+			
+			return no;
+		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return no;
+		}
+	}//getData() end
+			
+			
 	
 }

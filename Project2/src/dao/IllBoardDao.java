@@ -55,6 +55,42 @@ public class IllBoardDao {
 	}//alldata end
 	
 	
+	//전체조회 -> 좋아요 순으로
+	public ArrayList<IllboardVo> likeIllBoard(){
+		ArrayList<IllboardVo> list = new ArrayList<>();
+		
+		sb.setLength(0);
+		sb.append("select * from illboard order by iboardnomination desc");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int iboardnum =rs.getInt(1);
+				String iboarddate = rs.getString(2) ;
+				String iboardtitle = rs.getString(3);
+				String iboardwriter=rs.getString(4);
+				String iboardcontent =rs.getString(5);
+				String iboardimg =rs.getString(6);
+				int iboardhits = rs.getInt(7);
+				int	iboardnomination = rs.getInt(8);
+				int iboardtoday = rs.getInt(9);
+				int iboardflag = rs.getInt(10);
+				
+				IllboardVo ibv = new IllboardVo(iboardnum, iboarddate, iboardtitle, iboardwriter, iboardcontent, iboardimg, iboardhits, iboardnomination, iboardtoday, iboardflag);
+				
+				list.add(ibv);
+			}//while end
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}//alldata end
+	
+	
 	//페이징 처리된 조회
 	public ArrayList<IllboardVo> alldataIllBoard(int startNum , int endNum){
 		ArrayList<IllboardVo> list = new ArrayList<>();
@@ -154,109 +190,106 @@ public class IllBoardDao {
 	
 	//한건 조회하는  메소드
 	
-		public IllboardVo getData(int iboardnum) {
-			sb.setLength(0);
-			sb.append("select * from illboard ");
-			sb.append("where iboardnum= ? ");
+	public IllboardVo getData(int iboardnum) {
+		sb.setLength(0);
+		sb.append("select * from illboard ");
+		sb.append("where iboardnum= ? ");
+		
+		IllboardVo vo=null;
+		
+		try {
+			pstmt=conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, iboardnum);
 			
-			IllboardVo vo=null;
+			rs=pstmt.executeQuery();
+			rs.next();
 			
-			try {
-				pstmt=conn.prepareStatement(sb.toString());
-				pstmt.setInt(1, iboardnum);
-				
-				rs=pstmt.executeQuery();
-				rs.next();
-				
-				int no=rs.getInt("iboardnum");
-				String writer=rs.getString("iboardwriter");
-				String title=rs.getString("iboardtitle");
-				String contents=rs.getString("iboardcontent");
-				String date=rs.getString("iboarddate");
-				String imgpath=rs.getString("iboardimg");
-				
-				
-				
-				vo=new IllboardVo(no, date, title, writer, contents, imgpath, 0, 0, 0, 1);
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return vo;
-		}//getData() end
+			int no=rs.getInt("iboardnum");
+			String writer=rs.getString("iboardwriter");
+			String title=rs.getString("iboardtitle");
+			String contents=rs.getString("iboardcontent");
+			String date=rs.getString("iboarddate");
+			String imgpath=rs.getString("iboardimg");
+			
+			
+			
+			vo=new IllboardVo(no, date, title, writer, contents, imgpath, 0, 0, 0, 1);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+	}//getData() end
 		
-		//조회수 증가 
-				public void incrementHits(int boardnum) {
-					sb.setLength(0);
-					sb.append("update illboard ");
-					sb.append("set iboardhits = iboardhits +1 ");
-					sb.append("where iboardnum = ? ");
-					
-					try {
-						pstmt = conn.prepareStatement(sb.toString());
-						pstmt.setInt(1, boardnum);
-						
-						pstmt.executeUpdate();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-				}//조회수 증가
-				
-				
-				//추천수 증가
-				public void incrementNomination(int boardnum) {
-					sb.setLength(0);
-					sb.append("update illboard ");
-					sb.append("set iboardnomination = iboardnomination +1 ");
-					sb.append("where iboardnum = ? ");
-					
-					try {
-						pstmt = conn.prepareStatement(sb.toString());
-						pstmt.setInt(1, boardnum);
-						
-						pstmt.executeUpdate();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-				}//추천수 증가 end
+	//조회수 증가 
+	public void incrementHits(int boardnum) {
+		sb.setLength(0);
+		sb.append("update illboard ");
+		sb.append("set iboardhits = iboardhits +1 ");
+		sb.append("where iboardnum = ? ");
 		
-
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, boardnum);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+	}//조회수 증가
+	
+	
+	//추천수 증가
+	public void incrementNomination(int boardnum) {
+		sb.setLength(0);
+		sb.append("update illboard ");
+		sb.append("set iboardnomination = iboardnomination +1 ");
+		sb.append("where iboardnum = ? ");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, boardnum);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}//추천수 증가 end
 		
 
-		//이름으로 검색하여 최신순 정렬한 뒤 글번호를 가져옴
-		public int getDataByName(String writer) {
-			sb.setLength(0);
-			sb.append("select * from illboard ");
-			sb.append("where iboardwriter =? ");
-			sb.append("order by iboardnum desc ");
-			
-			int no =0;
-			
-			try {
-				pstmt=conn.prepareStatement(sb.toString());
-				pstmt.setString(1, writer);
-				
-				rs=pstmt.executeQuery();
-				rs.next();
-				
-				no=rs.getInt("iboardnum");
-				
-				return no;
-			
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return no;
-			}
+	//이름으로 검색하여 최신순 정렬한 뒤 글번호를 가져옴
+	public int getDataByName(String writer) {
+		sb.setLength(0);
+		sb.append("select * from illboard ");
+		sb.append("where iboardwriter =? ");
+		sb.append("order by iboardnum desc ");
 		
-		}//getData() end
+		int no =0;
+		
+		try {
+			pstmt=conn.prepareStatement(sb.toString());
+			pstmt.setString(1, writer);
+			
+			rs=pstmt.executeQuery();
+			rs.next();
+			
+			no=rs.getInt("iboardnum");
+			
+			return no;
+		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return no;
+		}
+	
+	}//getData() end
 		
 	
 	

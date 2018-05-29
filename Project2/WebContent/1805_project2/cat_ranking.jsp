@@ -1,3 +1,6 @@
+<%@page import="vo.ToonboardVo"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.ToonBoardDao"%>
 <%@page contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("UTF-8");%>
 <!-- project 폴더의 cat_ranking -->
@@ -27,22 +30,28 @@
    		<p id="rank_user">작성자</p>
    	</div>
   </div>
+  <%
+  //toonboard 인기순정렬 불러오기
+  ToonBoardDao tbd = new ToonBoardDao();
+  ArrayList<ToonboardVo> tlist = tbd.likeToonBoard();
   
+  tlist.get(1).getTboardimg();
+  %>
   <div id="cartoon" class="tabcontent">
     <div class="rank_toon">
-    	<div id="toon1"><img src="../images/heightpika.JPG" alt="카툰1위" width="100%"/></div>
-   		<p id="rank_title">게시글제목</p>
-   		<p id="rank_user">작성자</p>
+    	<div id="toon1"><img src="<%=tlist.get(1).getTboardimg() %>" alt="카툰1위" width="100%"/></div>
+   		<p id="rank_title"><%=tlist.get(1).getTboardtitle() %></p>
+   		<p id="rank_user"><%=tlist.get(1).getTboardwriter() %></p>
     </div>
     <div id="toon2" class="rank_toon">
-    	<div id="toon1"><img src="../images/heightpika.JPG" alt="카툰2위" width="100%"/></div>
-   		<p id="rank_title">게시글제목</p>
-   		<p id="rank_user">작성자</p>
+    	<div id="toon1"><img src="<%=tlist.get(2).getTboardimg() %>" alt="카툰2위" width="100%"/></div>
+   		<p id="rank_title"><%=tlist.get(2).getTboardtitle() %></p>
+   		<p id="rank_user"><%=tlist.get(2).getTboardwriter() %></p>
     </div>
     <div id="toon3" class="rank_toon">
-    	<div id="toon1"><img src="../images/heightpika.JPG" alt="카툰3위" width="100%"/></div>
-   		<p id="rank_title">게시글제목</p>
-   		<p id="rank_user">작성자</p>
+    	<div id="toon1"><img src="<%=tlist.get(3).getTboardimg() %>" alt="카툰3위" width="100%"/></div>
+   		<p id="rank_title"><%=tlist.get(3).getTboardtitle() %></p>
+   		<p id="rank_user"><%=tlist.get(3).getTboardwriter() %></p>
     </div>
   </div>
   
