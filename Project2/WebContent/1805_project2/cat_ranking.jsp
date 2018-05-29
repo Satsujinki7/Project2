@@ -1,3 +1,9 @@
+<%@page import="vo.EtcboardVo"%>
+<%@page import="dao.EtcBoardDao"%>
+<%@page import="vo.PrdboardVo"%>
+<%@page import="dao.PrdBoardDao"%>
+<%@page import="vo.IllboardVo"%>
+<%@page import="dao.IllBoardDao"%>
 <%@page import="vo.ToonboardVo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.ToonBoardDao"%>
@@ -12,22 +18,26 @@
     <button class="tablinks" onclick="openTab(event, 'parady')">2차창작</button>
     <button class="tablinks" onclick="openTab(event, 'tab_etc')">기타</button>
   </div>
+  <%
+  IllBoardDao ibd = new IllBoardDao();
+  ArrayList<IllboardVo> ilist = ibd.likeIllBoard();
   
+  %>
   <div id="illust" class="tabcontent">
    	<div class="rank_ill">
-   		<div id="ill1"><img src="../images/widepika.JPG" alt="일러1위" width="100%"/></div>
-   		<p id="rank_title">게시글제목</p>
-   		<p id="rank_user">작성자</p>
+   		<div id="ill1"><img src="<%=ilist.get(0).getIboardimg() %>" alt="일러1위" width="100%"/></div>
+   		<p id="rank_title"><%=ilist.get(0).getIboardtitle() %></p>
+   		<p id="rank_user"><%=ilist.get(0).getIboardwriter() %></p>
    	</div>
    	<div id="ill2" class="rank_ill">
-   		<div id="ill1"><img src="../images/widepika.JPG" alt="일러2위" width="100%"/></div>
-   		<p id="rank_title">게시글제목</p>
-   		<p id="rank_user">작성자</p>
+   		<div id="ill1"><img src="<%=ilist.get(1).getIboardimg() %>" alt="일러2위" width="100%"/></div>
+   		<p id="rank_title"><%=ilist.get(1).getIboardtitle() %></p>
+   		<p id="rank_user"><%=ilist.get(1).getIboardwriter() %></p>
    	</div>
    	<div id="ill3" class="rank_ill">
-   		<div id="ill1"><img src="../images/widepika.JPG" alt="일러3위" width="100%"/></div>
-   		<p id="rank_title">게시글제목</p>
-   		<p id="rank_user">작성자</p>
+   		<div id="ill1"><img src="<%=ilist.get(2).getIboardimg() %>" alt="일러3위" width="100%"/></div>
+   		<p id="rank_title"><%=ilist.get(2).getIboardtitle() %></p>
+   		<p id="rank_user"><%=ilist.get(2).getIboardwriter() %></p>
    	</div>
   </div>
   <%
@@ -39,55 +49,66 @@
   %>
   <div id="cartoon" class="tabcontent">
     <div class="rank_toon">
-    	<div id="toon1"><img src="<%=tlist.get(1).getTboardimg() %>" alt="카툰1위" width="100%"/></div>
+    	<div id="toon1"><img src="<%=tlist.get(0).getTboardimg() %>" alt="카툰1위" width="100%"/></div>
+   		<p id="rank_title"><%=tlist.get(0).getTboardtitle() %></p>
+   		<p id="rank_user"><%=tlist.get(0).getTboardwriter() %></p>
+    </div>
+    <div id="toon2" class="rank_toon">
+    	<div id="toon1"><img src="<%=tlist.get(1).getTboardimg() %>" alt="카툰2위" width="100%"/></div>
    		<p id="rank_title"><%=tlist.get(1).getTboardtitle() %></p>
    		<p id="rank_user"><%=tlist.get(1).getTboardwriter() %></p>
     </div>
-    <div id="toon2" class="rank_toon">
-    	<div id="toon1"><img src="<%=tlist.get(2).getTboardimg() %>" alt="카툰2위" width="100%"/></div>
+    <div id="toon3" class="rank_toon">
+    	<div id="toon1"><img src="<%=tlist.get(2).getTboardimg() %>" alt="카툰3위" width="100%"/></div>
    		<p id="rank_title"><%=tlist.get(2).getTboardtitle() %></p>
    		<p id="rank_user"><%=tlist.get(2).getTboardwriter() %></p>
     </div>
-    <div id="toon3" class="rank_toon">
-    	<div id="toon1"><img src="<%=tlist.get(3).getTboardimg() %>" alt="카툰3위" width="100%"/></div>
-   		<p id="rank_title"><%=tlist.get(3).getTboardtitle() %></p>
-   		<p id="rank_user"><%=tlist.get(3).getTboardwriter() %></p>
-    </div>
   </div>
   
+  <%
+  	PrdBoardDao pbd = new PrdBoardDao();
+  	ArrayList<PrdboardVo> plist = pbd.likePrdBoard(); 	
+  	
+  %>
   <div id="parady" class="tabcontent">
     <div class="rank_prdy">
-    	<div id="par1"><img src="../images/kimino.JPG" alt="패ㅓ디1위" width="100%"/></div>
-   		<p id="rank_title">게시글제목</p>
-   		<p id="rank_user">작성자</p>
+    	<div id="par1"><img src="<%=plist.get(0).getPboardimg() %>" alt="패ㅓ디1위" width="100%"/></div>
+   		<p id="rank_title"><%=plist.get(0).getPboardtitle()%></p>
+   		<p id="rank_user"><%=plist.get(0).getPboardwriter() %></p>
     </div>
     <div id="par2" class="rank_prdy">
-    	<div id="par1"><img src="../images/kimino.JPG" alt="패러디2위" width="100%"/></div>
-   		<p id="rank_title">게시글제목</p>
-   		<p id="rank_user">작성자</p>
+    	<div id="par1"><img src="<%=plist.get(1).getPboardimg() %>" alt="패러디2위" width="100%"/></div>
+   		<p id="rank_title"><%=plist.get(1).getPboardtitle()%></p>
+   		<p id="rank_user"><%=plist.get(1).getPboardwriter() %></p>
     </div>
     <div id="par3" class="rank_prdy">
-    	<div id="par1"><img src="../images/kimino.JPG" alt="패러디3위" width="100%"/></div>
-   		<p id="rank_title">게시글제목</p>
-   		<p id="rank_user">작성자</p>
+    	<div id="par1"><img src="<%=plist.get(2).getPboardimg() %>" alt="패러디3위" width="100%"/></div>
+   		<p id="rank_title"><%=plist.get(2).getPboardtitle()%></p>
+   		<p id="rank_user"><%=plist.get(2).getPboardwriter() %></p>
     </div>
   </div>
   
+  
+  <%
+  	EtcBoardDao ebd = new EtcBoardDao();
+  	ArrayList<EtcboardVo> elist = new ArrayList<>();
+  	elist = ebd.likeEtcBoard();
+  %>
   <div id="tab_etc" class="tabcontent">
   	<div class="rank_etc">
-  		<div id="etc1"><img src="../images/kobugi.jpg" alt="기타1위" width="100%"/></div>
-   		<p id="rank_title">게시글제목</p>
-   		<p id="rank_user">작성자</p>
+  		<div id="etc1"><img src="<%=elist.get(0).getEboardimg() %>" alt="기타1위" width="100%"/></div>
+   		<p id="rank_title"><%=elist.get(0).getEboardtitle()%></p>
+   		<p id="rank_user"><%=elist.get(0).getEboardwriter() %></p>
   	</div>
   	<div id="etc2" class="rank_etc">
-  		<div id="etc1"><img src="../images/kobugi.jpg" alt="기타2위" width="100%"/></div>
-   		<p id="rank_title">게시글제목</p>
-   		<p id="rank_user">작성자</p>
+  		<div id="etc1"><img src="<%=elist.get(1).getEboardimg() %>" alt="기타2위" width="100%"/></div>
+   		<p id="rank_title"><%=elist.get(1).getEboardtitle()%></p>
+   		<p id="rank_user"><%=elist.get(1).getEboardwriter() %></p>
   	</div>
   	<div id="etc3" class="rank_etc">
-  		<div id="etc1"><img src="../images/kobugi.jpg" alt="기타3위" width="100%"/></div>
-   		<p id="rank_title">게시글제목</p>
-   		<p id="rank_user">작성자</p>
+  		<div id="etc1"><img src="<%=elist.get(2).getEboardimg() %>" alt="기타3위" width="100%"/></div>
+   		<p id="rank_title"><%=elist.get(2).getEboardtitle()%></p>
+   		<p id="rank_user"><%=elist.get(2).getEboardwriter() %></p>
   	</div>
   </div>
 </div>

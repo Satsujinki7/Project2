@@ -60,7 +60,7 @@ public class EtcBoardDao {
 		ArrayList<EtcboardVo> list = new ArrayList<>();
 		
 		sb.setLength(0);
-		sb.append("select * from etcboard order by eboardnomination desc");
+		sb.append("select * from etcboard order by eboardnomination desc ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
