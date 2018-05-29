@@ -49,7 +49,8 @@
 			padding: 3px;
 			color: white;
 			text-shadow: 2px 2px 2px black;
-			background: -webkit-gradient(linear, 78% 20%, 10% 20%, from(#6699ff), to(#00ffff));
+			/* background: -webkit-gradient(linear, 78% 20%, 10% 20%, from(#6699ff), to(#00ffff)); */
+			background: cyan;
 		}
 		.col, .col4, .col5 {
 			width: 10%;

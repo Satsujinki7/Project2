@@ -7,46 +7,36 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import connection.OracleXE_ConnectionPJ2;
-import vo.BoardVO;
 import vo.ReplyVO;
 
-public class ReplyDAO {
+public class ReplyV2_DAO {
 	StringBuffer sb = new StringBuffer();
 	ResultSet rs = null;
 	PreparedStatement pstmt = null;
 	Connection conn = null;
 	
-	public ReplyDAO() {
+	public ReplyV2_DAO() {
 		conn = OracleXE_ConnectionPJ2.getInstance().getConnection();
 	}
 	
 	//댓글 작성
 	public void addReply(ReplyVO vo) {
 		sb.setLength(0);
-		
-		if(vo.getParentReplyNum() == 0) {
-			sb.append("insert into reply ");
-			sb.append("values (REPLY_REPLYNUM_SEQ.nextval, ?, ?, sysdate, ?, REPLY_REPLYNUM_SEQ.currval, 0, 0, 0) ");
-		}
-		//대댓글 처리(부모 댓글이 있으면 실행)
-		if(vo.getParentReplyNum() > 0) {
-			sb.append("insert into reply ");
-			sb.append("values (REPLY_REPLYNUM_SEQ.nextval, ?, ?, sysdate, ?, ?, ?, ?, ?) ");
-		}
+		sb.append("insert into reply ");
+		sb.append("values (REPLY_REPLYNUM_SEQ.nextval, ?, ?, sysdate, ?, REPLY_REPLYNUM_SEQ.nextval, 0, 0, 0) ");
+
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
 			pstmt.setInt(1, vo.getReplyBoardNum());
 			pstmt.setString(2, vo.getReplyWriter());
-			//pstmt.setInt(3, vo.getReplyParent());
 			pstmt.setString(3, vo.getReplyComment());
 			
-			if(vo.getParentReplyNum() > 0) {
-				pstmt.setInt(4, vo.getGroupNum());
-				pstmt.setInt(5, vo.getDepth());
-				pstmt.setInt(6, vo.getOrderNum());
-				pstmt.setInt(7, vo.getParentReplyNum());
-			}
+			/*pstmt.setInt(4, vo.getGroupNum());
+			pstmt.setInt(5, vo.getDepth());
+			pstmt.setInt(6, vo.getOrderNum());
+			pstmt.setInt(7, vo.getParentReplyNum());*/
+
 			
 			pstmt.executeUpdate();
 			//pstmt.executeUpdate();
@@ -62,10 +52,14 @@ public class ReplyDAO {
 		ArrayList<ReplyVO> list = new ArrayList<>();
 		
 		sb.setLength(0);
-		sb.append("select * from reply ");
-		sb.append("where replyboardnum = ? ");
-//		sb.append("order by replydate ");
-		sb.append("order by groupnum asc, ordernum asc ");
+		sb.append("select * from ");
+		sb.append("(select rownum as rn, data.* ");
+		sb.append("from (select * ");
+		sb.append("from reply start with parentreplynum = 0 connect by prior replyboardnum = parentreplynum ");
+		sb.append("order siblings by case parentreplynum when 0 then replyboardnum end desc, ");
+		sb.append("case when parentreplynum != 0 then depth end desc) data ) ");
+		sb.append("where rn = ? ");
+//		sb.append("where rn >=? and rn <=? ");
 //		sb.append("order by groupnum asc, ordernum asc ");
 		
 		try {
@@ -177,6 +171,47 @@ public class ReplyDAO {
 		}
 		return maxOrderNum;
 	} //getMaxOrderNumByParentReply end
+	
+	//댓글 깊이 설정
+	public void modDepthData(ReplyVO vo) {
+		sb.setLength(0);
+		sb.append("update reply set depth = depth + 1 ");
+		sb.append("where groupnum = ? and depth > ? ");
+		
+		try {
+			pstmt.setInt(1, vo.getGroupNum());
+			pstmt.setInt(2, vo.getDepth());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	//대댓글 작성
+	public void reReplyData(ReplyVO vo) {
+		sb.setLength(0);
+		sb.append("insert into reply ");
+		sb.append("values (REPLY_REPLYNUM_SEQ.nextval, ?, ?, sysdate, ?, ?, ?, ?, ?) ");
+
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, vo.getReplyBoardNum());
+			pstmt.setString(2, vo.getReplyWriter());
+			pstmt.setString(3, vo.getReplyComment());
+			
+			pstmt.setInt(4, vo.getGroupNum());
+			pstmt.setInt(5, vo.getDepth());
+			pstmt.setInt(6, vo.getOrderNum());
+			pstmt.setInt(7, vo.getParentReplyNum());
+			
+			pstmt.executeUpdate();
+			//pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	//해당 댓글의 순서 가져오기
 	public int getLatestOrderNumByParentNum(ReplyVO vo) {

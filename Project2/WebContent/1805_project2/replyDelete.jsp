@@ -3,22 +3,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	String bnum = request.getParameter("board_num");
+	int bno = Integer.parseInt(bnum);
+
+	ReplyDAO dao = new ReplyDAO();
+	//ReplyVO vo = new ReplyVO();
+	
 	String rnum = request.getParameter("rep_num");
-	String bnum = request.getParameter("boardnum");
 	
 	int repno = 0;
-	int bno = 0;
 	
-	if(rnum!=null && bnum!=null) {
+	if(rnum!=null) {
 		repno = Integer.parseInt(rnum);
-		bno = Integer.parseInt(bnum);
 		out.println("들어왔냐?");
-		out.println(repno + "," + bno);
+		out.println(repno);
 		
-		ReplyDAO dao = new ReplyDAO();
-		ReplyVO vo = new ReplyVO();
-		
-		dao.deleteReplyNum(bno, repno);
+		dao.deleteReplyNum(repno);
 		
 		//response.sendRedirect("detailContents.jsp?boardnum=" + bno);
 	} else {

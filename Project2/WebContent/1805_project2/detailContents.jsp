@@ -55,11 +55,12 @@
 			padding: 3px;
 			color: white;
 			text-shadow: 2px 2px 2px black;
-			background: -webkit-gradient(linear, 78% 20%, 10% 20%, from(#6699ff), to(#00ffff));
+			/* background: -webkit-gradient(linear, 78% 20%, 10% 20%, from(#6699ff), to(#00ffff)); */
+			background: cyan;
 		}
-		#context {
+		/* #context {
 			background-color: #6699ff;
-		}
+		} */
 		#userid {
 			width: 50px;
 		}
@@ -80,7 +81,22 @@
 		}
 		
 		#wrap {
-			margin-bottom: 100px;
+			margin-bottom: 50px;
+		}
+		#reply_div {
+			width: 800px;
+			border: 2px solid blue;
+			/* text-align: center; */
+			margin: 0 auto;
+			margin-bottom: 50px;
+		}
+		#re_reply, #re_replyOK {
+			display: none;
+		}
+		.showReply {
+			padding-left: 150px;
+			padding-top: 20px;
+			/* text-align: left; */
 		}
 	</style>
 	
@@ -122,14 +138,24 @@
 		}
 		
 		function deleteReply(repno) {
-			if(!confirm("삭제하시겠습니까?")) {
+			if(!confirm("댓글을 삭제하시겠습니까?")) {
 				return;
 			}
 			
-			var form = document.frm;
+			var form = document.reply_form;
 			form.action = "replyDelete.jsp";
 			form.submit();
-			
+		}
+		
+		function goRereply() {
+			var form = document.reply_form;
+			form.action = "rereplyOK.jsp";
+			form.submit();
+		}
+		
+		function showReplyBoard() {
+			document.getElementById("re_reply").style.display = "inline-block";
+			document.getElementById("re_replyOK").style.display = "inline-block";
 		}
 
 	</script>
@@ -182,7 +208,8 @@
 			<tr>
 				<th>댓글</th>
 				<td colspan="5">
-					<div id="showReply">
+					
+					<%-- <div id="showReply">
 						<%
 							ReplyDAO r_dao = new ReplyDAO();
 						
@@ -197,7 +224,7 @@
 						<label for=""><%= r_vo.getReplyDate() %></label>
 						<a href="#">[답글]</a>
 						<a href="#" onclick="deleteReply(<%= r_vo.getReplyNum() %>)">[삭제]</a>
-						<%-- <a href="replyDelete.jsp?replynum=<%= r_vo.getReplyNum() %>">[삭제]</a> --%>
+						<a href="replyDelete.jsp?replynum=<%= r_vo.getReplyNum() %>">[삭제]</a>
 						
 						
 						<br><br>
@@ -205,7 +232,7 @@
 							}
 						%>
 						
-					</div>
+					</div> --%>
 					<div id="isHidden">
 					<hr><br>
 						<input type="text" name="userid" id="userid" value="<%= session.getAttribute("userName") %>" disabled="disabled"/>
@@ -255,7 +282,42 @@
 	</form>
 </div>
 	
-	
+<div id="reply_div">
+	<form id="reply_form" name="reply_form">
+		<input type="hidden" name="board_num" value="<%= vo.getBoardNum() %>"/>
+		<%
+			ReplyDAO r_dao = new ReplyDAO();
+		
+			int boardNum = vo.getBoardNum();
+			ArrayList<ReplyVO> r_list = r_dao.getAllReply(boardNum);
+			for(ReplyVO r_vo : r_list) {
+
+		%>
+		<input type="hidden" name="rep_num" value="<%= r_vo.getReplyNum() %>"/>
+		<input type="hidden" name="rep_groupnum" value="<%= r_vo.getGroupNum() %>"/>
+		<input type="hidden" name="rep_parentnum" value="<%= r_vo.getParentReplyNum() %>"/>
+		<input type="hidden" name="rep_depth" value="<%= r_vo.getDepth() %>"/>
+		<input type="hidden" name="rep_ordernum" value="<%= r_vo.getOrderNum() %>"/>
+		
+			<div class="showReply" style="margin-left: <%= 40*r_vo.getDepth() %>px">
+				<%= r_vo.getReplyWriter() %>&nbsp; <%= r_vo.getReplyComment() %>&nbsp; <%= r_vo.getReplyDate() %>&nbsp; 
+				<a href="#" onclick="showReplyBoard()">[답글]</a>
+				<input type="button" value="삭제" onclick="deleteReply(<%= r_vo.getReplyNum() %>)"/><br>
+				<!-- <input type="submit" value="삭제" /><br> -->
+			
+			<%
+				out.println(r_vo.getReplyNum());
+			%>
+				<textarea name="re_reply" id="re_reply" cols="40" rows="4"></textarea>
+				<input type="button" id="re_replyOK" name="re_replyOK" value="쓰기" onclick="goRereply()"/><br>
+			</div>
+
+		<br>
+		<%
+			}
+		%>
+	</form>
+</div>
 	
 	
 	<%-- <div id="anotherPart" align="center">
