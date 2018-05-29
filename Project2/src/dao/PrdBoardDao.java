@@ -140,7 +140,7 @@ public class PrdBoardDao {
 	public void addPrdBoard(PrdboardVo pbv) {
 		sb.setLength(0);
 		sb.append("insert into prdboard ");
-		sb.append("values(pboard_pbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?) ");
+		sb.append("values(pboard_pbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?,?) ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -150,6 +150,7 @@ public class PrdBoardDao {
 			pstmt.setString(3, pbv.getPboardcontent());
 			pstmt.setString(4, pbv.getPboardimg());
 			pstmt.setInt(5, pbv.getPboardflag());
+			pstmt.setString(6, pbv.getPrdtag());
 			
 			
 			pstmt.executeUpdate();
@@ -189,8 +190,9 @@ public class PrdBoardDao {
 			int	pboardnomination = rs.getInt("pboardnomination");
 			int pboardtoday = rs.getInt("pboardtoday");
 			int pboardflag = rs.getInt("pboardflag");
+			String prdtag = rs.getString("prdtag");
 			
-			vo = new PrdboardVo(pboardnum, pboarddate, pboardtitle, pboardwriter, pboardcontent, pboardimg, pboardhits, pboardnomination, pboardtoday, pboardflag);
+			vo = new PrdboardVo(pboardnum, pboarddate, pboardtitle, pboardwriter, pboardcontent, pboardimg, pboardhits, pboardnomination, pboardtoday, pboardflag,prdtag);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -238,7 +240,7 @@ public class PrdBoardDao {
 			e.printStackTrace();
 		}
 		
-	}//추천수 증가 endㄴ	
+	}//추천수 증가 end
 	
 	//전체 게시글
 	public int countData() {

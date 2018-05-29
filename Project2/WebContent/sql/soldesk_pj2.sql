@@ -171,3 +171,21 @@ add (groupNum number, depth number, orderNum number, parentReplyNum number);
 create table tag
 (test number(10));
 
+
+
+----------게시물에 태그정보 추가----------
+
+alter table illboard
+add (illtag varchar2(200));
+
+
+alter table toonboard
+add (toontag varchar2(200));
+
+
+alter table etcboard
+add (etctag varchar2(200));
+
+
+alter table prdboard
+add (prdtag varchar2(200));

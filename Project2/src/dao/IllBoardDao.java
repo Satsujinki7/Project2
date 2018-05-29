@@ -42,6 +42,7 @@ public class IllBoardDao {
 				int iboardtoday = rs.getInt(9);
 				int iboardflag = rs.getInt(10);
 				
+				
 				IllboardVo ibv = new IllboardVo(iboardnum, iboarddate, iboardtitle, iboardwriter, iboardcontent, iboardimg, iboardhits, iboardnomination, iboardtoday, iboardflag);
 				
 				list.add(ibv);
@@ -77,8 +78,9 @@ public class IllBoardDao {
 				int	iboardnomination = rs.getInt(8);
 				int iboardtoday = rs.getInt(9);
 				int iboardflag = rs.getInt(10);
+				String illboard = rs.getString(11);
 				
-				IllboardVo ibv = new IllboardVo(iboardnum, iboarddate, iboardtitle, iboardwriter, iboardcontent, iboardimg, iboardhits, iboardnomination, iboardtoday, iboardflag);
+				IllboardVo ibv = new IllboardVo(iboardnum, iboarddate, iboardtitle, iboardwriter, iboardcontent, iboardimg, iboardhits, iboardnomination, iboardtoday, iboardflag,illboard);
 				
 				list.add(ibv);
 			}//while end
@@ -124,6 +126,7 @@ public class IllBoardDao {
 				int iboardtoday = rs.getInt("iboardtoday");
 				int iboardflag = rs.getInt("iboardflag");
 				
+				
 				IllboardVo ibv = new IllboardVo(iboardnum, iboarddate, iboardtitle, iboardwriter, iboardcontent, iboardimg, iboardhits, iboardnomination, iboardtoday, iboardflag);
 				
 				list.add(ibv);
@@ -165,7 +168,7 @@ public class IllBoardDao {
 	public void addIllBoard(IllboardVo ibv) {
 		sb.setLength(0);
 		sb.append("insert into illboard ");
-		sb.append("values(pboard_pbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?) ");
+		sb.append("values(pboard_pbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?,?) ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -175,6 +178,7 @@ public class IllBoardDao {
 			pstmt.setString(3, ibv.getIboardcontent());
 			pstmt.setString(4, ibv.getIboardimg());
 			pstmt.setInt(5, ibv.getIboardflag());
+			pstmt.setString(6, ibv.getIlltag());
 			
 			
 			pstmt.executeUpdate();
@@ -210,10 +214,11 @@ public class IllBoardDao {
 			String contents=rs.getString("iboardcontent");
 			String date=rs.getString("iboarddate");
 			String imgpath=rs.getString("iboardimg");
+			String tag= rs.getString("illtag");
 			
 			
 			
-			vo=new IllboardVo(no, date, title, writer, contents, imgpath, 0, 0, 0, 1);
+			vo=new IllboardVo(no, date, title, writer, contents, imgpath, 0, 0, 0, 1,tag);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -94,6 +94,7 @@ if(cat==1){//일러스트
 	ibv.setIcoardcontent(content);
 	ibv.setIboardimg(fullname);
 	ibv.setIboardflag(1);
+	ibv.setIlltag(t);
 	
 	ibd.addIllBoard(ibv);
 	
@@ -112,8 +113,13 @@ if(cat==1){//일러스트
 	tbv.setTboardimg(fullname);
 	tbv.setTboardflag(1);
 	
+	tbv.setToontag(t);
+	
 	tbd.addtoonBoard(tbv);
 	
+	tbv.setTboardnum(tbd.getDataByName(writer)) ;
+	
+	addTag(t, tbv.getTboardnum());
 	response.sendRedirect("page_toon.jsp");
 	
 }else if(cat==3){//2차창작 (패러디)
@@ -126,7 +132,14 @@ if(cat==1){//일러스트
 	pbv.setPboardimg(fullname);
 	pbv.setPboardflag(1);
 	
+	pbv.setPrdtag(t);
+	
 	pbd.addPrdBoard(pbv);
+	
+	pbv.setPboardnum(pbd.getDataByName(writer)) ;
+	
+	addTag(t, pbv.getPboardnum());
+	
 	
 	response.sendRedirect("page_prd.jsp");
 	
@@ -139,8 +152,15 @@ if(cat==1){//일러스트
 	ebv.setEboardcontent(content);
 	ebv.setEboardimg(fullname);
 	ebv.setEboardflag(1);
+	ebv.setEtctag(t);
 	
 	ebd.addEtcBoard(ebv);
+	
+	ebv.setEboardnum(ebd.getDataByName(writer)) ;
+	
+	addTag(t, ebv.getEboardnum());
+	
+	
 	response.sendRedirect("page_etc.jsp");
 } 
 

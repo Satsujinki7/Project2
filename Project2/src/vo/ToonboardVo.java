@@ -11,8 +11,42 @@ public class ToonboardVo {
 	private int	tboardnomination;
 	private int tboardtoday;
 	private int tboardflag;
+	private String toontag;
 	
 	public ToonboardVo() {	}
+	
+	public ToonboardVo(int tboardnum, String tboarddate, String tboardtitle, String tboardwriter, String tboardcontent,
+			String tboardimg, int tboardhits, int tboardnomination, int tboardtoday, int tboardflag) {
+		super();
+		this.tboardnum = tboardnum;
+		this.tboarddate = tboarddate;
+		this.tboardtitle = tboardtitle;
+		this.tboardwriter = tboardwriter;
+		this.tboardcontent = tboardcontent;
+		this.tboardimg = tboardimg;
+		this.tboardhits = tboardhits;
+		this.tboardnomination = tboardnomination;
+		this.tboardtoday = tboardtoday;
+		this.tboardflag = tboardflag;
+	}
+	
+	
+	
+	public ToonboardVo(int tboardnum, String tboarddate, String tboardtitle, String tboardwriter, String tboardcontent,
+			String tboardimg, int tboardhits, int tboardnomination, int tboardtoday, int tboardflag, String toontag) {
+		super();
+		this.tboardnum = tboardnum;
+		this.tboarddate = tboarddate;
+		this.tboardtitle = tboardtitle;
+		this.tboardwriter = tboardwriter;
+		this.tboardcontent = tboardcontent;
+		this.tboardimg = tboardimg;
+		this.tboardhits = tboardhits;
+		this.tboardnomination = tboardnomination;
+		this.tboardtoday = tboardtoday;
+		this.tboardflag = tboardflag;
+		this.toontag = toontag;
+	}
 
 	public int getTboardnum() {
 		return tboardnum;
@@ -94,20 +128,14 @@ public class ToonboardVo {
 		this.tboardflag = tboardflag;
 	}
 
-	public ToonboardVo(int tboardnum, String tboarddate, String tboardtitle, String tboardwriter, String tboardcontent,
-			String tboardimg, int tboardhits, int tboardnomination, int tboardtoday, int tboardflag) {
-		super();
-		this.tboardnum = tboardnum;
-		this.tboarddate = tboarddate;
-		this.tboardtitle = tboardtitle;
-		this.tboardwriter = tboardwriter;
-		this.tboardcontent = tboardcontent;
-		this.tboardimg = tboardimg;
-		this.tboardhits = tboardhits;
-		this.tboardnomination = tboardnomination;
-		this.tboardtoday = tboardtoday;
-		this.tboardflag = tboardflag;
+	public String getToontag() {
+		return toontag;
 	}
+
+	public void setToontag(String toontag) {
+		this.toontag = toontag;
+	}
+
 	
 	
 }

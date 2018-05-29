@@ -164,7 +164,7 @@ public class EtcBoardDao {
 	public void addEtcBoard(EtcboardVo ebv) {
 		sb.setLength(0);
 		sb.append("insert into etcboard ");
-		sb.append("values(pboard_pbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?) ");
+		sb.append("values(pboard_pbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?,?) ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -174,7 +174,7 @@ public class EtcBoardDao {
 			pstmt.setString(3, ebv.getEboardcontent());
 			pstmt.setString(4, ebv.getEboardimg());
 			pstmt.setInt(5, ebv.getEboardflag());
-			
+			pstmt.setString(6, ebv.getEtctag());
 			
 			pstmt.executeUpdate();
 			System.out.println("삽입 성공?ㅇㅅㅇ!");
@@ -211,8 +211,9 @@ public class EtcBoardDao {
 			int	eboardnomination = rs.getInt("eboardnomination");
 			int eboardtoday = rs.getInt("eboardtoday");
 			int eboardflag = rs.getInt("eboardflag");
+			String etctag = rs.getString("etctag");
 			
-			vo = new EtcboardVo(eboardnum, eboarddate, eboardtitle, eboardwriter, eboardcontent, eboardimg, eboardhits, eboardnomination, eboardtoday, eboardflag);
+			vo = new EtcboardVo(eboardnum, eboarddate, eboardtitle, eboardwriter, eboardcontent, eboardimg, eboardhits, eboardnomination, eboardtoday, eboardflag,etctag);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

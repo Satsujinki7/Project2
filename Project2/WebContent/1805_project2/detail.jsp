@@ -321,7 +321,11 @@
 	int hits =0;
 	int like = 0;
 	int boardnum= 0;
+	String t = "";
+	String tag[] = null;
+	int tlength= 0;
 	
+
 	
 	//null처리 
 	if(cate != null && n != null) {
@@ -344,6 +348,16 @@
 		hits = vo.getIboardhits();
 		like = vo.getIboardnomination();
 		cat = "일러스트";
+		
+		t = vo.getIlltag();
+		
+		
+		t = t.substring(1, t.length());
+
+		tag= t.split("#");
+		
+		tlength = tag.length;
+		
 	}
 	
 	 //카테고리가 만화라면 
@@ -364,6 +378,15 @@
 		like = vo.getTboardnomination();
 		cat = "만화";
 		
+		t = vo.getToontag();
+		
+		
+		t = t.substring(1, t.length());
+
+		tag= t.split("#");
+		
+		tlength = tag.length;
+		
 	}
 	//카테고리 패러디(2차창작)
 	else if (cate.equals("prd")){
@@ -382,6 +405,15 @@
 		hits = vo.getPboardhits();
 		like = vo.getPboardnomination();
 		cat = "2차창작";
+		
+		t = vo.getPrdtag();
+		
+		
+		t = t.substring(1, t.length());
+
+		tag= t.split("#");
+		
+		tlength = tag.length;
 	}
 	
 	//카테고리 기타
@@ -401,6 +433,15 @@
 		like = vo.getEboardnomination();
 		hits = vo.getEboardhits();
 		cat = "기타";
+		
+		t = vo.getEtctag();
+		
+		
+		t = t.substring(1, t.length());
+
+		tag= t.split("#");
+		
+		tlength = tag.length;
 	}
 	
 	}//외부 if end  
@@ -475,12 +516,17 @@
 	
 		<div id="tag_area">
 			<span>Tag</span>
-			<a href="">#강아지z </a>
-			<a href="">#멍멍이</a>
-			<a href="">#반려동물</a>
-			<a href="">#겨울</a>
+			<%
+				for(int i = 0; i<tlength; i++){
+			
+			%>
+			<a href="">#<%=tag[i] %></a>
+			<%
+			
+				}
+			%>
+			
 		</div>
-		
 		
 		
 		<div id="writer_area">

@@ -170,7 +170,7 @@ public class ToonBoardDao {
 	public void addtoonBoard(ToonboardVo tbv) {
 		sb.setLength(0);
 		sb.append("insert into toonboard ");
-		sb.append("values(pboard_pbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?) ");
+		sb.append("values(pboard_pbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?,?) ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -180,6 +180,7 @@ public class ToonBoardDao {
 			pstmt.setString(3, tbv.getTboardcontent());
 			pstmt.setString(4, tbv.getTboardimg());
 			pstmt.setInt(5, tbv.getTboardflag());
+			pstmt.setString(6, tbv.getToontag());
 			
 			
 			pstmt.executeUpdate();
@@ -219,8 +220,9 @@ public class ToonBoardDao {
 			int	tboardnomination = rs.getInt("tboardnomination");
 			int tboardtoday = rs.getInt("tboardtoday");
 			int tboardflag = rs.getInt("tboardflag");
+			String toontag = rs.getString("toontag");
 			
-			vo = new ToonboardVo(tboardnum, tboarddate, tboardtitle, tboardwriter, tboardcontent, tboardimg, tboardhits, tboardnomination, tboardtoday, tboardflag);
+			vo = new ToonboardVo(tboardnum, tboarddate, tboardtitle, tboardwriter, tboardcontent, tboardimg, tboardhits, tboardnomination, tboardtoday, tboardflag,toontag);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

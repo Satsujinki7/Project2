@@ -11,9 +11,17 @@ public class IllboardVo {
 	private int	iboardnomination;
 	private int iboardtoday;
 	private int iboardflag;
+	private String illtag;
 	
 	public IllboardVo() {}
 	
+
+	
+	
+	
+	
+	
+
 	public IllboardVo(int iboardnum, String iboarddate, String iboardtitle, String iboardwriter, String iboardcontent,
 			String iboardimg, int iboardhits, int iboardnomination, int iboardtoday, int iboardflag) {
 		super();
@@ -28,6 +36,32 @@ public class IllboardVo {
 		this.iboardtoday = iboardtoday;
 		this.iboardflag = iboardflag;
 	}
+
+
+
+
+
+
+
+
+	public IllboardVo(int iboardnum, String iboarddate, String iboardtitle, String iboardwriter, String iboardcontent,
+			String iboardimg, int iboardhits, int iboardnomination, int iboardtoday, int iboardflag, String illtag) {
+		super();
+		this.iboardnum = iboardnum;
+		this.iboarddate = iboarddate;
+		this.iboardtitle = iboardtitle;
+		this.iboardwriter = iboardwriter;
+		this.iboardcontent = iboardcontent;
+		this.iboardimg = iboardimg;
+		this.iboardhits = iboardhits;
+		this.iboardnomination = iboardnomination;
+		this.iboardtoday = iboardtoday;
+		this.iboardflag = iboardflag;
+		this.illtag = illtag;
+	}
+
+
+
 
 
 	public int getIboardnum() {
@@ -127,6 +161,22 @@ public class IllboardVo {
 
 	public void setIboardflag(int iboardflag) {
 		this.iboardflag = iboardflag;
+	}
+
+
+
+
+
+	public String getIlltag() {
+		return illtag;
+	}
+
+
+
+
+
+	public void setIlltag(String illtag) {
+		this.illtag = illtag;
 	}
 	
 	

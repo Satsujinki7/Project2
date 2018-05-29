@@ -11,8 +11,43 @@ public class EtcboardVo {
 	private int	eboardnomination;
 	private int eboardtoday;
 	private int eboardflag;
+	private String etctag;
 	
 	public EtcboardVo() {	}
+	
+	public EtcboardVo(int eboardnum, String eboarddate, String eboardtitle, String eboardwriter, String eboardcontent,
+			String eboardimg, int eboardhits, int eboardnomination, int eboardtoday, int eboardflag) {
+		super();
+		this.eboardnum = eboardnum;
+		this.eboarddate = eboarddate;
+		this.eboardtitle = eboardtitle;
+		this.eboardwriter = eboardwriter;
+		this.eboardcontent = eboardcontent;
+		this.eboardimg = eboardimg;
+		this.eboardhits = eboardhits;
+		this.eboardnomination = eboardnomination;
+		this.eboardtoday = eboardtoday;
+		this.eboardflag = eboardflag;
+	}
+	
+	
+	
+	
+	public EtcboardVo(int eboardnum, String eboarddate, String eboardtitle, String eboardwriter, String eboardcontent,
+			String eboardimg, int eboardhits, int eboardnomination, int eboardtoday, int eboardflag, String etctag) {
+		super();
+		this.eboardnum = eboardnum;
+		this.eboarddate = eboarddate;
+		this.eboardtitle = eboardtitle;
+		this.eboardwriter = eboardwriter;
+		this.eboardcontent = eboardcontent;
+		this.eboardimg = eboardimg;
+		this.eboardhits = eboardhits;
+		this.eboardnomination = eboardnomination;
+		this.eboardtoday = eboardtoday;
+		this.eboardflag = eboardflag;
+		this.etctag = etctag;
+	}
 
 	public int getEboardnum() {
 		return eboardnum;
@@ -94,20 +129,16 @@ public class EtcboardVo {
 		this.eboardflag = eboardflag;
 	}
 
-	public EtcboardVo(int eboardnum, String eboarddate, String eboardtitle, String eboardwriter, String eboardcontent,
-			String eboardimg, int eboardhits, int eboardnomination, int eboardtoday, int eboardflag) {
-		super();
-		this.eboardnum = eboardnum;
-		this.eboarddate = eboarddate;
-		this.eboardtitle = eboardtitle;
-		this.eboardwriter = eboardwriter;
-		this.eboardcontent = eboardcontent;
-		this.eboardimg = eboardimg;
-		this.eboardhits = eboardhits;
-		this.eboardnomination = eboardnomination;
-		this.eboardtoday = eboardtoday;
-		this.eboardflag = eboardflag;
+	public String getEtctag() {
+		return etctag;
 	}
+
+	public void setEtctag(String etctag) {
+		this.etctag = etctag;
+	}
+
 	
+	
+
 	
 }

@@ -11,6 +11,7 @@ public class PrdboardVo {
 	private int pboardnomination;
 	private int pboardtoday;
 	private int pboardflag;
+	private String prdtag;
 	
 	public PrdboardVo() {	}
 
@@ -27,6 +28,25 @@ public class PrdboardVo {
 		this.pboardnomination = pboardnomination;
 		this.pboardtoday = pboardtoday;
 		this.pboardflag = pboardflag;
+	}
+	
+	
+	
+
+	public PrdboardVo(int pboardnum, String pboarddate, String pboardtitle, String pboardwriter, String pboardcontent,
+			String pboardimg, int pboardhits, int pboardnomination, int pboardtoday, int pboardflag, String prdtag) {
+		super();
+		this.pboardnum = pboardnum;
+		this.pboarddate = pboarddate;
+		this.pboardtitle = pboardtitle;
+		this.pboardwriter = pboardwriter;
+		this.pboardcontent = pboardcontent;
+		this.pboardimg = pboardimg;
+		this.pboardhits = pboardhits;
+		this.pboardnomination = pboardnomination;
+		this.pboardtoday = pboardtoday;
+		this.pboardflag = pboardflag;
+		this.prdtag = prdtag;
 	}
 
 	public int getPboardnum() {
@@ -108,6 +128,15 @@ public class PrdboardVo {
 	public void setPboardflag(int pboardflag) {
 		this.pboardflag = pboardflag;
 	}
+
+	public String getPrdtag() {
+		return prdtag;
+	}
+
+	public void setPrdtag(String prdtag) {
+		this.prdtag = prdtag;
+	}
+	
 	
 	
 	
