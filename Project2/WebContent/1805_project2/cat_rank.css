@@ -54,7 +54,7 @@ body {font-family: Arial;}
 }
 
 /* 일러스트 탭 내부*/
-
+a{ text-decoration: none;}
 #ill1{
 	width: 140px;
 	height: 140px;
