@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reply>
+	<addReply>
+		insert into reply (
+					replynum, 
+					replyboardnum, 
+					replywriter, 
+					replydate, 
+					replycomment, 
+					groupnum, 
+					depth,
+					ordernum, 
+					parentreplynum
+				)
+		values (
+					REPLY_REPLYNUM_SEQ.nextval, 
+					?, 
+					?, 
+					sysdate, 
+					?, 
+					REPLY_REPLYNUM_SEQ.currval, 
+					0, 
+					0, 
+					0
+				) 
+	</addReply>
+</reply>
