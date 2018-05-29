@@ -166,16 +166,17 @@ public class EtcBoardDao {
 			rs=pstmt.executeQuery();
 			rs.next();
 			
-			int no=rs.getInt("eboardnum");
-			String writer=rs.getString("eboardwriter");
-			String title=rs.getString("eboardtitle");
-			String contents=rs.getString("eboardcontent");
-			String date=rs.getString("eboarddate");
-			String imgpath=rs.getString("eboardimg");
+			String eboarddate = rs.getString("eboarddate") ;
+			String eboardtitle = rs.getString("eboardtitle");
+			String eboardwriter=rs.getString("eboardwriter");
+			String eboardcontent =rs.getString("eboardcontent");
+			String eboardimg =rs.getString("eboardimg");
+			int eboardhits = rs.getInt("eboardhits");
+			int	eboardnomination = rs.getInt("eboardnomination");
+			int eboardtoday = rs.getInt("eboardtoday");
+			int eboardflag = rs.getInt("eboardflag");
 			
-			
-			
-			vo=new EtcboardVo(no, date, title, writer, contents, imgpath, 0, 0, 0, 1);
+			vo = new EtcboardVo(eboardnum, eboarddate, eboardtitle, eboardwriter, eboardcontent, eboardimg, eboardhits, eboardnomination, eboardtoday, eboardflag);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -184,6 +185,44 @@ public class EtcBoardDao {
 		return vo;
 	}//getData() end
 		
+	//조회수 올리기!
+	public void incrementHits(int boardnum) {
+		sb.setLength(0);
+		sb.append("update etcboard ");
+		sb.append("set eboardhits = eboardhits +1 ");
+		sb.append("where eboardnum = ? ");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, boardnum);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}//조회수 증가
+	
+	
+	//추천수 증가
+	public void incrementNomination(int boardnum) {
+		sb.setLength(0);
+		sb.append("update etcboard ");
+		sb.append("set eboardnomination = eboardnomination +1 ");
+		sb.append("where eboardnum = ? ");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, boardnum);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}//추천수 증가 end
 	
 	
 }

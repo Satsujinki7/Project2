@@ -206,14 +206,14 @@ margin-right: 10px;
 		}
 %>
 <div class="post">
-		<a href="detail.jsp?boardnum=<%=vo.getPboardnum() %>&category=prd">
+		<a href="hitsUpOk.jsp?boardnum=<%=vo.getPboardnum() %>&category=prd">
 		<div class="img_area">
 			<img src="<%=vo.getPboardimg() %>" alt="이미지" id="img<%=i++%>"/>
 		</div></a>
 		
 		<div class="info_area">
 			<div class="info_box">
-				<a href="detail.jsp?boardnum=<%=vo.getPboardnum() %>&category=toon" class="post_title"><%=vo.getPboardtitle() %></a>
+				<a href="hitsUpOk.jsp?boardnum=<%=vo.getPboardnum() %>&category=toon" class="post_title"><%=vo.getPboardtitle() %></a>
 				<a href="myPage.jsp?writer=<%=vo.getPboardwriter() %> " class="post_writer">
 					<img src="<%=imgpath %>" alt="프사" />
 					<span><%=vo.getPboardwriter() %></span>

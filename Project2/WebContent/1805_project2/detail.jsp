@@ -290,6 +290,9 @@
 }
 
 </style>
+
+
+
 </head>
  
 
@@ -315,6 +318,9 @@
 	String img = "";
 	String content = "";
 	String cat= "";
+	int hits =0;
+	int like = 0;
+	int boardnum= 0;
 	
 	
 	//null처리 
@@ -327,14 +333,16 @@
 		IllboardVo vo = new IllboardVo();
 		
 	
-		int iboardnum = Integer.parseInt(n);
-		vo = dao.getData(iboardnum);
+		boardnum = Integer.parseInt(n);
+		vo = dao.getData(boardnum);
 		
 		title = vo.getIboardtitle();
 		writer = vo.getIboardwriter();
 		date = vo.getIboarddate();
 		img = vo.getIboardimg();
 		content = vo.getIboardcontent();
+		hits = vo.getIboardhits();
+		like = vo.getIboardnomination();
 		cat = "일러스트";
 	}
 	
@@ -344,14 +352,16 @@
 		ToonBoardDao dao = new ToonBoardDao();
 		ToonboardVo vo = new ToonboardVo();
 		
-		int tboardnum = Integer.parseInt(n);
-		vo = dao.getData(tboardnum);
+		boardnum = Integer.parseInt(n);
+		vo = dao.getData(boardnum);
 		
 		title = vo.getTboardtitle();
 		writer = vo.getTboardwriter();
 		date = vo.getTboarddate();
 		img = vo.getTboardimg();
 		content = vo.getTboardcontent();
+		hits = vo.getTboardhits();
+		like = vo.getTboardnomination();
 		cat = "만화";
 		
 	}
@@ -361,14 +371,16 @@
 		PrdboardVo vo = new PrdboardVo();
 		PrdBoardDao dao = new PrdBoardDao();
 		
-		int pboardnum = Integer.parseInt(n);
-		vo = dao.getData(pboardnum);
+		boardnum = Integer.parseInt(n);
+		vo = dao.getData(boardnum);
 		
 		title = vo.getPboardtitle();
 		writer = vo.getPboardwriter();
 		date = vo.getPboarddate();
 		img = vo.getPboardimg();
 		content = vo.getPboardcontent();
+		hits = vo.getPboardhits();
+		like = vo.getPboardnomination();
 		cat = "2차창작";
 	}
 	
@@ -378,14 +390,16 @@
 		EtcboardVo vo = new EtcboardVo();
 		EtcBoardDao dao = new EtcBoardDao();
 		
-		int eboardnum = Integer.parseInt(n);
-		vo = dao.getData(eboardnum);
+		boardnum = Integer.parseInt(n);
+		vo = dao.getData(boardnum);
 		
 		title = vo.getEboardtitle();
 		writer = vo.getEboardwriter();
 		date = vo.getEboarddate();
 		img = vo.getEboardimg();
 		content = vo.getEboardcontent();
+		like = vo.getEboardnomination();
+		hits = vo.getEboardhits();
 		cat = "기타";
 	}
 	
@@ -414,7 +428,7 @@
 			<span><%=date.substring(0,16) %></span>
 			<span class="gubun">|</span>
 			<span>조회수</span>
-			<span>120</span>
+			<span><%=hits %></span>
 			
 			</span>
 		</div>
@@ -440,9 +454,10 @@
 		
 		 <div id="like_area">
 			
-			<div id="like_box">
+			<div id="like_box" onclick="likeclick()">
 				<span id="heart">♥</span>
 				<span>좋아요</span>
+				<span id="likecount"><%=like %></span>
 			</div>
 		
 		</div>
@@ -494,4 +509,9 @@
 
 
 </body>
+<script type="text/javascript">
+	function likeclick() {
+		location.href = 'likeOk.jsp?bn'+<%=boardnum%>;
+	}
+</script>
 </html>

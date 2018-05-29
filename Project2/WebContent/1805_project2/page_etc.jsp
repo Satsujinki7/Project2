@@ -210,14 +210,14 @@ margin-right: 10px;
 
 	<div class="post">
 	
-		<a href="detail.jsp?boardnum=<%=tbv.getEboardnum() %>&category=etc">
+		<a href="hitsUpOk.jsp?boardnum=<%=tbv.getEboardnum() %>&category=etc">
 		<div class="img_area">
 			<img src="<%=tbv.getEboardimg() %>" alt="이미지" id="img<%=i++%>"/>
 		</div></a>
 		
 		<div class="info_area">
 			<div class="info_box">
-				<a href="detail.jsp?boardnum=<%=tbv.getEboardnum() %>&category=etc" class="post_title"><%=tbv.getEboardtitle() %></a>
+				<a href="hitsUpOk.jsp?boardnum=<%=tbv.getEboardnum() %>&category=etc" class="post_title"><%=tbv.getEboardtitle() %></a>
 				<a href="myPage.jsp?writer=<%=tbv.getEboardwriter() %> " class="post_writer">
 					<img src="<%=imgpath %>" alt="프사" />
 					<span><%=tbv.getEboardwriter() %></span>

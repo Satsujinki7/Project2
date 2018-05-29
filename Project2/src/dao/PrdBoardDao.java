@@ -143,14 +143,18 @@ public class PrdBoardDao {
 			rs=pstmt.executeQuery();
 			rs.next();
 			
-			int no=rs.getInt("pboardnum");
-			String writer=rs.getString("pboardwriter");
-			String title=rs.getString("pboardtitle");
-			String contents=rs.getString("pboardcontent");
-			String date=rs.getString("pboarddate");
-			String imgpath=rs.getString("pboardimg");
+			int pboardnum =rs.getInt("pboardnum");
+			String pboarddate = rs.getString("pboarddate") ;
+			String pboardtitle = rs.getString("pboardtitle");
+			String pboardwriter=rs.getString("pboardwriter");
+			String pboardcontent =rs.getString("pboardcontent");
+			String pboardimg =rs.getString("pboardimg");
+			int pboardhits = rs.getInt("pboardhits");
+			int	pboardnomination = rs.getInt("pboardnomination");
+			int pboardtoday = rs.getInt("pboardtoday");
+			int pboardflag = rs.getInt("pboardflag");
 			
-			vo=new PrdboardVo(no, date, title, writer, contents, imgpath, 0, 0, 0, 1);
+			vo = new PrdboardVo(pboardnum, pboarddate, pboardtitle, pboardwriter, pboardcontent, pboardimg, pboardhits, pboardnomination, pboardtoday, pboardflag);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -160,6 +164,45 @@ public class PrdBoardDao {
 		return vo;
 	}//getData() end
 	
+	
+	//조회수 올리기!
+	public void incrementHits(int boardnum) {
+		sb.setLength(0);
+		sb.append("update prdboard ");
+		sb.append("set pboardhits = pboardhits +1 ");
+		sb.append("where pboardnum = ? ");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, boardnum);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}//조회수 증가
+	
+	
+	//추천수 증가
+	public void incrementNomination(int boardnum) {
+		sb.setLength(0);
+		sb.append("update prdboard ");
+		sb.append("set pboardnomination = pboardnomination +1 ");
+		sb.append("where pboardnum = ? ");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, boardnum);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}//추천수 증가 endㄴ	
 	
 	public int countData() {
 		sb.setLength(0);

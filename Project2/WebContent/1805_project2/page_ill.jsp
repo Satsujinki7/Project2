@@ -201,7 +201,7 @@ margin-right: 10px;
 		}
 %>
 <div class="post">
-		<a href="detail.jsp?boardnum=<%=vo.getIboardnum() %>&category=ill">
+		<a href="hitsUpOk.jsp?boardnum=<%=vo.getIboardnum() %>&category=ill">
 		<div class="img_area">
 			<img src="<%=vo.getIboardimg() %>" alt="이미지" id="img<%=i++%>"/>
 		</div></a>
@@ -215,7 +215,7 @@ margin-right: 10px;
 				</a>
 			</div>
 		</div>
-		<div class="btn_area">
+		<div class="btn_area" onclick="">
 		 <a href="#" class="post_like">
 		 	<span>좋아요</span>
 		 	<b><%=vo.getIboardnomination() %></b>

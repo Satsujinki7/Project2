@@ -202,7 +202,7 @@ margin-right: 10px;
 		//프로필 사진 등록 안했으면 디폴트 이미지 준다 
 		if(uservo == null || uservo.getUserImg() == null){
 			
-			 imgpath = "../images/dog.jpg";
+			 imgpath = "../images/kobugi.jpg";
 			
 			
 		}else{
@@ -214,7 +214,7 @@ margin-right: 10px;
 
 	<div class="post">
 	
-		<a href="detail.jsp?boardnum=<%=tbv.getTboardnum() %>&category=toon">
+		<a href="hitsUpOk.jsp?boardnum=<%=tbv.getTboardnum() %>&category=toon">
 		<div class="img_area">
 			<img src="<%=tbv.getTboardimg() %>" alt="이미지" id="img<%=i++%>"/>
 		</div></a>

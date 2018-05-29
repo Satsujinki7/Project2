@@ -101,6 +101,46 @@ public class ToonBoardDao {
 	}//alldata  end
 	
 	
+	//조회수 증가
+	public void incrementHits(int boardnum) {
+		sb.setLength(0);
+		sb.append("update toonboard ");
+		sb.append("set tboardhits = tboardhits +1 ");
+		sb.append("where tboardnum = ? ");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, boardnum);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}//조회수 증가
+	
+	
+	//추천수 증가
+	public void incrementNomination(int boardnum) {
+		sb.setLength(0);
+		sb.append("update toonoard ");
+		sb.append("set tboardnomination = tboardnomination +1 ");
+		sb.append("where tboardnum = ? ");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setInt(1, boardnum);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}//추천수 증가 end
+	
+	
 	//전체 레코드 개수 조회
 	public int countData() {
 		sb.setLength(0);
@@ -156,7 +196,7 @@ public class ToonBoardDao {
 	
 	//한건 조회하는 메소드
 	
-			public ToonboardVo getData(int toonboardnum) {
+			public ToonboardVo getData(int tboardnum) {
 				sb.setLength(0);
 				sb.append("select * from toonboard ");
 				sb.append("where tboardnum= ? ");
@@ -165,21 +205,22 @@ public class ToonBoardDao {
 				
 				try {
 					pstmt=conn.prepareStatement(sb.toString());
-					pstmt.setInt(1, toonboardnum);
+					pstmt.setInt(1, tboardnum);
 					
 					rs=pstmt.executeQuery();
 					rs.next();
 					
-					int no=rs.getInt("tboardnum");
-					String writer=rs.getString("tboardwriter");
-					String title=rs.getString("tboardtitle");
-					String contents=rs.getString("tboardcontent");
-					String date=rs.getString("tboarddate");
-					String imgpath=rs.getString("tboardimg");
+					String tboarddate = rs.getString("tboarddate") ;
+					String tboardtitle = rs.getString("tboardtitle");
+					String tboardwriter=rs.getString("tboardwriter");
+					String tboardcontent =rs.getString("tboardcontent");
+					String tboardimg =rs.getString("tboardimg");
+					int tboardhits = rs.getInt("tboardhits");
+					int	tboardnomination = rs.getInt("tboardnomination");
+					int tboardtoday = rs.getInt("tboardtoday");
+					int tboardflag = rs.getInt("tboardflag");
 					
-					
-					
-					vo=new ToonboardVo(no, date, title, writer, contents, imgpath, 0, 0, 0, 1);
+					vo = new ToonboardVo(tboardnum, tboarddate, tboardtitle, tboardwriter, tboardcontent, tboardimg, tboardhits, tboardnomination, tboardtoday, tboardflag);
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
