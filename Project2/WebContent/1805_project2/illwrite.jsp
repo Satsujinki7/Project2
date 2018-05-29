@@ -81,7 +81,7 @@
         	
         	<div id="tag_div">
         		<span>Tag</span>
-        		<input type="text" name="" id="tag" />
+        		<input type="text" name="tag" id="tag" />
         	</div>
         	
         	<div id="submit_div">

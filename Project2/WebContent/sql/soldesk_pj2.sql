@@ -51,7 +51,7 @@ increment by 1
 nocache
 nocycle;
 
---insert by ?„ ë¯? --
+--insert by ?ï¿½ï¿½ï¿½? --
 create table illboard(
 iboardnum number constraint ibnum_pk_bn primary key,
 iboarddate date,
@@ -124,14 +124,14 @@ nocycle
 /
 
 
----------------userInfo?— ì»¬ëŸ¼ì¶”ê? --------------
+---------------userInfo?ï¿½ï¿½ ì»¬ëŸ¼ì¶”ï¿½? --------------
 alter table userinfo
 add(
 userimg varchar2(30),
 userbio varchar2(500));
 
 
---¿©±âºÎÅÍ Ãß°¡ (Á¶Çö¸í)
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 create table REPLY
 (replyNum number constraint replynum_pk_rn primary key,
 replyBoardNum number constraint replyboardnum_fk_rbn references board(boardnum) on delete cascade not null,
@@ -162,4 +162,12 @@ NOCACHE;
 
 alter table reply
 add (groupNum number, depth number, orderNum number, parentReplyNum number);
+
+
+
+----------íƒœê·¸ í…Œì´ë¸”ì¶”ê°€----------
+
+
+create table tag
+(test number(10));
 

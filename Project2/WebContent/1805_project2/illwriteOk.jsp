@@ -1,4 +1,7 @@
 <!-- project2 -->
+<%@page import="org.apache.catalina.connector.Request"%>
+<%@page import="dao.TagDAO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="dao.EtcBoardDao"%>
 <%@page import="vo.EtcboardVo"%>
 <%@page import="dao.PrdBoardDao"%>
@@ -11,6 +14,9 @@
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+  
+    
 <%
 //이미지 업로드용 변수들 
 String saveDir = request.getRealPath("upload");
@@ -29,11 +35,58 @@ String filename = multi.getOriginalFileName("upload");
 //경로포함 fullname //DB에 넣을수 있는값 (감덩);
 String fullname = "../upload/" + filename;
 
+ String t = multi.getParameter("tag");
 
 
-//카테고리 넘버 받아온거로 결정
+
+%>
+
+
+
+<%!
+	public void addTag(String t, int bnum){
+	
+	t = t.substring(1, t.length());
+
+	String[] tag = t.split("#");
+
+
+	TagDAO dao = new TagDAO();
+	for(int i = 0; i < tag.length  ; i++){
+		
+		if(dao.isExistByTag(tag[i]) == true){
+			
+			dao.addData(tag[i], bnum);		
+			
+		}else{
+			
+			dao.addNewTag(tag[i--]);
+			
+		}
+	
+	} 
+	
+	
+	
+}
+
+
+
+%>
+
+
+
+
+
+
+
+<%
+
 int cat = Integer.parseInt(multi.getParameter("option"));
+
 if(cat==1){//일러스트
+	
+	
 	IllboardVo ibv = new IllboardVo();
 	IllBoardDao ibd = new IllBoardDao();
 	ibv.setIboardtitle(title);
@@ -43,9 +96,12 @@ if(cat==1){//일러스트
 	ibv.setIboardflag(1);
 	
 	ibd.addIllBoard(ibv);
-	//out.print(ibv.getIboardnum());
-	response.sendRedirect("page_ill.jsp");
 	
+	ibv.setIboardnum(ibd.getDataByName(writer)) ;
+	
+	addTag(t, ibv.getIboardnum());
+	
+	 response.sendRedirect("page_ill.jsp");  
 	
 }else if(cat == 2){//만화
 	ToonboardVo tbv = new ToonboardVo();
@@ -57,6 +113,7 @@ if(cat==1){//일러스트
 	tbv.setTboardflag(1);
 	
 	tbd.addtoonBoard(tbv);
+	
 	response.sendRedirect("page_toon.jsp");
 	
 }else if(cat==3){//2차창작 (패러디)
@@ -70,6 +127,7 @@ if(cat==1){//일러스트
 	pbv.setPboardflag(1);
 	
 	pbd.addPrdBoard(pbv);
+	
 	response.sendRedirect("page_prd.jsp");
 	
 }else if(cat ==4){ //기타등등 page
@@ -83,12 +141,12 @@ if(cat==1){//일러스트
 	ebv.setEboardflag(1);
 	
 	ebd.addEtcBoard(ebv);
-	
-	out.print(ebv.getEboardnum());
-	//response.sendRedirect("page_etc.jsp");
-}
+	response.sendRedirect("page_etc.jsp");
+} 
 
-//임시로 해둔 페이지 전환입니다
+ //임시로 해둔 페이지 전환입니다
+
+ 
 
 
 %>

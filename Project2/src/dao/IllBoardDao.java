@@ -129,7 +129,7 @@ public class IllBoardDao {
 	public void addIllBoard(IllboardVo ibv) {
 		sb.setLength(0);
 		sb.append("insert into illboard ");
-		sb.append("values(               pboard_pbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?) ");
+		sb.append("values(pboard_pbnum_seq.nextval, sysdate, ?,?,?,?,0,0,0,?) ");
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -168,17 +168,16 @@ public class IllBoardDao {
 				rs=pstmt.executeQuery();
 				rs.next();
 				
-				String iboarddate = rs.getString("iboarddate") ;
-				String iboardtitle = rs.getString("iboardtitle");
-				String iboardwriter=rs.getString("iboardwriter");
-				String iboardcontent =rs.getString("iboardcontent");
-				String iboardimg =rs.getString("iboardimg");
-				int iboardhits = rs.getInt("iboardhits");
-				int	iboardnomination = rs.getInt("iboardnomination");
-				int iboardtoday = rs.getInt("iboardtoday");
-				int iboardflag = rs.getInt("iboardflag");
+				int no=rs.getInt("iboardnum");
+				String writer=rs.getString("iboardwriter");
+				String title=rs.getString("iboardtitle");
+				String contents=rs.getString("iboardcontent");
+				String date=rs.getString("iboarddate");
+				String imgpath=rs.getString("iboardimg");
 				
-				vo = new IllboardVo(iboardnum, iboarddate, iboardtitle, iboardwriter, iboardcontent, iboardimg, iboardhits, iboardnomination, iboardtoday, iboardflag);
+				
+				
+				vo=new IllboardVo(no, date, title, writer, contents, imgpath, 0, 0, 0, 1);
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -187,45 +186,77 @@ public class IllBoardDao {
 			return vo;
 		}//getData() end
 		
-		
 		//조회수 증가 
-		public void incrementHits(int boardnum) {
+				public void incrementHits(int boardnum) {
+					sb.setLength(0);
+					sb.append("update illboard ");
+					sb.append("set iboardhits = iboardhits +1 ");
+					sb.append("where iboardnum = ? ");
+					
+					try {
+						pstmt = conn.prepareStatement(sb.toString());
+						pstmt.setInt(1, boardnum);
+						
+						pstmt.executeUpdate();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}//조회수 증가
+				
+				
+				//추천수 증가
+				public void incrementNomination(int boardnum) {
+					sb.setLength(0);
+					sb.append("update illboard ");
+					sb.append("set iboardnomination = iboardnomination +1 ");
+					sb.append("where iboardnum = ? ");
+					
+					try {
+						pstmt = conn.prepareStatement(sb.toString());
+						pstmt.setInt(1, boardnum);
+						
+						pstmt.executeUpdate();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}//추천수 증가 end
+		
+
+		
+		
+
+		//이름으로 검색하여 최신순 정렬한 뒤 글번호를 가져옴
+		public int getDataByName(String writer) {
 			sb.setLength(0);
-			sb.append("update illboard ");
-			sb.append("set iboardhits = iboardhits +1 ");
-			sb.append("where iboardnum = ? ");
+			sb.append("select * from illboard ");
+			sb.append("where iboardwriter =? ");
+			sb.append("order by iboardnum desc ");
+			
+			int no =0;
 			
 			try {
-				pstmt = conn.prepareStatement(sb.toString());
-				pstmt.setInt(1, boardnum);
+				pstmt=conn.prepareStatement(sb.toString());
+				pstmt.setString(1, writer);
 				
-				pstmt.executeUpdate();
+				rs=pstmt.executeQuery();
+				rs.next();
+				
+				no=rs.getInt("iboardnum");
+				
+				return no;
+			
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return no;
 			}
-			
-		}//조회수 증가
 		
-		
-		//추천수 증가
-		public void incrementNomination(int boardnum) {
-			sb.setLength(0);
-			sb.append("update illboard ");
-			sb.append("set iboardnomination = iboardnomination +1 ");
-			sb.append("where iboardnum = ? ");
-			
-			try {
-				pstmt = conn.prepareStatement(sb.toString());
-				pstmt.setInt(1, boardnum);
-				
-				pstmt.executeUpdate();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}//추천수 증가 end
+		}//getData() end
 		
 	
 	
