@@ -172,7 +172,6 @@ margin-right: 10px;
 	int i=1;
 	
 	UserDAO userdao = new UserDAO();
-	UserVO uservo = new UserVO();
 	String imgpath = "";
 	String userid = "";
 	
@@ -199,19 +198,17 @@ margin-right: 10px;
 	ArrayList<ToonboardVo> list = dao.alldataToonBoard(startNum, endNum);
 	
 	for(ToonboardVo tbv : list){
-		
-		uservo = userdao.getData(tbv.getTboardwriter());
+		UserVO uservo = userdao.getData(tbv.getTboardwriter());
+		userid = uservo.getUserId();
 		
 		//프로필 사진 등록 안했으면 디폴트 이미지 준다 
 		if(uservo == null || uservo.getUserImg() == null){
 			
 			 imgpath = "../images/kobugi.jpg";
-			 userid = null;
 			
 		}else{
 			
 			imgpath= uservo.getUserImg();
-			userid = uservo.getUserId();
 		}
 
 %>

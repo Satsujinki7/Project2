@@ -300,13 +300,20 @@
 
 	<%
 	Object ur =session.getAttribute("userName");
-	String user = ur.toString();
+	String user ="";
+	
+	if(ur != null){
+		user =ur.toString();
+	}
 	
 	UserDAO dao = new UserDAO();
 	UserVO vo = new UserVO();
 	
 	
 	String writer = request.getParameter("id");
+	if(writer == null){
+		response.sendRedirect("hits404.jsp");
+	}
 	vo = dao.getDataById(writer);
 	
 	String wri = vo.getUserName();

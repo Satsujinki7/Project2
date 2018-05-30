@@ -168,8 +168,9 @@ margin-right: 10px;
 	int i=1;
 	
 	UserDAO userdao = new UserDAO();
-	UserVO uservo = new UserVO();
 	String imgpath = "";
+	String userid = "";
+	
 	String cp = request.getParameter("cp");
 	
 	//페이징 처리
@@ -193,13 +194,13 @@ margin-right: 10px;
 	ArrayList<PrdboardVo> lsit = dao.alldataPrdBoard(startNum, endNum);
 	
 	for(PrdboardVo vo : lsit){
-		uservo = userdao.getData(vo.getPboardwriter());
+		UserVO uservo = userdao.getData(vo.getPboardwriter());
+		userid = uservo.getUserId();
 		
 		//프로필 사진 등록 안했으면 디폴트 이미지 준다 
 		if(uservo == null || uservo.getUserImg() == null){
 			
 			 imgpath = "../images/kobugi.jpg";
-			
 			
 		}else{
 			
@@ -208,14 +209,14 @@ margin-right: 10px;
 %>
 <div class="post">		
 		<a href="hitsUpOk.jsp?boardnum=<%=vo.getPboardnum() %>&category=prd">
-		<div class="img_area">
+		<div class="img_area" >
 			<img src="<%=vo.getPboardimg() %>" alt="이미지" id="img<%=i++%>"/>
 		</div></a>
 		
 		<div class="info_area">
 			<div class="info_box">
 				<a href="hitsUpOk.jsp?boardnum=<%=vo.getPboardnum() %>&category=prd" class="post_title"><%=vo.getPboardtitle() %></a>
-				<a href="myPage.jsp?writer=<%=vo.getPboardwriter() %> " class="post_writer">
+				<a href="myPage.jsp?id=<%=userid %> " class="post_writer">
 					<img src="<%=imgpath %>" alt="프사" />
 					<span><%=vo.getPboardwriter() %></span>
 				</a>

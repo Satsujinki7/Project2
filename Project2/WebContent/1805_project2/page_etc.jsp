@@ -170,8 +170,9 @@ margin-right: 10px;
 	int i=1;
 	
 	UserDAO userdao = new UserDAO();
-	UserVO uservo = new UserVO();
 	String imgpath = "";
+	String userid = "";
+	
 	String cp = request.getParameter("cp");
 	
 	//페이징 처리
@@ -195,13 +196,13 @@ margin-right: 10px;
 	
 	for(EtcboardVo tbv : list){
 		
-		uservo = userdao.getData(tbv.getEboardwriter());
+		UserVO uservo = userdao.getData(tbv.getEboardwriter());
+		userid = uservo.getUserId();
 		
 		//프로필 사진 등록 안했으면 디폴트 이미지 준다 
-		if(uservo == null || uservo.getUserImg() == null){
+		if( uservo.getUserImg() == null){
 			
-			 imgpath = "../images/kobugi.jpg";
-			
+			 imgpath = "../images/kobugi.jpg";	
 			
 		}else{
 			
@@ -220,7 +221,7 @@ margin-right: 10px;
 		<div class="info_area">
 			<div class="info_box">
 				<a href="hitsUpOk.jsp?boardnum=<%=tbv.getEboardnum() %>&category=etc" class="post_title"><%=tbv.getEboardtitle() %></a>
-				<a href="myPage.jsp?writer=<%=tbv.getEboardwriter() %> " class="post_writer">
+				<a href="myPage.jsp?id=<%=userid %> " class="post_writer">
 					<img src="<%=imgpath %>" alt="프사" />
 					<span><%=tbv.getEboardwriter() %></span>
 				</a>
