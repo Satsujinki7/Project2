@@ -151,6 +151,8 @@ margin-right: 10px;
 </style>
  </head>
 <body>
+<!-- Scroll Top Button -->
+<jsp:include page="top.jsp"></jsp:include>
 <!-- nav bar part -->
 <div id="container_nav">	
 	<jsp:include page="nav.jsp"></jsp:include>
