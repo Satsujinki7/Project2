@@ -21,55 +21,47 @@
   <%
   IllBoardDao ibd = new IllBoardDao();
   ArrayList<IllboardVo> ilist = ibd.likeIllBoard();
-  //detail.jsp?boardnum=12&category=prd
   %>
   <div id="illust" class="tabcontent">
-   	<a href="hitsUpOk.jsp?boardnum=<%=ilist.get(0).getIboardnum()%>&category=ill">
-   	<div class="rank_ill">
-   		<div id="ill1"><img src="<%=ilist.get(0).getIboardimg() %>" alt="일러1위" width="100%"/></div>
-   		<p id="rank_title"><%=ilist.get(0).getIboardtitle() %></p>
-   		<p id="rank_user"><%=ilist.get(0).getIboardwriter() %></p>
+   	<div class="rank_ill" >
+   		<div id="ill1">
+   		<img src="" alt="일러1위" width="100%"/>
+   		</div>
+   		<p id="rank_title"></p>
+   		<p id="rank_user"></p>
    	</div>
-   	</a>
-   	<a href="hitsUpOk.jsp?boardnum=<%=ilist.get(1).getIboardnum()%>&category=ill">
-   	<div id="ill2" class="rank_ill">
-   		<div id="ill1"><img src="<%=ilist.get(1).getIboardimg() %>" alt="일러2위" width="100%"/></div>
-   		<p id="rank_title"><%=ilist.get(1).getIboardtitle() %></p>
-   		<p id="rank_user"><%=ilist.get(1).getIboardwriter() %></p>
-   	</div></a>
-   	<a href="hitsUpOk.jsp?boardnum=<%=ilist.get(2).getIboardnum()%>&category=ill">
+   	<div id="ill2" class="rank_ill" >
+   		<div id="ill1"><img src="" alt="일러2위" width="100%"/></div>
+   		<p id="rank_title"></p>
+   		<p id="rank_user"></p>
+   	</div>
    	<div id="ill3" class="rank_ill">
-   		<div id="ill1"><img src="<%=ilist.get(2).getIboardimg() %>" alt="일러3위" width="100%"/></div>
-   		<p id="rank_title"><%=ilist.get(2).getIboardtitle() %></p>
-   		<p id="rank_user"><%=ilist.get(2).getIboardwriter() %></p>
-   	</div></a>
+   		<div id="ill1"><img src="" alt="일러3위" width="100%"/></div>
+   		<p id="rank_title"></p>
+   		<p id="rank_user"></p>
+   	</div>
   </div>
   <%
   //toonboard 인기순정렬 불러오기
   ToonBoardDao tbd = new ToonBoardDao();
   ArrayList<ToonboardVo> tlist = tbd.likeToonBoard();
-  
-  tlist.get(1).getTboardimg();
-  %>
+   %>
   <div id="cartoon" class="tabcontent">
-   	<a href="hitsUpOk.jsp?boardnum=<%=tlist.get(0).getTboardnum()%>&category=toon">
-    <div class="rank_toon">
-    	<div id="toon1"><img src="<%=tlist.get(0).getTboardimg() %>" alt="카툰1위" width="100%"/></div>
-   		<p id="rank_title"><%=tlist.get(0).getTboardtitle() %></p>
-   		<p id="rank_user"><%=tlist.get(0).getTboardwriter() %></p>
-    </div></a>
-   	<a href="hitsUpOk.jsp?boardnum=<%=tlist.get(1).getTboardnum()%>&category=toon">
-    <div id="toon2" class="rank_toon">
-    	<div id="toon1"><img src="<%=tlist.get(1).getTboardimg() %>" alt="카툰2위" width="100%"/></div>
-   		<p id="rank_title"><%=tlist.get(1).getTboardtitle() %></p>
-   		<p id="rank_user"><%=tlist.get(1).getTboardwriter() %></p>
-    </div></a>
-   	<a href="hitsUpOk.jsp?boardnum=<%=tlist.get(2).getTboardnum()%>&category=toon">
-    <div id="toon3" class="rank_toon">
-    	<div id="toon1"><img src="<%=tlist.get(2).getTboardimg() %>" alt="카툰3위" width="100%"/></div>
-   		<p id="rank_title"><%=tlist.get(2).getTboardtitle() %></p>
-   		<p id="rank_user"><%=tlist.get(2).getTboardwriter() %></p>
-    </div></a>
+    <div class="rank_toon" >
+    	<div id="toon1"><img src="" alt="카툰1위" width="100%"/></div>
+   		<p id="rank_title"></p>
+   		<p id="rank_user"></p>
+    </div>
+    <div id="toon2" class="rank_toon"  >
+    	<div id="toon1"><img src="" alt="카툰2위" width="100%"/></div>
+   		<p id="rank_title"></p>
+   		<p id="rank_user"></p>
+    </div>
+    <div id="toon3" class="rank_toon"  >
+    	<div id="toon1"><img src="" alt="카툰3위" width="100%"/></div>
+   		<p id="rank_title"></p>
+   		<p id="rank_user"></p>
+    </div>
   </div>
   
   <%
@@ -78,24 +70,21 @@
   	
   %>
   <div id="parady" class="tabcontent">
-   	<a href="hitsUpOk.jsp?boardnum=<%=plist.get(0).getPboardnum()%>&category=prd">
-    <div class="rank_prdy">
-    	<div id="par1"><img src="<%=plist.get(0).getPboardimg() %>" alt="패ㅓ디1위" width="100%"/></div>
-   		<p id="rank_title"><%=plist.get(0).getPboardtitle()%></p>
-   		<p id="rank_user"><%=plist.get(0).getPboardwriter() %></p>
-    </div></a>
-   	<a href="hitsUpOk.jsp?boardnum=<%=ilist.get(1).getIboardnum()%>&category=prd">
-    <div id="par2" class="rank_prdy">
-    	<div id="par1"><img src="<%=plist.get(1).getPboardimg() %>" alt="패러디2위" width="100%"/></div>
-   		<p id="rank_title"><%=plist.get(1).getPboardtitle()%></p>
-   		<p id="rank_user"><%=plist.get(1).getPboardwriter() %></p>
-    </div></a>
-   	<a href="hitsUpOk.jsp?boardnum=<%=plist.get(2).getPboardnum()%>&category=prd">
-    <div id="par3" class="rank_prdy">
-    	<div id="par1"><img src="<%=plist.get(2).getPboardimg() %>" alt="패러디3위" width="100%"/></div>
-   		<p id="rank_title"><%=plist.get(2).getPboardtitle()%></p>
-   		<p id="rank_user"><%=plist.get(2).getPboardwriter() %></p>
-    </div></a>
+    <div class="rank_prdy"  >
+    	<div id="par1"><img src="" alt="패ㅓ디1위" width="100%"/></div>
+   		<p id="rank_title"></p>
+   		<p id="rank_user"></p>
+    </div>
+    <div id="par2" class="rank_prdy" >
+    	<div id="par1"><img src="" alt="패러디2위" width="100%"/></div>
+   		<p id="rank_title"></p>
+   		<p id="rank_user"></p>
+    </div>
+    <div id="par3" class="rank_prdy" >
+    	<div id="par1"><img src="" alt="패러디3위" width="100%"/></div>
+   		<p id="rank_title"></p>
+   		<p id="rank_user"></p>
+    </div>
   </div>
   
   
@@ -105,24 +94,21 @@
   	elist = ebd.likeEtcBoard();
   %>
   <div id="tab_etc" class="tabcontent">
-   	<a href="hitsUpOk.jsp?boardnum=<%=elist.get(0).getEboardnum()%>&category=etc">
-  	<div class="rank_etc">
-  		<div id="etc1"><img src="<%=elist.get(0).getEboardimg() %>" alt="기타1위" width="100%"/></div>
-   		<p id="rank_title"><%=elist.get(0).getEboardtitle()%></p>
-   		<p id="rank_user"><%=elist.get(0).getEboardwriter() %></p>
-  	</div></a>
-   	<a href="hitsUpOk.jsp?boardnum=<%=elist.get(1).getEboardnum()%>&category=etc">
-  	<div id="etc2" class="rank_etc">
-  		<div id="etc1"><img src="<%=elist.get(1).getEboardimg() %>" alt="기타2위" width="100%"/></div>
-   		<p id="rank_title"><%=elist.get(1).getEboardtitle()%></p>
-   		<p id="rank_user"><%=elist.get(1).getEboardwriter() %></p>
-  	</div></a>
-   	<a href="hitsUpOk.jsp?boardnum=<%=elist.get(2).getEboardnum()%>&category=etc">
+  	<div class="rank_etc" >
+  		<div id="etc1"><img src="" alt="기타1위" width="100%"/></div>
+   		<p id="rank_title"></p>
+   		<p id="rank_user"></p>
+  	</div>
+  	<div id="etc2" class="rank_etc" >
+  		<div id="etc1"><img src="" alt="기타2위" width="100%"/></div>
+   		<p id="rank_title"></p>
+   		<p id="rank_user"></p>
+  	</div>
   	<div id="etc3" class="rank_etc">
-  		<div id="etc1"><img src="<%=elist.get(2).getEboardimg() %>" alt="기타3위" width="100%"/></div>
-   		<p id="rank_title"><%=elist.get(2).getEboardtitle()%></p>
-   		<p id="rank_user"><%=elist.get(2).getEboardwriter() %></p>
-  	</div></a>
+  		<div id="etc1"><img src="" alt="기타3위" width="100%"/></div>
+   		<p id="rank_title"></p>
+   		<p id="rank_user"></p>
+  	</div>
   </div>
 </div>
 <script>
