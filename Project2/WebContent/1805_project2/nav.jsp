@@ -75,18 +75,17 @@ function pageMoveMypage() {
 	
 	<% 
 		Object ur = session.getAttribute("userName");
-		String user = ur.toString();
 	
 		UserDAO dao = new UserDAO();
 		UserVO  vo = new UserVO();
 		
-		vo = dao.getData(user);
+		
 	
 	%>
 	
 	<div id="navright">
 	<%
-	   if(user == null){
+	   if(ur == null){
 	%>
 		<input type="button" value="로그인" onclick="pageMoveLog()"/>
 		<input type="button" value="회원가입" onclick="pageMoveReg()" />
@@ -94,7 +93,8 @@ function pageMoveMypage() {
 		<%
 	   }else {
 		   
-		
+			String user = ur.toString();
+		   vo = dao.getData(user);
 		%>
 		
 		<input type="button" value="업로드" onclick="pageMoveWrite()"/>

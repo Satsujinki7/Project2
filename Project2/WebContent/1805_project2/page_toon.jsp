@@ -172,6 +172,7 @@ margin-right: 10px;
 	UserDAO userdao = new UserDAO();
 	UserVO uservo = new UserVO();
 	String imgpath = "";
+	String userid = "";
 	
 	String cp = request.getParameter("cp");
 	
@@ -203,11 +204,12 @@ margin-right: 10px;
 		if(uservo == null || uservo.getUserImg() == null){
 			
 			 imgpath = "../images/kobugi.jpg";
-			
+			 userid = null;
 			
 		}else{
 			
 			imgpath= uservo.getUserImg();
+			userid = uservo.getUserId();
 		}
 
 %>
@@ -222,7 +224,7 @@ margin-right: 10px;
 		<div class="info_area">
 			<div class="info_box">
 				<a href="hitsUpOk.jsp?boardnum=<%=tbv.getTboardnum() %>&category=toon" class="post_title"><%=tbv.getTboardtitle() %></a>
-				<a href="myPage.jsp?id=<%=uservo.getUserId() %>" class="post_writer">
+				<a href="myPage.jsp?id=<%=userid %>" class="post_writer">
 					<img src="<%=imgpath %>" alt="프사" />
 					<span><%=tbv.getTboardwriter() %></span>
 				</a>
