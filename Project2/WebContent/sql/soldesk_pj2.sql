@@ -189,3 +189,7 @@ add (etctag varchar2(200));
 
 alter table prdboard
 add (prdtag varchar2(200));
+
+
+-- ---UNION SQL FOR TAG-----
+select * from toonboard union select * from illboard union select * from prdboard union select * from etcboard ;
