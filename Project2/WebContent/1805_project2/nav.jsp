@@ -23,9 +23,7 @@ function logout() {
 function pageMoveWrite() {
 	location.href = 'illwrite.jsp';
 }
-function pageMoveMypage() {
-	location.href = 'myPage.jsp?id='%>;
-}
+
 
 </script>
 
@@ -94,12 +92,13 @@ function pageMoveMypage() {
 	   }else {
 		   
 			String user = ur.toString();
-		   vo = dao.getData(user);
+			vo = dao.getData(user);
 		%>
 		
 		<input type="button" value="업로드" onclick="pageMoveWrite()"/>
 		<a href="myPage.jsp?id=<%=vo.getUserId()%>">
 		<input type="button" value="<%=user %>"  /></a>
+		<a href="logoutOk.jsp">로그아웃</a>
 		
 		<%
 		
