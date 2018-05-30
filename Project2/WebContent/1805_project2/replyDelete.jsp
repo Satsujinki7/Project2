@@ -4,13 +4,15 @@
     pageEncoding="UTF-8"%>
 <%
 	String bnum = request.getParameter("board_num");
+	//해당댓글 번호 받아서
  	String rnum = request.getParameter("rep_num");
+	
  	String gnum = request.getParameter("rep_groupnum");
  	String pnum = request.getParameter("rep_parentnum");
 	
-	
+	//형변환 해주고
 	int bno = Integer.parseInt(bnum);
-	int pno = Integer.parseInt(pnum);
+//	int pno = Integer.parseInt(pnum);
 
 	//ReplyDAO dao = new ReplyDAO();
 	ReplyV2_DAO dao2 = new ReplyV2_DAO();

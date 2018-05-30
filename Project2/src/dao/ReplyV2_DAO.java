@@ -47,42 +47,7 @@ public class ReplyV2_DAO {
 		
 	} //addReply end
 	
-	//실험용. 삭제요망
-	public ArrayList<ReplyVO> getAll(int replyBnum) {
-		ArrayList<ReplyVO> list = new ArrayList<>();
-		sb.setLength(0);
-		sb.append("select * from reply ");
-		sb.append("where replyboardnum = ? ");
-		sb.append("order by depth ");
-		
-		try {
-			pstmt = conn.prepareStatement(sb.toString());
-			
-			pstmt.setInt(1, replyBnum);
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				int replyNum = rs.getInt("replynum");
-				int replyBoardNum = rs.getInt("replyboardnum");
-				String replyWriter = rs.getString("replywriter");
-				String replyDate = rs.getString("replydate");
-				String replyComment = rs.getString("replycomment");
-				int groupNum = rs.getInt("groupnum");
-				int depth = rs.getInt("depth");
-				int orderNum = rs.getInt("ordernum");
-				int parentReplyNum = rs.getInt("parentreplynum");
-
-				ReplyVO vo = new ReplyVO(replyNum, replyBoardNum, replyWriter, replyDate, replyComment, groupNum, depth, orderNum, parentReplyNum);
-				list.add(vo);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return list;
-	}
-	
 	//전체 댓글 조회
-	//위 실험으로 알아낸 결과 : 쿼리문이 잘못되서 안나오고있음
 	public ArrayList<ReplyVO> getAllReply(int replyBnum) {
 		ArrayList<ReplyVO> list = new ArrayList<>();
 		
@@ -94,17 +59,9 @@ public class ReplyV2_DAO {
 		sb.append("order siblings by case parentreplynum when 0 then replynum end desc, ");
 		sb.append("case when parentreplynum != 0 then depth end desc) data ) ");
 		sb.append("where replyboardnum = ? ");
-		sb.append("order by groupnum asc, ordernum asc ");
-//		sb.append("order by groupnum asc, ordernum asc ");
+		sb.append("order by groupnum asc, replydate asc ");
+		//sb.append("order by groupnum asc, ordernum asc ");
 		
-		/*sb.setLength(0);
-		sb.append("select * from ");
-		sb.append("(select replynum, replyboardnum, replywriter, replydate, replycomment, groupnum, depth, ordernum, parentreplynum ");
-		sb.append("from reply start with parentreplynum = 0 connect by prior replyboardnum = parentreplynum ");
-		sb.append("order siblings by case parentreplynum when 0 then replyboardnum end desc, ");
-		sb.append("case when parentreplynum != 0 then depth end desc) ");
-		sb.append("where replyboardnum = ? ");
-		sb.append("order by groupnum asc, ordernum asc ");*/
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
@@ -207,7 +164,7 @@ public class ReplyV2_DAO {
 	//부모 댓글 숫자 구하기
 	public int getCountByParentReply(ReplyVO vo) {
 		sb.setLength(0);
-		sb.append("select count(parentreplynum) from reply ");
+		sb.append("select count(replynum) from reply ");
 		sb.append("where parentreplynum = ? ");
 		
 		int parent_cnt = 0;
@@ -225,14 +182,13 @@ public class ReplyV2_DAO {
 		return parent_cnt;
 	} //getCountByParentReply end
 	
-	//해당 댓글부터 시작해서 부모 댓글과 댓글 번호가 같은것부터 순서대로 출력
+	//해당 댓글의 마지막 순번 가져오기
 	public int getMaxOrderNumByParentReply(ReplyVO vo) {
 		sb.setLength(0);
-		sb.append("select ordernum from (select * from reply ");
+		sb.append("select max(ordernum) from reply ");
 		sb.append("start with replynum = ? ");
 		sb.append("connect by prior replynum = parentreplynum ");
-		sb.append("order by ordernum desc) ");
-		sb.append("where rownum = 1 ");
+		sb.append("order by ordernum desc ");
 		
 		int maxOrderNum = 0;
 		
@@ -251,15 +207,51 @@ public class ReplyV2_DAO {
 		return maxOrderNum;
 	} //getMaxOrderNumByParentReply end
 	
+	//가장 최근에 작성된 순번 가져오기
+	public int getLatestOrderNumByParentNum(ReplyVO vo) {
+		sb.setLength(0);
+		sb.append("select ordernum from reply ");
+		sb.append("where replynum = ? ");
+		
+		int getLatestOrder = 0;
+		
+		try {
+			pstmt.setInt(1, vo.getParentReplyNum());
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				getLatestOrder = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return getLatestOrder;
+	} //getLatestOrderNumByParentNum end
+	
 	//댓글 깊이 설정
 	public void modDepthData(ReplyVO vo) {
 		sb.setLength(0);
 		sb.append("update reply set depth = depth + 1 ");
-		sb.append("where groupnum = ? and depth > ? ");
+		sb.append("where groupnum = ? and depth >= ? ");
 		
 		try {
 			pstmt.setInt(1, vo.getGroupNum());
 			pstmt.setInt(2, vo.getDepth());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	//댓글 순번 설정
+	public void modOrdernumData(ReplyVO vo) {
+		sb.setLength(0);
+		sb.append("update reply set ordernum = ordernum + 1 ");
+		sb.append("where ordernum >= ? and groupnum = ? ");
+		
+		try {
+			pstmt.setInt(1, vo.getOrderNum());
+			pstmt.setInt(2, vo.getGroupNum());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -292,42 +284,7 @@ public class ReplyV2_DAO {
 		}
 	}
 	
-	//해당 댓글의 순서 가져오기
-	public int getLatestOrderNumByParentNum(ReplyVO vo) {
-		sb.setLength(0);
-		sb.append("select ordernum from reply ");
-		sb.append("where replynum = ? ");
-		
-		int getLatestOrder = 0;
-		
-		try {
-			pstmt.setInt(1, vo.getParentReplyNum());
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				getLatestOrder = rs.getInt(1);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return getLatestOrder;
-	} //getLatestOrderNumByParentNum end
-	
-	//신규 댓글 작성되면 그룹번호 내의 순번 증가 
-	public void updateOrderNumByGroupNum(ReplyVO vo) {
-		sb.setLength(0);
-		sb.append("update reply ");
-		sb.append("set ordernum = ordernum + 1 ");
-		sb.append("where ordernum >= ? and groupnum = ? ");
-		
-		try {
-			pstmt.setInt(1, vo.getOrderNum());
-			pstmt.setInt(2, vo.getGroupNum());
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	} //updateOrderNumByGroupNum end
+
 	
 	//댓글 삭제
 	public void deleteReplyNum(int repno) {
@@ -358,18 +315,20 @@ public class ReplyV2_DAO {
 		vo.setOrderNum(orderNum);
 		
 		if(orderNum > 0) {
-			updateOrderNumByGroupNum(vo);
+			modOrdernumData(vo);
 		}
 		
 		addReply(vo);
 		//return addReply(vo) > 0;
 	}
 	
-	private int getNewOrderNum(ReplyVO vo) {
+	//댓글 순번 갱신
+	public int getNewOrderNum(ReplyVO vo) {
+		//이미 존재할 경우 순번 갱신
 		if(getCountByParentReply(vo) > 0) {
 			int newOrderNum = getMaxOrderNumByParentReply(vo);
 			return newOrderNum + 1;
-		} else {
+		} else { //일반 댓글, 첫 대댓글인 경우 순번 갱신
 			if(vo.getParentReplyNum() != 0) {
 				int newOrderNum = getLatestOrderNumByParentNum(vo);
 				return newOrderNum + 1;

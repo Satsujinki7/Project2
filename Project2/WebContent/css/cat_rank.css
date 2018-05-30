@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+body {font-family: Arial;}
+/* Right WRAPPER */
+#right_wrap{
+  width : 300px;
+  height: 500px;
+  /*background-color: pink;*/
+  border: 1px solid #ccc;
+}
+/* Style the tab */
+.tab {
+    /*width : 300px;*/
+    overflow: hidden;
+    /*border: 1px solid #ccc;*/
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 12px 15px;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+}
+
+/*내부 컨텐츠*/
+.rank_ill, .rank_toon, .rank_prdy, .rank_etc{
+	width: 100%;
+	height: 140px;
+	border: 1px solid #ccc;
+	margin: 5px;
+	overflow: hidden;
+}
+
+/* 일러스트 탭 내부*/
+a{ text-decoration: none;}
+#ill1{
+	width: 140px;
+	height: 140px;
+	background-color: #333333;
+	float: left;
+	overflow: hidden
+}
+/*만화 탭 내부*/
+
+#toon1{
+	width: 140px;
+	height: 140px;
+	background-color: #333333;
+	float: left;
+	overflow: hidden;
+}
+#toon1 img{
+	overflow: hidden;
+}
+/*2차 창작 탭 내부*/
+.rank_prdy{
+	overflow: hidden;
+}
+#par1{
+	width: 140px;
+	height: 140px;
+	background-color: #333333;
+	float: left;
+}
+/*기타 탭 내부*/
+
+#etc1{
+	width: 140px;
+	height: 140px;
+	background-color: #333333;
+	float: left;
+	overflow: hidden;
+}

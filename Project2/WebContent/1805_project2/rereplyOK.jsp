@@ -13,8 +13,8 @@
 	String rnum = request.getParameter("rep_num");
 	/* String rgnum = request.getParameter("rep_groupnum");
 	String rdepth = request.getParameter("rep_depth");
-	String ronum = request.getParameter("rep_ordernum"); */
-	String rpnum = request.getParameter("rep_parentnum");
+	String ronum = request.getParameter("rep_ordernum"); 
+	String rpnum = request.getParameter("rep_parentnum");*/
 	
 	//ReplyDAO dao = new ReplyDAO();
 	
@@ -22,7 +22,7 @@
 		int repno = 0;
 		int parent = 0;
 		repno = Integer.parseInt(rnum);
-		parent = Integer.parseInt(rpnum);
+		//parent = Integer.parseInt(rpnum);
 		/* int pnum = Integer.parseInt(rpnum);
 		int gnum = Integer.parseInt(rgnum);
 		int depth = Integer.parseInt(rdepth);
@@ -34,7 +34,6 @@
 		
 		ReplyVO pvo = dao.getCurrentReply(repno);
 		ReplyVO vo = new ReplyVO();
-		dao.modDepthData(pvo);
 		
 		/* vo.setReplyBoardNum(bno);
 		vo.setReplyWriter(userId);
@@ -44,17 +43,47 @@
 		vo.setParentReplyNum(repno);
 		vo.setOrderNum(onum);
 		dao.addReReply(vo); */
+		//dao.modDepthData(pvo);
 		
 		vo.setReplyBoardNum(bno);
 		vo.setReplyWriter(userId);
 		vo.setReplyComment(replyComment);
 		vo.setGroupNum(pvo.getGroupNum());
 		vo.setDepth(pvo.getDepth());
-		vo.setOrderNum(pvo.getOrderNum());
+		
+		
+		//dao.getNewOrderNum(vo);
+		
+		//dao.modOrdernumData(pvo);
+		
+		/*if(dao.getCountByParentReply(vo) > 0) {
+			dao.getMaxOrderNumByParentReply(vo);
+			vo.setOrderNum(pvo.getOrderNum()+1);
+		} else {
+			if(vo.getParentReplyNum() != 0) {
+				dao.getLatestOrderNumByParentNum(vo);
+				vo.setOrderNum(pvo.getOrderNum()+1);
+			}
+		}*/
+		
+		if(dao.getCountByParentReply(vo) > 0) {
+			dao.getMaxOrderNumByParentReply(vo);
+			dao.modOrdernumData(pvo);
+			vo.setOrderNum(pvo.getOrderNum());
+		} else {
+			if(vo.getParentReplyNum() != 0) {
+				dao.getLatestOrderNumByParentNum(vo);
+				dao.modOrdernumData(pvo);
+				vo.setOrderNum(pvo.getOrderNum());
+			}
+		}
+		
 		vo.setParentReplyNum(pvo.getReplyNum());
+		
 		/* vo.setParentReplyNum(parent); */
 		
 		//dao.updateOrderNumByGroupNum(vo);
+		
 		dao.addReReply(vo);
 		
 		out.println("대댓글 작성완료");
