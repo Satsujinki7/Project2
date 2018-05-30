@@ -218,10 +218,9 @@ margin-right: 10px;
 
 	<div class="post">
 	
-		<a href="hitsUpOk.jsp?boardnum=<%=tbv.getTboardnum() %>&category=toon">
-		<div class="img_area">
+		<div class="img_area" onclick="location.href='hitsUpOk.jsp?boardnum=<%=tbv.getTboardnum() %>&category=toon'">
 			<img src="<%=tbv.getTboardimg() %>" alt="이미지" id="img<%=i++%>"/>
-		</div></a>
+		</div>
 		
 		<div class="info_area">
 			<div class="info_box">
