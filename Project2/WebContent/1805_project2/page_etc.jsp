@@ -157,6 +157,8 @@ margin-right: 10px;
 <title>기타 페이지</title>
 </head>
 <body>
+<!-- Scroll Top Button -->
+<jsp:include page="top.jsp"></jsp:include>
 <!-- nav bar part -->
 <div id="container_nav">	
 	<jsp:include page="nav.jsp"></jsp:include>
@@ -294,5 +296,6 @@ $(function(){
 	}//for end
 	
 });
+
 
 </script>

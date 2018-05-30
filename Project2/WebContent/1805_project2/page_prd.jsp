@@ -155,7 +155,8 @@ margin-right: 10px;
 <title>2차 창작 페이지</title>
 </head>
 <body>
-
+<!-- Scroll Top Button -->
+		<jsp:include page="top.jsp"></jsp:include>
 <!-- nav bar part -->
 <div id="container_nav">	
 	<jsp:include page="nav.jsp"></jsp:include>
@@ -205,7 +206,7 @@ margin-right: 10px;
 			imgpath= uservo.getUserImg();
 		}
 %>
-<div class="post">
+<div class="post">		
 		<a href="hitsUpOk.jsp?boardnum=<%=vo.getPboardnum() %>&category=prd">
 		<div class="img_area">
 			<img src="<%=vo.getPboardimg() %>" alt="이미지" id="img<%=i++%>"/>
