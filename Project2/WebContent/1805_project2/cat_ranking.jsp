@@ -18,97 +18,70 @@
     <button class="tablinks" onclick="openTab(event, 'parady')">2차창작</button>
     <button class="tablinks" onclick="openTab(event, 'tab_etc')">기타</button>
   </div>
+  
+  
+  <div id="illust" class="tabcontent">
   <%
   IllBoardDao ibd = new IllBoardDao();
   ArrayList<IllboardVo> ilist = ibd.likeIllBoard();
+  
+  for(int j = 0 ; j < 3 ; j++){
   %>
-  <div id="illust" class="tabcontent">
-   	<div class="rank_ill" >
-   		<div id="ill1">
-   		<img src="" alt="일러1위" width="100%"/>
-   		</div>
-   		<p id="rank_title"></p>
-   		<p id="rank_user"></p>
+   	<div class="rank_ill"  onclick="location.href='hitsUpOk.jsp?boardnum=<%=ilist.get(j).getIboardnum() %>&category=ill';">
+   		<div id="ill1"><img src="<%=ilist.get(j).getIboardimg() %>" alt="일러1위" width="100%"/></div>
+   		<p id="rank_title"><%=ilist.get(j).getIboardtitle() %></p>
+   		<p id="rank_user"><%=ilist.get(j).getIboardwriter() %></p>
    	</div>
-   	<div id="ill2" class="rank_ill" >
-   		<div id="ill1"><img src="" alt="일러2위" width="100%"/></div>
-   		<p id="rank_title"></p>
-   		<p id="rank_user"></p>
-   	</div>
-   	<div id="ill3" class="rank_ill">
-   		<div id="ill1"><img src="" alt="일러3위" width="100%"/></div>
-   		<p id="rank_title"></p>
-   		<p id="rank_user"></p>
-   	</div>
-  </div>
-  <%
-  //toonboard 인기순정렬 불러오기
-  ToonBoardDao tbd = new ToonBoardDao();
-  ArrayList<ToonboardVo> tlist = tbd.likeToonBoard();
-   %>
-  <div id="cartoon" class="tabcontent">
-    <div class="rank_toon" >
-    	<div id="toon1"><img src="" alt="카툰1위" width="100%"/></div>
-   		<p id="rank_title"></p>
-   		<p id="rank_user"></p>
-    </div>
-    <div id="toon2" class="rank_toon"  >
-    	<div id="toon1"><img src="" alt="카툰2위" width="100%"/></div>
-   		<p id="rank_title"></p>
-   		<p id="rank_user"></p>
-    </div>
-    <div id="toon3" class="rank_toon"  >
-    	<div id="toon1"><img src="" alt="카툰3위" width="100%"/></div>
-   		<p id="rank_title"></p>
-   		<p id="rank_user"></p>
-    </div>
+<%} //for end %>
   </div>
   
+  
+  <div id="cartoon" class="tabcontent">
+  <%
+  ToonBoardDao tbd = new ToonBoardDao();
+  ArrayList<ToonboardVo> tlist = tbd.likeToonBoard();
+  for(int j = 0 ; j< 3; j++){
+   %>
+    <div class="rank_toon" onclick="location.href='hitsUpOk.jsp?boardnum=<%=tlist.get(j).getTboardnum()%>&category=toon';">
+    	<div id="toon1"><img src="<%=tlist.get(j).getTboardimg() %>" alt="카툰1위" width="100%"/></div>
+   		<p id="rank_title"><%=tlist.get(j).getTboardtitle() %></p>
+   		<p id="rank_user"><%=tlist.get(j).getTboardwriter() %></p>
+    </div>
+   <%}//for end %>
+  </div>
+  
+  <div id="parady" class="tabcontent">
   <%
   	PrdBoardDao pbd = new PrdBoardDao();
   	ArrayList<PrdboardVo> plist = pbd.likePrdBoard(); 	
   	
+  	for(int j = 0; j < 3 ; j++){
   %>
-  <div id="parady" class="tabcontent">
-    <div class="rank_prdy"  >
-    	<div id="par1"><img src="" alt="패ㅓ디1위" width="100%"/></div>
-   		<p id="rank_title"></p>
-   		<p id="rank_user"></p>
+    <div class="rank_prdy"  onclick="location.href='hitsUpOk.jsp?boardnum=<%=plist.get(j).getPboardnum()%>&category=prd';">
+    	<div id="par1"><img src="<%=plist.get(j).getPboardimg() %>" alt="패ㅓ디1위" width="100%"/></div>
+   		<p id="rank_title"><%=plist.get(j).getPboardtitle() %></p>
+   		<p id="rank_user"><%=plist.get(j).getPboardwriter()%></p>
     </div>
-    <div id="par2" class="rank_prdy" >
-    	<div id="par1"><img src="" alt="패러디2위" width="100%"/></div>
-   		<p id="rank_title"></p>
-   		<p id="rank_user"></p>
-    </div>
-    <div id="par3" class="rank_prdy" >
-    	<div id="par1"><img src="" alt="패러디3위" width="100%"/></div>
-   		<p id="rank_title"></p>
-   		<p id="rank_user"></p>
-    </div>
+    <%}//for end %>
   </div>
   
   
+  <div id="tab_etc" class="tabcontent">
   <%
   	EtcBoardDao ebd = new EtcBoardDao();
   	ArrayList<EtcboardVo> elist = new ArrayList<>();
   	elist = ebd.likeEtcBoard();
-  %>
-  <div id="tab_etc" class="tabcontent">
-  	<div class="rank_etc" >
-  		<div id="etc1"><img src="" alt="기타1위" width="100%"/></div>
-   		<p id="rank_title"></p>
-   		<p id="rank_user"></p>
+  	//out.print(elist.get(0));
+  	for(int j =0 ; j<3 ; j++){
+  	%>
+  	<div class="rank_etc" onclick="location.href='hitsUpOk.jsp?boardnum=<%=elist.get(j).getEboardnum()%>&category=etc';" >
+  		<div id="etc1"><img src="<%=elist.get(j).getEboardimg() %>" alt="기타1위" width="100%" /></div>
+   		<p id="rank_title"><%=elist.get(j).getEboardtitle() %></p>
+   		<p id="rank_user"><%=elist.get(j).getEboardwriter() %></p>
   	</div>
-  	<div id="etc2" class="rank_etc" >
-  		<div id="etc1"><img src="" alt="기타2위" width="100%"/></div>
-   		<p id="rank_title"></p>
-   		<p id="rank_user"></p>
-  	</div>
-  	<div id="etc3" class="rank_etc">
-  		<div id="etc1"><img src="" alt="기타3위" width="100%"/></div>
-   		<p id="rank_title"></p>
-   		<p id="rank_user"></p>
-  	</div>
+  	<%}//for end 
+  	%>
+  	
   </div>
 </div>
 <script>
