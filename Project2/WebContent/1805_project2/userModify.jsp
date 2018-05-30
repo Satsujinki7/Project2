@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원정보 수정</title>
 <style>	
@@ -120,45 +121,93 @@
 		position: relative; left: 300px;
 	}
 
+/*=============이미지 불러오는 부분 ===========*/
+#upload_img {display : inline; 	width: 150px;	margin: 0;	}
+#imgInp{ opacity:0;position:relative;width: 130px;height: 40px;cursor: pointer;
+top : -690px;left: 200px;   }
+#file_btn{position: relative; width: 130px;  height: 40px; 
+	  font-weight: bold;
+	  border: 3px solid gray;
+	  font-size: 15px;
+	  background: white;
+	  color: black;
+	  cursor: pointer;
+	top : -650px;
+	left: 200px;
+	}
+	
+#file_div{	width: 140px;   height: auto;margin: 20px auto;
+   	 top : -650px; left: 200px;
+}
+
+#img_div{
+	width: 150px;
+	height : 150px;
+	overflow: hidden;
+	margin: 20px auto;
+	bckground-color: skyblue;
+	position: relative;
+	top:  -900px;
+	left:200px;
+}
 	
 </style>
 	
-	<script>
-		//유효성 검사
-		function chkValidate() {
-					
-			
-			if(pw.value.length != 16 && pw.value.length > 16) {
-				alert("비밀번호는 16자리까지만 입력하세요.");
-				pw.value = "";
-				return false;
-			} else if(pw.value != repw.value) {
-				alert("확인 비밀번호가 일치하지 않습니다.");
-				repw.value = "";
-				return false;
-			}else if(nic.value.length != 16 && nic.value.length > 16) {
-				alert("닉네임은 16자리까지만 입력하세요.");
-				nic.value = "";
-				return false;
-			}
+<script>
+	//유효성 검사
+	function chkValidate() {
+				
+		
+		if(pw.value.length != 16 && pw.value.length > 16) {
+			alert("비밀번호는 16자리까지만 입력하세요.");
+			pw.value = "";
+			return false;
+		} else if(pw.value != repw.value) {
+			alert("확인 비밀번호가 일치하지 않습니다.");
+			repw.value = "";
+			return false;
+		}else if(nic.value.length != 16 && nic.value.length > 16) {
+			alert("닉네임은 16자리까지만 입력하세요.");
+			nic.value = "";
+			return false;
 		}
-			
-		function dupCheckNic() {
-			if(nic.value == "") {
-				alert("닉네임을 입력해주세요.");
-			} else {
-				url = "checkNic.jsp?nic=" + nic.value;
-					
-				open(url, "confirm", "toolbar=no, location=no, resizable=no, width=300px, height=200px");
-			}
-		} //dupCheckNic end
-			
-			
-	</script>
+	}
+		
+	function dupCheckNic() {
+		if(nic.value == "") {
+			alert("닉네임을 입력해주세요.");
+		} else {
+			url = "checkNic.jsp?nic=" + nic.value;
+				
+			open(url, "confirm", "toolbar=no, location=no, resizable=no, width=300px, height=200px");
+		}
+	} //dupCheckNic end
+		
+	$(function() {
+        $("#imgInp").on('change', function(){
+            readURL(this);
+        });
+        
+       
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+                $('#upload_img').attr('src', e.target.result);
+                $('#upload_img').css('display', 'inline');
+            }
+          reader.readAsDataURL(input.files[0]);
+        }
+    }
+		
+</script>
 </head>
 <body>
 <%
  Object user = session.getAttribute("userId");
+//로그인 안한 상태라면 !(사실 불가능)
  if(user == null){
 	 response.sendRedirect("login.jsp");
  }
@@ -168,9 +217,10 @@
 		<br />			
 		<h2  style="margin-left : 30px">※ 회원정보수정</h2><br />
 		<span id="req" style="font-size: 12px">✓ 표시 항목은 필수 항목입니다.</span>
-		<form action="# %>" method="GET">
+		<form action="userModifyOk.jsp" method="post">
 		<!-- 
 		<form action="userModifyOk.jsp?id=<%= session.getAttribute("userId") %>" method="GET">
+		<form action="#" method="GET">
 		 -->
 			<div>
 					<div class="basic"><strong><span>✓</span> 아이디</strong></div>
@@ -200,11 +250,6 @@
 				</div>
 				
 				<div>
-					<div class="basic" id="birthbox"><strong><span>✓</span> 생년월일</strong></div>
-					<div>
-						<input class="text_class" type="text" name="birth" id="birth"
-						disabled="disabled" placeholder="생년월일 6자리" required/>
-					</div>
 				</div>
 				<div>
 					<div class="basic" id="nickbox"><strong><span>✓</span> 닉네임</strong></div>
@@ -216,7 +261,7 @@
 				<div>
 					<div class="basic" id="phonebox"><strong><span>✓</span> 연락처</strong></div>
 					<div>
-						<input type="text" name="phone" id="phone" required disabled="disabled" placeholder="연락처 입력" />
+						<input type="text" name="phone" id="phone" required disabled="disabled" placeholder="<%=session.getAttribute("userPhone") %>" />
 					</div>
 				</div>
 				<div>
@@ -226,11 +271,15 @@
 					</div>
 				</div>
 				<div>
-					<div class="basic" id="introduce"><strong><span>✓</span> 자기소개</strong></div>
+					<div class="basic" id="introduce"><strong>자기소개</strong></div>
 					<div>
 						<input type="text" name="intro" id="intro" />
 					</div>
 				</div>
+				<div id="file_div">
+        		<button id="file_btn">프로필이미지</button><input type='file' name="upload" id="imgInp"/></div>
+        		<div id="img_div">
+        		<img id="upload_img" src="<%=session.getAttribute("userImg") %>" alt="이미지" /></div>
 				
 					<!-- button!!!!!!!!!!!!!!!!!!!!!!!!  -->
 					<input type="submit" value="수정" id="reg" onclick="chkValidate()" />

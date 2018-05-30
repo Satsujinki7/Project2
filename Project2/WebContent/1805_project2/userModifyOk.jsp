@@ -1,53 +1,47 @@
-<%@page import="java.util.Base64.Encoder"%>
-<%@page import="bean.UserBean"%>
 <%@page import="vo.UserVO"%>
 <%@page import="dao.UserDAO"%>
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
 <%
-	String userId = request.getParameter("id");
-	String userPw = request.getParameter("pw");
-	String userNic = request.getParameter("nic");
-	String userEmail = request.getParameter("email");
-	String userAddress = request.getParameter("address");
-	
-	/* UserDAO dao = new UserDAO();
-	UserVO vo = new UserVO();
-	
-	vo.setUserId(userId);
-	vo.setUserPw(userPw);
-	vo.setUserNicName(userNic);
-	vo.setUserEmail(userEmail);
-	vo.setUserAddress(userAddress);
-	
-	dao.updateUser(vo); */
-	
-	//out.println(session.getAttribute(userId));
-	
-	Object obj = session.getAttribute(userId);
-	if(obj!=null){
-		String str = (String)obj;
-	out.println(str);
-	response.sendRedirect("myPage.jsp?writer="+str);
+
+	String saveDir = request.getRealPath("upload");
+	int maxSize = 1024*1024*5;
+	//이미지 업로드용 변수들 
+	//절대경로상에 이미지파일 생성됨, 이클립스 경로상에 가상 참조 & 뿌려줌
+	MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, "UTF-8", new DefaultFileRenamePolicy());
+
+	String userId = session.getAttribute("userId").toString();
+	String userPw = multi.getParameter("pw");
+	String userNic = multi.getParameter("nic");
+	String userEmail = multi.getParameter("email");
+	String userBio = multi.getParameter("intro");
+	String userImg = multi.getParameter("upload");
+	String fullname = "";
 		
-	}
-
-/* out.println(userId + userPw + userNic + userEmail + userAddress); */
-//---------------------------------------------------------------------------------------
 	
+	if(userImg == ""){
+		fullname = session.getAttribute("userImg").toString();
+	}else{
+		userImg = multi.getOriginalFileName("upload");
+		fullname = "../upload/" + userImg;
+	}
+	
+		
+	UserDAO udao = new UserDAO();
+	
+	UserVO uvo = udao.getDataById(userId);
+	
+	uvo.setUserPw(userPw);
+	uvo.setUserNicName(userNic);
+	uvo.setUserEmail(userEmail);
+	uvo.setUserImg(fullname);
+	uvo.setUserBio(userBio);
+	
+	udao.userUpdate(uvo);
+	
+	
+	response.sendRedirect("myPage.jsp?id="+userId);
 
-//response.sendRedirect("myPage.jsp?writer="+vo.getUserName()); // null 값
 %>
-	<%-- <% response.sendRedirect("myPage.jsp?writer=" + session.getAttribute("userName")); // ??? 값 %> --%>
-<%-- response.sendRedirect("myPage.jsp?writer=<%=session.getAttribute("userName") %>"); --%>
- 
-</body>
-</html>

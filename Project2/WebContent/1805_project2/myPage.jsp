@@ -320,7 +320,8 @@
 	
 	String img = vo.getUserImg();
 	if(img == null){
-		img = "../images/kobugi.jpg";
+		img = "../images/abokado.JPG";
+		
 	}
 	String bio = vo.getUserBio();
 	if(bio == null){

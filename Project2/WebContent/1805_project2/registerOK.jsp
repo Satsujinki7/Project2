@@ -51,6 +51,7 @@
 		session.setAttribute("userNicName", userNicName);
 		session.setAttribute("userFollower", userFollower);
 		session.setAttribute("userFollowing", userFollowing);
+		session.setAttribute("userbirth", userBirth);
 
 	%>
 	<h2><%= userName %> 의 가입이 완료되었습니다.</h2>

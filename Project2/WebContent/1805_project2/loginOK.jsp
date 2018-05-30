@@ -25,6 +25,12 @@
 		String u_nicname = u_vo.getUserNicName();
 		int u_follower = u_vo.getUserFollower();
 		int u_following = u_vo.getUserFollowing();
+		String u_phone = u_vo.getUserPhone();
+		String u_img = u_vo.getUserImg();
+		
+		if(u_img == null){
+			u_img = "../images/abokado.JPG";
+		}
 		
 		//세션에 회원정보 저장
 		session.setAttribute("userId", u_id);
@@ -32,6 +38,9 @@
 		session.setAttribute("userNicName", u_nicname);
 		session.setAttribute("userFollower", u_follower);
 		session.setAttribute("userFollowing", u_following);
+		session.setAttribute("userPhone", u_phone);
+		session.setAttribute("userImg", u_img);
+		
 	} else {
 		out.println("ID not exist");
 	}

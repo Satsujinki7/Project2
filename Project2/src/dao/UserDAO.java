@@ -127,7 +127,7 @@ public class UserDAO {
 		return dup;
 	} //isExistById end
 	
-	//id로만 회원 존재여부를 파악하기
+	//닉네임으로만 회원 존재여부를 파악하기
 	public int isExistByNic(String nic) {
 		sb.setLength(0);
 		sb.append("select userNicName from userinfo ");
@@ -158,7 +158,7 @@ public class UserDAO {
 		sb.setLength(0);
 		sb.append("insert into userinfo ");
 		sb.append("values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?) ");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
 			
@@ -178,15 +178,46 @@ public class UserDAO {
 			
 			
 			pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	} //addUser() end
 	
 	
+	//userUpdate
+	public void userUpdate(UserVO vo) {
+		sb.setLength(0);
+		//update userinfo set userpw = 'aaa' , username = 'AAA' where userid = 'aaa';
+
+		sb.append("update userInfo ");
+		sb.append("set userpw = ?, usernicname = ?, useremail =?, ");
+		sb.append("userbio =? , userimg =? ");
+		sb.append("where userid =? ");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			
+			pstmt.setString(1, vo.getUserPw());
+			pstmt.setString(2, vo.getUserNicName());
+			pstmt.setString(3, vo.getUserEmail());
+			pstmt.setString(4, vo.getUserBio());
+			pstmt.setString(5, vo.getUserImg());
+			pstmt.setString(6, vo.getUserId());
+			
+			pstmt.executeUpdate();
+			
+			System.out.println("업데이트 완료!!?");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 	
 	//한건 조회하는 메소드
-	public UserVO getData(String iboardwriter) {
+ 	public UserVO getData(String iboardwriter) {
 		sb.setLength(0);
 		sb.append("select * from userinfo ");
 		sb.append("where username= ? ");

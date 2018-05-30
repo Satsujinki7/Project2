@@ -204,7 +204,7 @@ margin-right: 10px;
 		//프로필 사진 등록 안했으면 디폴트 이미지 준다 
 		if(uservo == null || uservo.getUserImg() == null){
 			
-			 imgpath = "../images/kobugi.jpg";
+			 imgpath = "../images/abokado.JPG";
 			
 		}else{
 			
