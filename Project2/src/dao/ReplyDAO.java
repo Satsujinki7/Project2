@@ -216,13 +216,13 @@ public class ReplyDAO {
 	} //updateOrderNumByGroupNum end
 	
 	//댓글 삭제
-	//sql문 틀리지도 않았는데 대체 왜 동작안함?
 	public void deleteReplyNum(int repno) {
 		sb.setLength(0);
 		sb.append("delete reply ");
 		sb.append("where replynum = ? ");
 		
 		try {
+			pstmt = conn.prepareStatement(sb.toString());
 			pstmt.setInt(1, repno);
 			pstmt.executeUpdate();
 		} catch (Exception e) {

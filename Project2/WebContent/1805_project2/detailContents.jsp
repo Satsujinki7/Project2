@@ -1,3 +1,4 @@
+<%@page import="dao.ReplyV2_DAO"%>
 <%@page import="vo.ReplyVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.ReplyDAO"%>
@@ -23,9 +24,6 @@
 		int bnum = 0;
 		BoardDAO dao = new BoardDAO();
 		BoardVO vo = new BoardVO();
-		
-		ReplyDAO re_dao = new ReplyDAO();
-		ReplyVO re_vo = new ReplyVO();
 	
 		if(bn!=null) {
 			bnum = Integer.parseInt(bn);
@@ -105,7 +103,6 @@
 	<script type="text/javascript">
 		window.onload = function() {		
 			var userId = "<%= currentUser %>";
-			
 			//세션 정보가 없으면 모든 기능 봉쇄
 			//글쓴이와 현재 유저가 동일한지 판단
 			//동일하다면 자기 글 추천 비활성화
@@ -123,32 +120,51 @@
 			}
 		}
 		
+		//홈으로 돌아가기
 		function pageBack() {
 			location.href = 'boardPage.jsp';
 		}
+		//게시글 수정
 		function boardModify() {
 			location.href = 'boardModify.jsp?boardnum=' + <%= vo.getBoardNum() %>;
 		}
+		//게시글 삭제
 		function boardDelete() {
 			location.href = 'boardDelete.jsp?boardnum=' + <%= vo.getBoardNum() %>;
 		}
+		//게시글 추천
 		function nominate() {
 			alert("추천되었습니다.");
 			location.href = 'nominateOK.jsp?boardnum=' + <%= vo.getBoardNum() %>;
 		}
 		
-		function deleteReply(repno) {
+		//댓글 삭제하기(현재 연쇄삭제 오류가 있음)
+		function deleteReply(replynum) {
+
 			if(!confirm("댓글을 삭제하시겠습니까?")) {
 				return;
 			}
 			
-			var form = document.reply_form;
+			//document.getElementByName('rep_num')[0].value = replynum;
+			//rep_num.value = replynum;
+			
+			var form = document.frm;
 			form.action = "replyDelete.jsp";
 			form.submit();
 		}
 		
-		function goRereply() {
-			var form = document.reply_form;
+		//댓글 작성하기
+		function goReply() {
+			//var form = document.reply_form;
+			var form = document.frm;
+			form.action = "replyOK.jsp";
+			form.submit();
+		}
+		
+		//대댓글 작성하기
+		function goRereply(repno) {
+			//var form = document.reply_form;
+			var form = document.frm;
 			form.action = "rereplyOK.jsp";
 			form.submit();
 		}
@@ -166,7 +182,7 @@
 </div>
 	<%-- <jsp:useBean id="vo" class="bean.UserBean" scope="session"></jsp:useBean> --%>
 <div id="wrap">
-	<form id="frm" name="frm" action="replyOK.jsp">
+	<form id="frm" name="frm">
 		<input type="hidden" id="boardnum" name="boardnum" value="<%= vo.getBoardNum() %>"/>
 		<input type="hidden" id="boardwriter" name="boardwriter" value="<%= vo.getBoardWriter() %>"/>
 		<table>
@@ -238,7 +254,8 @@
 						<input type="text" name="userid" id="userid" value="<%= session.getAttribute("userName") %>" disabled="disabled"/>
 						<%-- <label for=""><%= session.getAttribute("userName") %></label> --%>
 						<textarea name="reply" id="reply" cols="40" rows="4"></textarea>
-						<input type="submit" value="댓글등록" />
+						<!-- <input type="submit" value="댓글등록" /> -->
+						<input type="button" value="댓글등록" onclick="goReply()" />
 					</div>
 					
 				</td>
@@ -279,17 +296,71 @@
 				</td>
 			</tr>
 		</table>
+		
+		<div id="reply_div">
+			<input type="hidden" name="board_num" value="<%= vo.getBoardNum() %>"/>
+			<%
+				//ReplyDAO r_dao = new ReplyDAO();
+				ReplyV2_DAO r_dao = new ReplyV2_DAO();
+				int boardNum = vo.getBoardNum();
+				
+				ArrayList<ReplyVO> r_list = r_dao.getAllReply(boardNum);
+				//ArrayList<ReplyVO> r_list = r_dao.getAll(boardNum);
+				
+			
+				ReplyVO r_vo = new ReplyVO();
+				
+				/* for(int i=0; i<r_list.size(); i++) {
+					r_vo = r_list.get(i);
+					System.out.println(r_vo.getReplyNum());
+				} */
+			
+				
+				
+				//for(ReplyVO r_vo : r_list) {
+				for(int i=0; i<r_list.size(); i++) {
+					r_vo = r_list.get(i);
+			%>
+			<%-- <input type="hidden" name="rep_num" value="<%= r_vo.getReplyNum() %>"/> --%>
+			<input type="hidden" name="rep_groupnum" value="<%= r_vo.getGroupNum() %>"/>
+			<input type="hidden" name="rep_depth" value="<%= r_vo.getDepth() %>"/>
+			<input type="hidden" name="rep_parentnum" value="<%= r_vo.getParentReplyNum() %>"/>
+			<input type="hidden" name="rep_ordernum" value="<%= r_vo.getOrderNum() %>"/>
+			
+				<div class="showReply" style="margin-left: <%= 40*r_vo.getDepth() %>px">
+					<%= r_vo.getReplyWriter() %>&nbsp; <%= r_vo.getReplyComment() %>&nbsp; <%= r_vo.getReplyDate() %>&nbsp; 
+					<a href="#" onclick="showReplyBoard()">[답글]</a>
+					<input type="button" value="<%= r_vo.getReplyNum() %>댓글삭제" onclick="deleteReply(<%= r_vo.getReplyNum() %>)"/><br>
+					<!-- <input type="submit" value="삭제" /><br> -->
+				<%
+					out.println(r_vo.getReplyNum());
+				%>
+					<textarea name="re_reply" id="re_reply" cols="40" rows="4"></textarea>
+					<%-- <input type="button" id="re_replyOK" name="re_replyOK" value="쓰기" onclick="goRereply(<%= r_vo.getReplyNum() %>)"/><br> --%>
+					<input type="button" id="re_replyOK" name="re_replyOK" value="쓰기" onclick="goRereply()"/><br>
+				</div>
+	
+			<br>
+			<%
+				}
+			%>
+			<input type="hidden" name="rep_num" value="<%= r_vo.getReplyNum() %>"/>
+			<%-- <input type="hidden" name="rep_parentnum" value="<%= r_vo.getParentReplyNum() %>"/> --%>
+		</div>
 	</form>
 </div>
 	
-<div id="reply_div">
+<%-- <div id="reply_div">
 	<form id="reply_form" name="reply_form">
 		<input type="hidden" name="board_num" value="<%= vo.getBoardNum() %>"/>
 		<%
-			ReplyDAO r_dao = new ReplyDAO();
+			//ReplyDAO r_dao = new ReplyDAO();
+			ReplyV2_DAO r_dao = new ReplyV2_DAO();
 		
 			int boardNum = vo.getBoardNum();
-			ArrayList<ReplyVO> r_list = r_dao.getAllReply(boardNum);
+			
+			//ArrayList<ReplyVO> r_list = r_dao.getAllReply(boardNum);
+			ArrayList<ReplyVO> r_list = r_dao.getAll(boardNum);
 			for(ReplyVO r_vo : r_list) {
 
 		%>
@@ -317,23 +388,9 @@
 			}
 		%>
 	</form>
-</div>
-	
-	
-	<%-- <div id="anotherPart" align="center">
-		<div id="anotherWrap">
-			<form id="reply_write">
-				<input type="hidden" id="replyboardnum" name="replyboardnum" value="${board.boardNum}" />
-				<input type="hidden" id="replynum" name="replynum" value="0" />
-				<input type="hidden" id="groupnum" name="groupnum" value="0" />
-				<input type="hidden" id="parentreplynum" name="parentreplynum" value="0" />
-				<input type="hidden" id="ordernum" name="ordernum" value="0" />
-				<input type="hidden" id="depth" name="depth" value="0" />
-				
-				<textarea rows="" cols=""></textarea>
-			</form>
-		</div>
-	</div> --%>
+</div> --%>
+
+
 	
 	<div id="footercon">
 		 <jsp:include page="footer.jsp"></jsp:include> 
