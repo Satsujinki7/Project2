@@ -30,7 +30,7 @@
         }
         
         function subcheck() {
-			if (cat == 1 || cat == 2 || cat == 3 || cat == 4 ){
+			if (cat != 0  ){
 				document.frm.action = "illwriteOk.jsp";
 				document.frm.submit();
 			}else{
@@ -81,7 +81,7 @@
         	
         	<div id="tag_div">
         		<span>Tag</span>
-        		<input type="text" name="tag" id="tag" />
+        		<input type="text" name="tag" id="tag" placeholder="#태그를 달아주세요"  required="required"/>
         	</div>
         	
         	<div id="submit_div">

@@ -44,8 +44,9 @@ String fullname = "../upload/" + filename;
 
 
 <%!
-	public void addTag(String t, int bnum){
+
 	
+	public void addTag(String t, int bnum){
 	t = t.substring(1, t.length());
 
 	String[] tag = t.split("#");
@@ -62,13 +63,10 @@ String fullname = "../upload/" + filename;
 			
 			dao.addNewTag(tag[i--]);
 			
-		}
+		}//else end
 	
-	} 
-	
-	
-	
-}
+	}//for end 	
+	}//add tag end
 
 
 

@@ -215,11 +215,13 @@ public class IllBoardDao {
 			String date=rs.getString("iboarddate");
 			String imgpath=rs.getString("iboardimg");
 			String tag= rs.getString("illtag");
+			int iboardhits = rs.getInt("iboardhits");
+			int	iboardnomination = rs.getInt("iboardnomination");
+			int iboardtoday = rs.getInt("iboardtoday");
 			
 			
 			
-			vo=new IllboardVo(no, date, title, writer, contents, imgpath, 0, 0, 0, 1,tag);
-			
+			vo=new IllboardVo(no, date, title, writer, contents, imgpath, iboardhits, iboardnomination, iboardtoday, 1,tag);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

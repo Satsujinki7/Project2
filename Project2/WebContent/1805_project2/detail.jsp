@@ -520,7 +520,7 @@
 				for(int i = 0; i<tlength; i++){
 			
 			%>
-			<a href="">#<%=tag[i] %></a>
+			<a href="tagSearch.jsp?searchtag=<%=tag[i]%>">#<%=tag[i] %></a>
 			<%
 			
 				}

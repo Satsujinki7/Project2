@@ -1,3 +1,4 @@
+<%@page import="vo.IllboardVo"%>
 <%@page import="dao.PrdBoardDao"%>
 <%@page import="dao.EtcBoardDao"%>
 <%@page import="dao.ToonBoardDao"%>
@@ -20,7 +21,7 @@ if(bn != null && cate !=null){
 //카테고리별 대응 해주기!
 if(cate.equals("ill")){
 	IllBoardDao dao = new IllBoardDao();
-	
+	IllboardVo vo = new IllboardVo();
 	dao.incrementHits(boardnum);
 	
 	response.sendRedirect("detail.jsp?boardnum="+boardnum+"&category=ill");
