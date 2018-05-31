@@ -57,6 +57,48 @@ public class ToonBoardDao {
 	}//alldata  end
 	
 	
+	
+	//전체조회 ->글쓴이 이름 받아와서
+	public ArrayList<ToonboardVo> alldataToonBoardByNAME(String writer){
+		ArrayList<ToonboardVo> list = new ArrayList<>();
+		
+		sb.setLength(0);
+		sb.append("select * from toonboard where tboardwriter=? order by tboardnum desc");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1, writer);
+			
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int tboardnum =rs.getInt(1);
+				String tboarddate = rs.getString(2) ;
+				String tboardtitle = rs.getString(3);
+				String tboardwriter=rs.getString(4);
+				String tboardcontent =rs.getString(5);
+				String tboardimg =rs.getString(6);
+				int tboardhits = rs.getInt(7);
+				int	tboardnomination = rs.getInt(8);
+				int tboardtoday = rs.getInt(9);
+				int tboardflag = rs.getInt(10);
+				
+				ToonboardVo tbv = new ToonboardVo(tboardnum, tboarddate, tboardtitle, tboardwriter, tboardcontent, tboardimg, tboardhits, tboardnomination, tboardtoday, tboardflag);
+				
+				list.add(tbv);
+			}//while end
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return list;
+	}//alldata  end
+	
+	
 	//페이징 전체 조회
 	public ArrayList<ToonboardVo> alldataToonBoard(int startNum , int endNum){
 		ArrayList<ToonboardVo> list = new ArrayList<>();

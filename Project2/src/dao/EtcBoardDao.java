@@ -57,6 +57,43 @@ public class EtcBoardDao {
 	}//alldata end
 	
 	
+	public ArrayList<EtcboardVo> alldataEtcBoardByName(String writer){
+		ArrayList<EtcboardVo> list = new ArrayList<>();
+		
+		sb.setLength(0);
+		sb.append("select * from etcboard where eboardwriter =? order by eboardnum desc");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1, writer);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int eboardnum =rs.getInt(1);
+				String eboarddate = rs.getString(2) ;
+				String eboardtitle = rs.getString(3);
+				String eboardwriter=rs.getString(4);
+				String eboardcontent =rs.getString(5);
+				String eboardimg =rs.getString(6);
+				int eboardhits = rs.getInt(7);
+				int	eboardnomination = rs.getInt(8);
+				int eboardtoday = rs.getInt(9);
+				int eboardflag = rs.getInt(10);
+				
+				EtcboardVo ebv = new EtcboardVo(eboardnum, eboarddate, eboardtitle, eboardwriter, eboardcontent, eboardimg, eboardhits, eboardnomination, eboardtoday, eboardflag);
+				
+				list.add(ebv);
+			}//while end
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return list;
+	}//alldata end
+	
 	//좋아요 순 으로 정렬
 	public ArrayList<EtcboardVo> likeEtcBoard(){
 		ArrayList<EtcboardVo> list = new ArrayList<>();

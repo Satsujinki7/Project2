@@ -57,6 +57,44 @@ public class IllBoardDao {
 		return list;
 	}//alldata end
 	
+	public ArrayList<IllboardVo> alldataIllBoardByName(String writer){
+		ArrayList<IllboardVo> list = new ArrayList<>();
+		
+		sb.setLength(0);
+		sb.append("select * from illboard where iboardwriter = ? order by iboardnum desc");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1, writer);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int iboardnum =rs.getInt(1);
+				String iboarddate = rs.getString(2) ;
+				String iboardtitle = rs.getString(3);
+				String iboardwriter=rs.getString(4);
+				String iboardcontent =rs.getString(5);
+				String iboardimg =rs.getString(6);
+				int iboardhits = rs.getInt(7);
+				int	iboardnomination = rs.getInt(8);
+				int iboardtoday = rs.getInt(9);
+				int iboardflag = rs.getInt(10);
+				
+				
+				IllboardVo ibv = new IllboardVo(iboardnum, iboarddate, iboardtitle, iboardwriter, iboardcontent, iboardimg, iboardhits, iboardnomination, iboardtoday, iboardflag);
+				
+				list.add(ibv);
+			}//while end
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return list;
+	}//alldata end
+	
 	
 	//전체조회 -> 좋아요 순으로
 	public ArrayList<IllboardVo> likeIllBoard(){

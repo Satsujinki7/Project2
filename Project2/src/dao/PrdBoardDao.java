@@ -57,6 +57,44 @@ public class PrdBoardDao {
 	}//alldata end
 	
 	
+	public ArrayList<PrdboardVo> alldataPrdBoardByName(String writer){
+		ArrayList<PrdboardVo> list = new ArrayList<>() ;
+		
+		sb.setLength(0);
+		sb.append("select * from prdboard where pboardwriter =? order by pboardnum desc");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1, writer);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int pboardnum =rs.getInt(1);
+				String pboarddate = rs.getString(2) ;
+				String pboardtitle = rs.getString(3);
+				String pboardwriter=rs.getString(4);
+				String pboardcontent =rs.getString(5);
+				String pboardimg =rs.getString(6);
+				int pboardhits = rs.getInt(7);
+				int	pboardnomination = rs.getInt(8);
+				int pboardtoday = rs.getInt(9);
+				int pboardflag = rs.getInt(10);
+				
+				PrdboardVo pbv = new PrdboardVo(pboardnum, pboarddate, pboardtitle, pboardwriter, pboardcontent, pboardimg, pboardhits, pboardnomination, pboardtoday, pboardflag);
+				
+				list.add(pbv);
+			}//while end
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return list;
+	}//alldata end
+	
+	
 	//전체조회 ->좋아요 순으로 
 	public ArrayList<PrdboardVo> likePrdBoard(){
 		ArrayList<PrdboardVo> list = new ArrayList<>() ;
