@@ -9,6 +9,7 @@
   String bn = request.getParameter("bn");
   String cat = request.getParameter("cat");
   String w = request.getParameter("writer");
+  String fwriter = "";
   
   
   int boardnum=0;
@@ -24,8 +25,7 @@
   String myid = ur.toString();
   
   UserDAO dao = new UserDAO();
-  
-  UserVO vo = dao.getData(w);
+ 
   
  
   
@@ -33,17 +33,17 @@
   
   if(dao.getAllFollow(myid) != null){
   
-  	w = dao.getFollow(myid)+","+w;
+  	fwriter = dao.getFollow(myid)+","+w;
   }else
-	 w = dao.getFollow(myid);
+	 fwriter = dao.getFollow(myid);
   
   
-  dao.addFollow(myid, w);
+  dao.addFollow(myid, fwriter);
   
   
-  String uri = request.getRequestURI();
+  //tring uri = request.getRequestURI();
   
   
-  response.sendRedirect(uri);
+  response.sendRedirect("page_toon.jsp");
     
   %>
