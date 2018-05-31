@@ -541,10 +541,10 @@
 				<span id="writer_name"><%=writer %></span>
 				<span id="writer_bio"><%=uservo.getUserBio() %></span>
 			</div>
+			<a href="followOk.jsp?bn=<%=boardnum %>&cat=<%=cate%>&writer=<%=writer%>">
 			<div id="w_follow">
-			  팔로우하기
-			
-			</div>
+			팔로우하기
+			</div></a>
 		</div>
 		
 	

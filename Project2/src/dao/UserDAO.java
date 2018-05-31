@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import connection.OracleXE_ConnectionPJ2;
 import vo.IllboardVo;
+import vo.ToonboardVo;
 import vo.UserVO;
 
 public class UserDAO {
@@ -301,6 +302,134 @@ public class UserDAO {
 		return vo;
 	}//getData()  end
 	
+	
+	//현재 팔로우정보 가져오기 
+		public String getFollow (String myid) {
+			
+			sb.setLength(0);
+			sb.append("select follow from userinfo ");
+			sb.append("where userid = ? ");
+			
+			String follow = "";
+			
+			try {
+				pstmt = conn.prepareStatement(sb.toString());
+
+				pstmt.setString(1, myid);
+				
+				
+				rs = pstmt.executeQuery();
+				
+				rs.next();
+				
+				follow = rs.getString("follow");
+				
+				
+				System.out.println("되나");
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			return follow;
+			
+			
+		}
+		
+		
+		
+		//팔로우한 유저 이름 추가  
+		public void addFollow(String myid, String fid) {
+			sb.setLength(0);
+			sb.append("update userinfo ");
+			sb.append("set follow = ? ");
+			sb.append("where userid = ? ");
+			
+			try {
+				pstmt = conn.prepareStatement(sb.toString());
+
+				pstmt.setString(1, fid);
+				pstmt.setString(2, myid);
+				
+				pstmt.executeUpdate();
+				
+				System.out.println("되나");
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		} //addUser() end
+		
+		
+		
+		//타임라인용 - 내가 팔로우한 모든 유저의 게시물 조회
+
+		public ArrayList<ToonboardVo> getAllFollow (String myid) {
+			
+			ArrayList<ToonboardVo> list = new ArrayList<>();
+			
+			String follow = this.getFollow(myid);
+			String[] followlist = follow.split(",");
+			
+			
+			sb.setLength(0);
+			
+			
+			if(followlist != null) {
+				
+			for(int i =0; i<followlist.length;i++) {
+				
+				if(i ==  0) {
+					
+				sb.append("(select * from toonboard where tboardwriter =? ");
+				sb.append("union select * from illboard where iboardwriter=? ");
+				sb.append("union select * from prdboard where pboardwriter=? ");
+				sb.append("union select * from etcboard where eboardwriter=? ) ");
+				
+				
+				
+				}else {
+					
+					sb.append("union (select * from toonboard where tboardwriter =? ");
+					sb.append("union select * from illboard where iboardwriter=? ");
+					sb.append("union select * from prdboard where pboardwriter=? ");
+					sb.append("union select * from etcboard where eboardwriter=? ) ");
+					
+					
+				}
+			}//for end
+			
+			}//if end
+			
+			
+			try {
+				pstmt = conn.prepareStatement(sb.toString());
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					int tboardnum =rs.getInt(1);
+					String tboarddate = rs.getString(2) ;
+					String tboardtitle = rs.getString(3);
+					String tboardwriter=rs.getString(4);
+					String tboardcontent =rs.getString(5);
+					String tboardimg =rs.getString(6);
+					int tboardhits = rs.getInt(7);
+					int	tboardnomination = rs.getInt(8);
+					int tboardtoday = rs.getInt(9);
+					int tboardflag = rs.getInt(10);
+					
+					ToonboardVo tbv = new ToonboardVo(tboardnum, tboarddate, tboardtitle, tboardwriter, tboardcontent, tboardimg, tboardhits, tboardnomination, tboardtoday, tboardflag);
+					
+					list.add(tbv);
+				}//while end
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return list;
+		}
+		
 	
 	
 	

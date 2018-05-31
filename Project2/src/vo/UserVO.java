@@ -14,6 +14,8 @@ public class UserVO {
 	private int userFollowing;
 	private String userImg;
 	private String userBio;
+	private String follow;
+	
 	
 	public UserVO() {
 		
@@ -78,6 +80,30 @@ public class UserVO {
 	}
 
 	
+	
+
+
+	public UserVO(String userId, String userPw, String userName, String userGender, int userBirth, String userNicName,
+			String userAddress, String userEmail, String userPhone, int userFollower, int userFollowing, String userImg,
+			String userBio, String follow) {
+		super();
+		this.userId = userId;
+		this.userPw = userPw;
+		this.userName = userName;
+		this.userGender = userGender;
+		this.userBirth = userBirth;
+		this.userNicName = userNicName;
+		this.userAddress = userAddress;
+		this.userEmail = userEmail;
+		this.userPhone = userPhone;
+		this.userFollower = userFollower;
+		this.userFollowing = userFollowing;
+		this.userImg = userImg;
+		this.userBio = userBio;
+		this.follow = follow;
+	}
+
+
 
 
 
@@ -195,6 +221,19 @@ public class UserVO {
 
 	public void setUserBio(String userBio) {
 		this.userBio = userBio;
+	}
+	
+	
+
+	public String getFollow() {
+		return follow;
+	}
+
+
+
+
+	public void setFollow(String follow) {
+		this.follow = follow;
 	}
 	
 	
