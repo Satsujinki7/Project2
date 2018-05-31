@@ -31,11 +31,11 @@
   
   
   
-  if(dao.getAllFollow(myid) != null){
+  if(dao.getAllFollow(myid) == null){
   
-  	fwriter = dao.getFollow(myid)+","+w;
+  	fwriter = w;
   }else
-	 fwriter = dao.getFollow(myid);
+	 fwriter =  dao.getFollow(myid)+","+w;;
   
   
   dao.addFollow(myid, fwriter);
