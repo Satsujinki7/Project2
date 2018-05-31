@@ -49,6 +49,8 @@ public class EtcBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
 		return list;
@@ -85,6 +87,8 @@ public class EtcBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
 		return list;
@@ -131,6 +135,8 @@ public class EtcBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
 		return list;
@@ -155,6 +161,8 @@ public class EtcBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
 		return DataNum;
@@ -183,6 +191,8 @@ public class EtcBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
 	}//add end
@@ -218,6 +228,8 @@ public class EtcBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return vo;
 	}//getData() end
@@ -237,6 +249,8 @@ public class EtcBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
 	}//조회수 증가
@@ -257,6 +271,8 @@ public class EtcBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
 	}//추천수 증가 end
@@ -286,10 +302,24 @@ public class EtcBoardDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return no;
+		} finally {
+			close();
 		}
 	
 	}//getData() end
 			
-	
+	//리소스 반환
+	public void close() {
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+				if(rs != null) rs.close();
+				//if(conn != null) conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	
 }

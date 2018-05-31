@@ -43,6 +43,8 @@ public class ReplyV2_DAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
 	} //addReply end
@@ -86,6 +88,8 @@ public class ReplyV2_DAO {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 
 		return list;
@@ -121,6 +125,8 @@ public class ReplyV2_DAO {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 
 		return vo;
@@ -156,6 +162,8 @@ public class ReplyV2_DAO {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 
 		return vo;
@@ -178,6 +186,8 @@ public class ReplyV2_DAO {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 		return parent_cnt;
 	} //getCountByParentReply end
@@ -203,6 +213,8 @@ public class ReplyV2_DAO {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 		return maxOrderNum;
 	} //getMaxOrderNumByParentReply end
@@ -224,6 +236,8 @@ public class ReplyV2_DAO {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 		return getLatestOrder;
 	} //getLatestOrderNumByParentNum end
@@ -240,6 +254,8 @@ public class ReplyV2_DAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 	}
 	
@@ -255,6 +271,8 @@ public class ReplyV2_DAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 	}
 	
@@ -281,6 +299,8 @@ public class ReplyV2_DAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
 	
@@ -305,6 +325,8 @@ public class ReplyV2_DAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 	} //deleteReplyNum end
 	
@@ -323,6 +345,8 @@ public class ReplyV2_DAO {
 	}
 	
 	//댓글 순번 갱신
+	//어디가 문제인지 몰라도... 아마 sql상의 문제인듯
+	//순번은 제대로 해결이 안됐으니 나중에 다시 해보자
 	public int getNewOrderNum(ReplyVO vo) {
 		//이미 존재할 경우 순번 갱신
 		if(getCountByParentReply(vo) > 0) {
@@ -335,5 +359,19 @@ public class ReplyV2_DAO {
 			}
 		}
 		return 0;
+	}
+	
+	//리소스 반환
+	public void close() {
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+				if(rs != null) rs.close();
+				//if(conn != null) conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

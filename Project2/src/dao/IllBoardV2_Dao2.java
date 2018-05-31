@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import connection.OracleXE_ConnectionPJ2;
 import vo.IllboardVo;
 
-public class IllBoardDao {
+public class IllBoardV2_Dao2 {
 	StringBuffer sb = new StringBuffer();
 	ResultSet rs = null;
 	PreparedStatement pstmt = null;
 	Connection conn =null;
 	
-	public IllBoardDao(){
+	public IllBoardV2_Dao2(){
 		conn = OracleXE_ConnectionPJ2.getInstance().getConnection();
 	}
 	
@@ -50,8 +50,6 @@ public class IllBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			close();
 		}
 		
 		return list;
@@ -89,8 +87,6 @@ public class IllBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			close();
 		}
 		
 		return list;
@@ -138,8 +134,6 @@ public class IllBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			close();
 		}
 		
 		return list;
@@ -164,8 +158,6 @@ public class IllBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			close();
 		}
 		
 		return DataNum;
@@ -196,8 +188,6 @@ public class IllBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			close();
 		}
 		
 	}//add end
@@ -235,8 +225,6 @@ public class IllBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			close();
 		}
 		return vo;
 	}//getData() end
@@ -256,8 +244,6 @@ public class IllBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			close();
 		}
 		
 	}//조회수 증가
@@ -278,8 +264,6 @@ public class IllBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			close();
 		}
 		
 	}//추천수 증가 end
@@ -310,24 +294,10 @@ public class IllBoardDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return no;
-		} finally {
-			close();
 		}
 	
 	}//getData() end
 		
-	//리소스 반환
-	public void close() {
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-				if(rs != null) rs.close();
-				//if(conn != null) conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+	
 	
 }
