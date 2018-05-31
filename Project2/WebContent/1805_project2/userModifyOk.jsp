@@ -6,25 +6,25 @@
     pageEncoding="UTF-8"%>
 <%
 
-	String saveDir = request.getRealPath("upload");
-	int maxSize = 1024*1024*5;
+	//String saveDir = request.getRealPath("upload");
+	//int maxSize = 1024*1024*5;
 	//이미지 업로드용 변수들 
 	//절대경로상에 이미지파일 생성됨, 이클립스 경로상에 가상 참조 & 뿌려줌
-	MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, "UTF-8", new DefaultFileRenamePolicy());
+	//MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 
 	String userId = session.getAttribute("userId").toString();
-	String userPw = multi.getParameter("pw");
-	String userNic = multi.getParameter("nic");
-	String userEmail = multi.getParameter("email");
-	String userBio = multi.getParameter("intro");
-	String userImg = multi.getParameter("upload");
+	String userPw = request.getParameter("pw");
+	String userNic = request.getParameter("nic");
+	String userEmail = request.getParameter("email");
+	String userBio = request.getParameter("intro");
+	String userImg = request.getParameter("upload");
 	String fullname = "";
 		
 	
 	if(userImg == ""){
 		fullname = session.getAttribute("userImg").toString();
 	}else{
-		userImg = multi.getOriginalFileName("upload");
+		userImg = request.getParameter("upload");
 		fullname = "../upload/" + userImg;
 	}
 	

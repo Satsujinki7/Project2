@@ -1,3 +1,5 @@
+<%@page import="vo.UserVO"%>
+<%@page import="dao.UserDAO"%>
 <%@page import="dao.EtcBoardDao"%>
 <%@page import="vo.EtcboardVo"%>
 <%@page import="dao.PrdBoardDao"%>
@@ -528,12 +530,16 @@
 			
 		</div>
 		
-		
+		<%
+			UserDAO userdao = new UserDAO();
+			UserVO  uservo = userdao.getData(writer);
+			
+		%>
 		<div id="writer_area">
-			<div id="w_pic"><img src="../images/dog2.jpg" alt="" /></div>
+			<div id="w_pic" onclick="location.href='myPage.jsp?id=<%=uservo.getUserId()%>'"><img src="<%=uservo.getUserImg() %>" alt="" /></div>
 			<div id="w_info">
 				<span id="writer_name"><%=writer %></span>
-				<span id="writer_bio">자기소개 어쩌고 저쩌고 어쩌고 저쩌고</span>
+				<span id="writer_bio"><%=uservo.getUserBio() %></span>
 			</div>
 			<div id="w_follow">
 			  팔로우하기

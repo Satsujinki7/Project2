@@ -152,6 +152,19 @@ margin-right: 10px;
 #pageNum:hover{
 	background-color: black;
 }
+
+/*-----현재페이지 가르쳐주는 파트------*/
+#whereis{
+  margin: 0 auto;
+  margin-bottom : 40px;
+  width : 1030px;
+  height: 30px;
+  background-color: #638f0a;
+}
+h3{
+  padding-left: 30px;
+  color: white;
+}
 </style>
 
 <title>기타 페이지</title>
@@ -163,7 +176,7 @@ margin-right: 10px;
 <div id="container_nav">	
 	<jsp:include page="nav.jsp"></jsp:include>
 </div>
-<a href="illwrite.jsp" id="writebtn">글쓰기</a>
+<div id="whereis"><h3> >> 카테고리  > 기타 </h3></div>
 <div id="post_wrap">
 
 <%

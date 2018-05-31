@@ -217,10 +217,10 @@ top : -690px;left: 200px;   }
 		<br />			
 		<h2  style="margin-left : 30px">※ 회원정보수정</h2><br />
 		<span id="req" style="font-size: 12px">✓ 표시 항목은 필수 항목입니다.</span>
-		<form action="userModifyOk.jsp" method="post">
+		<form action="userModifyOk.jsp" method="GET">
 		<!-- 
 		<form action="userModifyOk.jsp?id=<%= session.getAttribute("userId") %>" method="GET">
-		<form action="#" method="GET">
+		<form action="userModifyOk.jsp" method="post">
 		 -->
 			<div>
 					<div class="basic"><strong><span>✓</span> 아이디</strong></div>
