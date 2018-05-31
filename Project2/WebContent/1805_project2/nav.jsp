@@ -33,7 +33,7 @@ function pageMoveWrite() {
 
 
 	<div id="logo">
-	<a href="page_rank.jsp"><img src="../images/logo2.png" alt="검색" /></a>
+	<a href="page_rank.jsp"><img src="../images/logo.JPG" alt="검색" /></a>
 	</div>
 	
 	<div id="menu">
