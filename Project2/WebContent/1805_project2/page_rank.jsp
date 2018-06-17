@@ -10,7 +10,7 @@
 <head>
 <meta charset="UTF-8">
 	<%
-		BoardDAO dao = new BoardDAO();
+		BoardDAO dao = new BoardDAO(); 
 	
 		String cp = request.getParameter("cp");
 		int currentPage = 0;
