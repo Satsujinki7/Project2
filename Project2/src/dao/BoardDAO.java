@@ -53,6 +53,8 @@ public class BoardDAO {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 
 		return list;
@@ -73,6 +75,8 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 
 	} //incrementHits end
@@ -92,6 +96,8 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 
 	} //incrementNomination end
@@ -115,6 +121,8 @@ public class BoardDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 
 	} //addData end
@@ -147,6 +155,8 @@ public class BoardDAO {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 
 		return vo;
@@ -183,6 +193,8 @@ public class BoardDAO {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 
 		return vo;
@@ -223,6 +235,8 @@ public class BoardDAO {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 
 		return list;
@@ -246,6 +260,8 @@ public class BoardDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 
 		return page_cnt;
@@ -271,6 +287,8 @@ public class BoardDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 
 		return page_cnt;
@@ -294,6 +312,8 @@ public class BoardDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 
 	} //modifyBoardData end
@@ -313,6 +333,8 @@ public class BoardDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	} //deleteBoardData end
 	
@@ -322,7 +344,7 @@ public class BoardDAO {
 			try {
 				pstmt.close();
 				if(rs != null) rs.close();
-				if(conn != null) conn.close();
+				//if(conn != null) conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

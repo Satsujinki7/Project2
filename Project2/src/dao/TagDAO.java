@@ -26,13 +26,10 @@ public class TagDAO {
 	}
 	
 	
-	
 	//tag가 이미 존재하는지 확인 
 	public boolean isExistByTag(String tag) {
-		
 		sb.setLength(0);
 		sb.append("select "+tag+" from tag ");
-
 	
 		
 		try {
@@ -49,13 +46,11 @@ public class TagDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
+		} finally {
+			close();
 		}
 		
-		
-	
 	}
-	
-	
 	
 	
 	//태그가 없을 때 태그를 추가
@@ -71,14 +66,11 @@ public class TagDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 
-		
-		
-		
 	}//addNewTag() end
-
-	
 	
 	
 	//태그에 데이터 추가 
@@ -98,15 +90,14 @@ public class TagDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
 	}//addData() end
 	
-
 	
 	//태그 서칭시 태그이름 넘겨주기 
-	
-	
 	public ArrayList<IllboardVo> illTagList(String searchtag) {
 		
 		ArrayList<IllboardVo> list = new ArrayList<>();
@@ -143,16 +134,13 @@ public class TagDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
-		
 		return list;
-		
 	}
-		
-	
-	
-	
+
 	
 	public ArrayList<ToonboardVo> toonTagList(String searchtag) {
 		
@@ -188,20 +176,16 @@ public class TagDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
-		
 		
 		return list;
 	}
-		
-		
-	
 	
 	
 	public ArrayList<PrdboardVo> prdTagList(String searchtag) {
-		
 		ArrayList<PrdboardVo> list = new ArrayList<>();
-
 		
 		sb.setLength(0);
 		sb.append("select * from prdboard ");
@@ -209,8 +193,6 @@ public class TagDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(sb.toString());
-	
-
 			rs = pstmt.executeQuery();
 			
 			
@@ -234,17 +216,16 @@ public class TagDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
 		return list;
-		
 	}
 		
 	
 	public ArrayList<EtcboardVo> etcTagList(String searchtag) {
-	
 		ArrayList<EtcboardVo> list = new ArrayList<>();
-
 		
 		sb.setLength(0);
 		sb.append("select * from etcboard ");
@@ -277,15 +258,25 @@ public class TagDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
-		
-		
-		
 		return list;
-		
 	}
-
 	
+	//리소스 반환
+	public void close() {
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+				if(rs != null) rs.close();
+				//if(conn != null) conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	
 }

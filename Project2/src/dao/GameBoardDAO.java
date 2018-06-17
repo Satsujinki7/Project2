@@ -54,7 +54,10 @@ public class GameBoardDAO {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
+		
 		return list;
 	} //getAllData end
 	
@@ -73,6 +76,8 @@ public class GameBoardDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 	} //incrementHits end
 	
@@ -91,6 +96,8 @@ public class GameBoardDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 	} //incrementNomination end	
 	
@@ -113,6 +120,8 @@ public class GameBoardDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	} //addData end	
 	
@@ -143,6 +152,8 @@ public class GameBoardDAO {
 			vo = new GameBoardVO(gameNum, gameDate, gameWriter, gameTitle, gameImage, gameContents, status, gameHits, gameNomination);
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 		
 		return vo;
@@ -178,6 +189,8 @@ public class GameBoardDAO {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 		
 		return vo;
@@ -201,7 +214,24 @@ public class GameBoardDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
+		
 		return page_cnt;
-	} //getCount end	
+	} //getCount end
+	
+	//리소스 반환
+	public void close() {
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+				if(rs != null) rs.close();
+				//if(conn != null) conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }

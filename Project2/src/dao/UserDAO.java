@@ -59,6 +59,7 @@ public class UserDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return list;
 		
 	}//getAllData() end
@@ -99,6 +100,7 @@ public class UserDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		
 		return vo;
 	} //selectedUserData end
 	
@@ -125,6 +127,7 @@ public class UserDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return dup;
 	} //isExistById end
 	
@@ -151,6 +154,7 @@ public class UserDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return dup;
 	} //isExistById end
 	
@@ -214,7 +218,6 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		
-		
 	}
 	
 	//한건 조회하는 메소드
@@ -256,6 +259,7 @@ public class UserDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return vo;
 	}//getData()  end
 	
@@ -299,154 +303,165 @@ public class UserDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return vo;
 	}//getData()  end
 	
 	
-	
-	
 	//현재 팔로우정보 가져오기 
-			public String getFollow (String myid) {
-				
-				sb.setLength(0);
-				sb.append("select follow from userinfo ");
-				sb.append("where userid = ? ");
-				
-				String follow = "";
-				
-				try {
-					pstmt = conn.prepareStatement(sb.toString());
+	public String getFollow (String myid) {
+		
+		sb.setLength(0);
+		sb.append("select follow from userinfo ");
+		sb.append("where userid = ? ");
+		
+		String follow = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
 
-					pstmt.setString(1, myid);
-					
-					
-					rs = pstmt.executeQuery();
-					
-					rs.next();
-					
-					follow = rs.getString("follow");
-					
-					
-					System.out.println("되나");
-					
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
+			pstmt.setString(1, myid);
+			
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			follow = rs.getString("follow");
+			
+			
+			System.out.println("되나");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return follow;
+		
+	}
+	
+	
+	
+	//팔로우한 유저 이름 추가  
+	public void addFollow(String myid, String fwriter) {
+		sb.setLength(0);
+		sb.append("update userinfo ");
+		sb.append("set follow = ? ");
+		sb.append("where userid = ? ");
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+
+			pstmt.setString(1, fwriter);
+			pstmt.setString(2, myid);
+			
+			pstmt.executeUpdate();
+			
+			System.out.println("되나");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	} //addUser() end
+	
+	
+	
+	//타임라인용 - 내가 팔로우한 모든 유저의 게시물 조회
+
+	public ArrayList<ToonboardVo> getAllFollow (String myid) {
+		
+		ArrayList<ToonboardVo> list = new ArrayList<>();
+		
+		String follow = this.getFollow(myid);
+		String[] followlist = follow.split(",");
+		
+		System.out.println("split확인");
+		sb.setLength(0);
+		
+		
+		if(followlist != null) {
+			
+		for(int i =0; i<followlist.length;i++) {
+			
+			if(i ==  0) {
 				
-				return follow;
+			sb.append("(select * from toonboard where tboardwriter =? ");
+			sb.append("union select * from illboard where iboardwriter=? ");
+			sb.append("union select * from prdboard where pboardwriter=? ");
+			sb.append("union select * from etcboard where eboardwriter=? ) ");
+			
+			System.out.println("첫번째 () 확인");
+			
+			}else {
+				
+				sb.append("union (select * from toonboard where tboardwriter =? ");
+				sb.append("union select * from illboard where iboardwriter=? ");
+				sb.append("union select * from prdboard where pboardwriter=? ");
+				sb.append("union select * from etcboard where eboardwriter=? ) ");
+				System.out.println("첫번째 이후 () 확인");
+				
+			}
+		}//for end
+		
+		}//if end
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sb.toString());
+			
+			int num = 1;
+			
+			for(int j=0; j <followlist.length; j++) {
+				
+				pstmt.setString(num++, followlist[j]);
+				pstmt.setString(num++, followlist[j]);
+				pstmt.setString(num++, followlist[j]);
+				pstmt.setString(num++, followlist[j]);
 				
 				
 			}
 			
 			
+			rs = pstmt.executeQuery();
 			
-			//팔로우한 유저 이름 추가  
-			public void addFollow(String myid, String fwriter) {
-				sb.setLength(0);
-				sb.append("update userinfo ");
-				sb.append("set follow = ? ");
-				sb.append("where userid = ? ");
+			while(rs.next()) {
 				
-				try {
-					pstmt = conn.prepareStatement(sb.toString());
-
-					pstmt.setString(1, fwriter);
-					pstmt.setString(2, myid);
-					
-					pstmt.executeUpdate();
-					
-					System.out.println("되나");
-					
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
-			} //addUser() end
-			
-			
-			
-			//타임라인용 - 내가 팔로우한 모든 유저의 게시물 조회
-
-			public ArrayList<ToonboardVo> getAllFollow (String myid) {
+				int tboardnum =rs.getInt(1);
+				String tboarddate = rs.getString(2) ;
+				String tboardtitle = rs.getString(3);
+				String tboardwriter=rs.getString(4);
+				String tboardcontent =rs.getString(5);
+				String tboardimg =rs.getString(6);
+				int tboardhits = rs.getInt(7);
+				int	tboardnomination = rs.getInt(8);
+				int tboardtoday = rs.getInt(9);
+				int tboardflag = rs.getInt(10);
 				
-				ArrayList<ToonboardVo> list = new ArrayList<>();
+				ToonboardVo tbv = new ToonboardVo(tboardnum, tboarddate, tboardtitle, tboardwriter, tboardcontent, tboardimg, tboardhits, tboardnomination, tboardtoday, tboardflag);
 				
-				String follow = this.getFollow(myid);
-				String[] followlist = follow.split(",");
-				
-				System.out.println("split확인");
-				sb.setLength(0);
-				
-				
-				if(followlist != null) {
-					
-				for(int i =0; i<followlist.length;i++) {
-					
-					if(i ==  0) {
-						
-					sb.append("(select * from toonboard where tboardwriter =? ");
-					sb.append("union select * from illboard where iboardwriter=? ");
-					sb.append("union select * from prdboard where pboardwriter=? ");
-					sb.append("union select * from etcboard where eboardwriter=? ) ");
-					
-					System.out.println("첫번째 () 확인");
-					
-					}else {
-						
-						sb.append("union (select * from toonboard where tboardwriter =? ");
-						sb.append("union select * from illboard where iboardwriter=? ");
-						sb.append("union select * from prdboard where pboardwriter=? ");
-						sb.append("union select * from etcboard where eboardwriter=? ) ");
-						System.out.println("첫번째 이후 () 확인");
-						
-					}
-				}//for end
-				
-				}//if end
-				
-				
-				try {
-					pstmt = conn.prepareStatement(sb.toString());
-					
-					int num = 1;
-					
-					for(int j=0; j <followlist.length; j++) {
-						
-						pstmt.setString(num++, followlist[j]);
-						pstmt.setString(num++, followlist[j]);
-						pstmt.setString(num++, followlist[j]);
-						pstmt.setString(num++, followlist[j]);
-						
-						
-					}
-					
-					
-					rs = pstmt.executeQuery();
-					
-					while(rs.next()) {
-						
-						int tboardnum =rs.getInt(1);
-						String tboarddate = rs.getString(2) ;
-						String tboardtitle = rs.getString(3);
-						String tboardwriter=rs.getString(4);
-						String tboardcontent =rs.getString(5);
-						String tboardimg =rs.getString(6);
-						int tboardhits = rs.getInt(7);
-						int	tboardnomination = rs.getInt(8);
-						int tboardtoday = rs.getInt(9);
-						int tboardflag = rs.getInt(10);
-						
-						ToonboardVo tbv = new ToonboardVo(tboardnum, tboarddate, tboardtitle, tboardwriter, tboardcontent, tboardimg, tboardhits, tboardnomination, tboardtoday, tboardflag);
-						
-						list.add(tbv);
-						System.out.println("리스트추가");
-					}//while end
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				return list;
+				list.add(tbv);
+				System.out.println("리스트추가");
+			}//while end
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	//리소스 반환
+	public void close() {
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+				if(rs != null) rs.close();
+				//if(conn != null) conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-	
-	
+		}
+	}
+
 }

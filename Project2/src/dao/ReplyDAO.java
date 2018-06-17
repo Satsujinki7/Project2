@@ -53,6 +53,8 @@ public class ReplyDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		
 	} //addReply end
@@ -91,6 +93,8 @@ public class ReplyDAO {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 
 		return list;
@@ -126,6 +130,8 @@ public class ReplyDAO {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 
 		return vo;
@@ -148,7 +154,10 @@ public class ReplyDAO {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
+		
 		return parent_cnt;
 	} //getCountByParentReply end
 	
@@ -174,7 +183,10 @@ public class ReplyDAO {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
+		
 		return maxOrderNum;
 	} //getMaxOrderNumByParentReply end
 	
@@ -195,7 +207,10 @@ public class ReplyDAO {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
+		
 		return getLatestOrder;
 	} //getLatestOrderNumByParentNum end
 	
@@ -212,6 +227,8 @@ public class ReplyDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 	} //updateOrderNumByGroupNum end
 	
@@ -227,6 +244,8 @@ public class ReplyDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			close();
 		}
 	} //deleteReplyNum end
 	
@@ -253,6 +272,21 @@ public class ReplyDAO {
 				return newOrderNum + 1;
 			}
 		}
+		
 		return 0;
+	}
+	
+	//리소스 반환
+	public void close() {
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+				if(rs != null) rs.close();
+				//if(conn != null) conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

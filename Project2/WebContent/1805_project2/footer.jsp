@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <!-- footer -->
 <div id="footer">
-	<p>footer 부분 입니다</p>
-	<p>web team project </p>
-	<p>2018 05 10 - 2018 05 30</p>
-	<p>Member </p>
+	<p>Team Creative</p>
+	<p>Member : 조현명, 정은조, 황선민, 최종찬</p>
+	<p>Since : 2018.05.10 ~ 2018.05.30</p>
+	<p>Copyright : Soldesk</p>
 </div>
 
 <style>
